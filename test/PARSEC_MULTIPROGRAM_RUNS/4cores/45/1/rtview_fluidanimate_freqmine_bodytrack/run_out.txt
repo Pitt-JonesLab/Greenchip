@@ -1,0 +1,2700 @@
+[SNIPER] Start
+[app1] [PARSEC] Benchmarks to run: fluidanimate
+[app2] [PARSEC] Benchmarks to run: freqmine
+[app3] [PARSEC] Benchmarks to run: bodytrack
+[app2] 
+[app0] 
+[app3] 
+[app1] 
+[app2] [PARSEC] [========== Running benchmark freqmine ==========]
+[app3] [PARSEC] [========== Running benchmark bodytrack ==========]
+[app1] [PARSEC] [========== Running benchmark fluidanimate ==========]
+[app2] [PARSEC] Setting up run directory.
+[app3] [PARSEC] Setting up run directory.
+[app0] [PARSEC] Setting up run directory.
+[app2] [PARSEC] Unpacking benchmark input 'native'.
+[app1] [PARSEC] Setting up run directory.
+[app0] [PARSEC] Unpacking benchmark input 'native'.
+[app3] [PARSEC] Unpacking benchmark input 'native'.
+[app1] [PARSEC] Unpacking benchmark input 'native'.
+[app1] in_500K.fluid
+[app2] webdocs_250k.dat
+[app0] thai_statue.obj
+[app3] sequenceB_261/
+[app3] sequenceB_261/BodyShapeParameters.txt
+[app3] sequenceB_261/CALIB/
+[app3] sequenceB_261/CALIB/Camera1.cal
+[app3] sequenceB_261/CALIB/Camera2.cal
+[app3] sequenceB_261/CALIB/Camera3.cal
+[app3] sequenceB_261/CALIB/Camera4.cal
+[app3] sequenceB_261/CAM1/
+[app3] sequenceB_261/CAM1/image0000.bmp
+[app3] sequenceB_261/CAM1/image0001.bmp
+[app3] sequenceB_261/CAM1/image0002.bmp
+[app3] sequenceB_261/CAM1/image0003.bmp
+[app3] sequenceB_261/CAM1/image0004.bmp
+[app3] sequenceB_261/CAM1/image0005.bmp
+[app3] sequenceB_261/CAM1/image0006.bmp
+[app3] sequenceB_261/CAM1/image0007.bmp
+[app3] sequenceB_261/CAM1/image0008.bmp
+[app3] sequenceB_261/CAM1/image0009.bmp
+[app3] sequenceB_261/CAM1/image0010.bmp
+[app3] sequenceB_261/CAM1/image0011.bmp
+[app3] sequenceB_261/CAM1/image0012.bmp
+[app3] sequenceB_261/CAM1/image0013.bmp
+[app3] sequenceB_261/CAM1/image0014.bmp
+[app3] sequenceB_261/CAM1/image0015.bmp
+[app3] sequenceB_261/CAM1/image0016.bmp
+[app3] sequenceB_261/CAM1/image0017.bmp
+[app3] sequenceB_261/CAM1/image0018.bmp
+[app3] sequenceB_261/CAM1/image0019.bmp
+[app3] sequenceB_261/CAM1/image0020.bmp
+[app3] sequenceB_261/CAM1/image0021.bmp
+[app3] sequenceB_261/CAM1/image0022.bmp
+[app3] sequenceB_261/CAM1/image0023.bmp
+[app3] sequenceB_261/CAM1/image0024.bmp
+[app3] sequenceB_261/CAM1/image0025.bmp
+[app3] sequenceB_261/CAM1/image0026.bmp
+[app3] sequenceB_261/CAM1/image0027.bmp
+[app3] sequenceB_261/CAM1/image0028.bmp
+[app3] sequenceB_261/CAM1/image0029.bmp
+[app3] sequenceB_261/CAM1/image0030.bmp
+[app3] sequenceB_261/CAM1/image0031.bmp
+[app3] sequenceB_261/CAM1/image0032.bmp
+[app3] sequenceB_261/CAM1/image0033.bmp
+[app3] sequenceB_261/CAM1/image0034.bmp
+[app3] sequenceB_261/CAM1/image0035.bmp
+[app3] sequenceB_261/CAM1/image0036.bmp
+[app3] sequenceB_261/CAM1/image0037.bmp
+[app3] sequenceB_261/CAM1/image0038.bmp
+[app3] sequenceB_261/CAM1/image0039.bmp
+[app3] sequenceB_261/CAM1/image0040.bmp
+[app1] [PARSEC] Running '/homes/grads/dek61/SNIPER/sniper/record-trace --routine-tracing -o /tmp/tmp1r6AX3/run_benchmarks -e 1 -r 1 -s 1 --roi -- /homes/grads/dek61/SNIPER/benchmarks/parsec/parsec-2.1/pkgs/apps/fluidanimate/inst/amd64-linux.gcc-sniper/bin/fluidanimate 4 500 in_500K.fluid out.fluid':
+[app3] sequenceB_261/CAM1/image0041.bmp
+[app3] sequenceB_261/CAM1/image0042.bmp
+[app3] sequenceB_261/CAM1/image0043.bmp
+[app3] sequenceB_261/CAM1/image0044.bmp
+[app3] sequenceB_261/CAM1/image0045.bmp
+[app3] sequenceB_261/CAM1/image0046.bmp
+[app3] sequenceB_261/CAM1/image0047.bmp
+[app3] sequenceB_261/CAM1/image0048.bmp
+[app3] sequenceB_261/CAM1/image0049.bmp
+[app3] sequenceB_261/CAM1/image0050.bmp
+[app3] sequenceB_261/CAM1/image0051.bmp
+[app3] sequenceB_261/CAM1/image0052.bmp
+[app3] sequenceB_261/CAM1/image0053.bmp
+[app3] sequenceB_261/CAM1/image0054.bmp
+[app3] sequenceB_261/CAM1/image0055.bmp
+[app3] sequenceB_261/CAM1/image0056.bmp
+[app3] sequenceB_261/CAM1/image0057.bmp
+[app3] sequenceB_261/CAM1/image0058.bmp
+[app3] sequenceB_261/CAM1/image0059.bmp
+[app3] sequenceB_261/CAM1/image0060.bmp
+[app3] sequenceB_261/CAM1/image0061.bmp
+[app3] sequenceB_261/CAM1/image0062.bmp
+[app3] sequenceB_261/CAM1/image0063.bmp
+[app3] sequenceB_261/CAM1/image0064.bmp
+[app3] sequenceB_261/CAM1/image0065.bmp
+[app3] sequenceB_261/CAM1/image0066.bmp
+[app3] sequenceB_261/CAM1/image0067.bmp
+[app3] sequenceB_261/CAM1/image0068.bmp
+[app3] sequenceB_261/CAM1/image0069.bmp
+[app3] sequenceB_261/CAM1/image0070.bmp
+[app3] sequenceB_261/CAM1/image0071.bmp
+[app3] sequenceB_261/CAM1/image0072.bmp
+[app3] sequenceB_261/CAM1/image0073.bmp
+[app3] sequenceB_261/CAM1/image0074.bmp
+[app3] sequenceB_261/CAM1/image0075.bmp
+[app3] sequenceB_261/CAM1/image0076.bmp
+[app3] sequenceB_261/CAM1/image0077.bmp
+[app3] sequenceB_261/CAM1/image0078.bmp
+[app3] sequenceB_261/CAM1/image0079.bmp
+[app3] sequenceB_261/CAM1/image0080.bmp
+[app3] sequenceB_261/CAM1/image0081.bmp
+[app3] sequenceB_261/CAM1/image0082.bmp
+[app3] sequenceB_261/CAM1/image0083.bmp
+[app3] sequenceB_261/CAM1/image0084.bmp
+[app3] sequenceB_261/CAM1/image0085.bmp
+[app3] sequenceB_261/CAM1/image0086.bmp
+[app3] sequenceB_261/CAM1/image0087.bmp
+[app3] sequenceB_261/CAM1/image0088.bmp
+WARNING: Cannot create memory system with 2048MB, defaulting to minimum size of 4096MB
+[app3] sequenceB_261/CAM1/image0089.bmp
+[app3] sequenceB_261/CAM1/image0090.bmp
+[app3] sequenceB_261/CAM1/image0091.bmp
+[app3] sequenceB_261/CAM1/image0092.bmp
+[app3] sequenceB_261/CAM1/image0093.bmp
+[app3] sequenceB_261/CAM1/image0094.bmp
+[app3] sequenceB_261/CAM1/image0095.bmp
+[app3] sequenceB_261/CAM1/image0096.bmp
+[app3] sequenceB_261/CAM1/image0097.bmp
+[app3] sequenceB_261/CAM1/image0098.bmp
+[app3] sequenceB_261/CAM1/image0099.bmp
+[app3] sequenceB_261/CAM1/image0100.bmp
+[app3] sequenceB_261/CAM1/image0101.bmp
+[app3] sequenceB_261/CAM1/image0102.bmp
+[app3] sequenceB_261/CAM1/image0103.bmp
+[app1] [PARSEC] [---------- Beginning of output ----------]
+[app3] sequenceB_261/CAM1/image0104.bmp
+[app3] sequenceB_261/CAM1/image0105.bmp
+[app3] sequenceB_261/CAM1/image0106.bmp
+[app3] sequenceB_261/CAM1/image0107.bmp
+[app3] sequenceB_261/CAM1/image0108.bmp
+[app3] sequenceB_261/CAM1/image0109.bmp
+[app3] sequenceB_261/CAM1/image0110.bmp
+[app3] sequenceB_261/CAM1/image0111.bmp
+[app3] sequenceB_261/CAM1/image0112.bmp
+[app3] sequenceB_261/CAM1/image0113.bmp
+[app3] sequenceB_261/CAM1/image0114.bmp
+[app3] sequenceB_261/CAM1/image0115.bmp
+[app3] sequenceB_261/CAM1/image0116.bmp
+[app3] sequenceB_261/CAM1/image0117.bmp
+[app3] sequenceB_261/CAM1/image0118.bmp
+[app3] sequenceB_261/CAM1/image0119.bmp
+[app3] sequenceB_261/CAM1/image0120.bmp
+[app3] sequenceB_261/CAM1/image0121.bmp
+[app3] sequenceB_261/CAM1/image0122.bmp
+[app3] sequenceB_261/CAM1/image0123.bmp
+[app3] sequenceB_261/CAM1/image0124.bmp
+[app3] sequenceB_261/CAM1/image0125.bmp
+[app3] sequenceB_261/CAM1/image0126.bmp
+[app3] sequenceB_261/CAM1/image0127.bmp
+[app3] sequenceB_261/CAM1/image0128.bmp
+[app3] sequenceB_261/CAM1/image0129.bmp
+[app3] sequenceB_261/CAM1/image0130.bmp
+[app3] sequenceB_261/CAM1/image0131.bmp
+[app3] sequenceB_261/CAM1/image0132.bmp
+[app3] sequenceB_261/CAM1/image0133.bmp
+[app3] sequenceB_261/CAM1/image0134.bmp
+[app3] sequenceB_261/CAM1/image0135.bmp
+[app3] sequenceB_261/CAM1/image0136.bmp
+[app3] sequenceB_261/CAM1/image0137.bmp
+[app3] sequenceB_261/CAM1/image0138.bmp
+[app3] sequenceB_261/CAM1/image0139.bmp
+[app3] sequenceB_261/CAM1/image0140.bmp
+[app3] sequenceB_261/CAM1/image0141.bmp
+[app3] sequenceB_261/CAM1/image0142.bmp
+[app3] sequenceB_261/CAM1/image0143.bmp
+[app3] sequenceB_261/CAM1/image0144.bmp
+[app3] sequenceB_261/CAM1/image0145.bmp
+[app3] sequenceB_261/CAM1/image0146.bmp
+[app3] sequenceB_261/CAM1/image0147.bmp
+[app3] sequenceB_261/CAM1/image0148.bmp
+[app3] sequenceB_261/CAM1/image0149.bmp
+[app3] sequenceB_261/CAM1/image0150.bmp
+[app3] sequenceB_261/CAM1/image0151.bmp
+[app3] sequenceB_261/CAM1/image0152.bmp
+[app3] sequenceB_261/CAM1/image0153.bmp
+[app3] sequenceB_261/CAM1/image0154.bmp
+[app3] sequenceB_261/CAM1/image0155.bmp
+[app3] sequenceB_261/CAM1/image0156.bmp
+[app3] sequenceB_261/CAM1/image0157.bmp
+[app3] sequenceB_261/CAM1/image0158.bmp
+[app3] sequenceB_261/CAM1/image0159.bmp
+[app3] sequenceB_261/CAM1/image0160.bmp
+[app3] sequenceB_261/CAM1/image0161.bmp
+[app3] sequenceB_261/CAM1/image0162.bmp
+[app3] sequenceB_261/CAM1/image0163.bmp
+[app3] sequenceB_261/CAM1/image0164.bmp
+[app3] sequenceB_261/CAM1/image0165.bmp
+[app3] sequenceB_261/CAM1/image0166.bmp
+[app3] sequenceB_261/CAM1/image0167.bmp
+[app3] sequenceB_261/CAM1/image0168.bmp
+[app3] sequenceB_261/CAM1/image0169.bmp
+[app3] sequenceB_261/CAM1/image0170.bmp
+[app3] sequenceB_261/CAM1/image0171.bmp
+[app3] sequenceB_261/CAM1/image0172.bmp
+[app3] sequenceB_261/CAM1/image0173.bmp
+[app3] sequenceB_261/CAM1/image0174.bmp
+[app3] sequenceB_261/CAM1/image0175.bmp
+[app3] sequenceB_261/CAM1/image0176.bmp
+[app3] sequenceB_261/CAM1/image0177.bmp
+[app3] sequenceB_261/CAM1/image0178.bmp
+[app3] sequenceB_261/CAM1/image0179.bmp
+[app3] sequenceB_261/CAM1/image0180.bmp
+[app3] sequenceB_261/CAM1/image0181.bmp
+[app3] sequenceB_261/CAM1/image0182.bmp
+[app3] sequenceB_261/CAM1/image0183.bmp
+[app3] sequenceB_261/CAM1/image0184.bmp
+[app3] sequenceB_261/CAM1/image0185.bmp
+[app3] sequenceB_261/CAM1/image0186.bmp
+[app3] sequenceB_261/CAM1/image0187.bmp
+[app3] sequenceB_261/CAM1/image0188.bmp
+[app3] sequenceB_261/CAM1/image0189.bmp
+[app3] sequenceB_261/CAM1/image0190.bmp
+[app3] sequenceB_261/CAM1/image0191.bmp
+[app3] sequenceB_261/CAM1/image0192.bmp
+[app3] sequenceB_261/CAM1/image0193.bmp
+[app3] sequenceB_261/CAM1/image0194.bmp
+[app3] sequenceB_261/CAM1/image0195.bmp
+[app3] sequenceB_261/CAM1/image0196.bmp
+[app3] sequenceB_261/CAM1/image0197.bmp
+[app3] sequenceB_261/CAM1/image0198.bmp
+[app3] sequenceB_261/CAM1/image0199.bmp
+[app3] sequenceB_261/CAM1/image0200.bmp
+[app3] sequenceB_261/CAM1/image0201.bmp
+[app3] sequenceB_261/CAM1/image0202.bmp
+[app3] sequenceB_261/CAM1/image0203.bmp
+[app3] sequenceB_261/CAM1/image0204.bmp
+[app3] sequenceB_261/CAM1/image0205.bmp
+[app3] sequenceB_261/CAM1/image0206.bmp
+[app3] sequenceB_261/CAM1/image0207.bmp
+[app3] sequenceB_261/CAM1/image0208.bmp
+[app3] sequenceB_261/CAM1/image0209.bmp
+[app3] sequenceB_261/CAM1/image0210.bmp
+[app3] sequenceB_261/CAM1/image0211.bmp
+[app3] sequenceB_261/CAM1/image0212.bmp
+[app3] sequenceB_261/CAM1/image0213.bmp
+[app3] sequenceB_261/CAM1/image0214.bmp
+[app3] sequenceB_261/CAM1/image0215.bmp
+[app3] sequenceB_261/CAM1/image0216.bmp
+[app3] sequenceB_261/CAM1/image0217.bmp
+[app3] sequenceB_261/CAM1/image0218.bmp
+[app3] sequenceB_261/CAM1/image0219.bmp
+[app3] sequenceB_261/CAM1/image0220.bmp
+[app3] sequenceB_261/CAM1/image0221.bmp
+[app3] sequenceB_261/CAM1/image0222.bmp
+[app3] sequenceB_261/CAM1/image0223.bmp
+[app3] sequenceB_261/CAM1/image0224.bmp
+[app3] sequenceB_261/CAM1/image0225.bmp
+[app3] sequenceB_261/CAM1/image0226.bmp
+[app3] sequenceB_261/CAM1/image0227.bmp
+[app3] sequenceB_261/CAM1/image0228.bmp
+[app3] sequenceB_261/CAM1/image0229.bmp
+[app3] sequenceB_261/CAM1/image0230.bmp
+[app3] sequenceB_261/CAM1/image0231.bmp
+[app3] sequenceB_261/CAM1/image0232.bmp
+[app3] sequenceB_261/CAM1/image0233.bmp
+[app3] sequenceB_261/CAM1/image0234.bmp
+[app3] sequenceB_261/CAM1/image0235.bmp
+[app3] sequenceB_261/CAM1/image0236.bmp
+[app3] sequenceB_261/CAM1/image0237.bmp
+[app3] sequenceB_261/CAM1/image0238.bmp
+[app3] sequenceB_261/CAM1/image0239.bmp
+[app3] sequenceB_261/CAM1/image0240.bmp
+[app3] sequenceB_261/CAM1/image0241.bmp
+[app3] sequenceB_261/CAM1/image0242.bmp
+[app3] sequenceB_261/CAM1/image0243.bmp
+[app3] sequenceB_261/CAM1/image0244.bmp
+[app3] sequenceB_261/CAM1/image0245.bmp
+[app3] sequenceB_261/CAM1/image0246.bmp
+[app3] sequenceB_261/CAM1/image0247.bmp
+[app3] sequenceB_261/CAM1/image0248.bmp
+[app3] sequenceB_261/CAM1/image0249.bmp
+[app3] sequenceB_261/CAM1/image0250.bmp
+[app3] sequenceB_261/CAM1/image0251.bmp
+[app3] sequenceB_261/CAM1/image0252.bmp
+[app3] sequenceB_261/CAM1/image0253.bmp
+[app3] sequenceB_261/CAM1/image0254.bmp
+[app3] sequenceB_261/CAM1/image0255.bmp
+[app3] sequenceB_261/CAM1/image0256.bmp
+[app3] sequenceB_261/CAM1/image0257.bmp
+[app3] sequenceB_261/CAM1/image0258.bmp
+[app3] sequenceB_261/CAM1/image0259.bmp
+[app3] sequenceB_261/CAM1/image0260.bmp
+[app3] sequenceB_261/CAM2/
+[app3] sequenceB_261/CAM2/image0000.bmp
+[app3] sequenceB_261/CAM2/image0001.bmp
+[app3] sequenceB_261/CAM2/image0002.bmp
+[app3] sequenceB_261/CAM2/image0003.bmp
+[app3] sequenceB_261/CAM2/image0004.bmp
+[app3] sequenceB_261/CAM2/image0005.bmp
+[app3] sequenceB_261/CAM2/image0006.bmp
+[app3] sequenceB_261/CAM2/image0007.bmp
+[app3] sequenceB_261/CAM2/image0008.bmp
+[app3] sequenceB_261/CAM2/image0009.bmp
+[app3] sequenceB_261/CAM2/image0010.bmp
+[app3] sequenceB_261/CAM2/image0011.bmp
+[app3] sequenceB_261/CAM2/image0012.bmp
+[app3] sequenceB_261/CAM2/image0013.bmp
+[app3] sequenceB_261/CAM2/image0014.bmp
+[app3] sequenceB_261/CAM2/image0015.bmp
+[app3] sequenceB_261/CAM2/image0016.bmp
+[app3] sequenceB_261/CAM2/image0017.bmp
+[app3] sequenceB_261/CAM2/image0018.bmp
+[app3] sequenceB_261/CAM2/image0019.bmp
+[app3] sequenceB_261/CAM2/image0020.bmp
+[app3] sequenceB_261/CAM2/image0021.bmp
+[app3] sequenceB_261/CAM2/image0022.bmp
+[app3] sequenceB_261/CAM2/image0023.bmp
+[app3] sequenceB_261/CAM2/image0024.bmp
+[app3] sequenceB_261/CAM2/image0025.bmp
+[app3] sequenceB_261/CAM2/image0026.bmp
+[app3] sequenceB_261/CAM2/image0027.bmp
+[app3] sequenceB_261/CAM2/image0028.bmp
+[app3] sequenceB_261/CAM2/image0029.bmp
+[app3] sequenceB_261/CAM2/image0030.bmp
+[app3] sequenceB_261/CAM2/image0031.bmp
+[app3] sequenceB_261/CAM2/image0032.bmp
+[app3] sequenceB_261/CAM2/image0033.bmp
+[app3] sequenceB_261/CAM2/image0034.bmp
+[app3] sequenceB_261/CAM2/image0035.bmp
+[app3] sequenceB_261/CAM2/image0036.bmp
+[app3] sequenceB_261/CAM2/image0037.bmp
+[app3] sequenceB_261/CAM2/image0038.bmp
+[app3] sequenceB_261/CAM2/image0039.bmp
+[app3] sequenceB_261/CAM2/image0040.bmp
+[app3] sequenceB_261/CAM2/image0041.bmp
+[app3] sequenceB_261/CAM2/image0042.bmp
+[app3] sequenceB_261/CAM2/image0043.bmp
+[app3] sequenceB_261/CAM2/image0044.bmp
+[app3] sequenceB_261/CAM2/image0045.bmp
+[app3] sequenceB_261/CAM2/image0046.bmp
+[app3] sequenceB_261/CAM2/image0047.bmp
+[app3] sequenceB_261/CAM2/image0048.bmp
+[app3] sequenceB_261/CAM2/image0049.bmp
+[app3] sequenceB_261/CAM2/image0050.bmp
+[app3] sequenceB_261/CAM2/image0051.bmp
+[app3] sequenceB_261/CAM2/image0052.bmp
+[app3] sequenceB_261/CAM2/image0053.bmp
+[app3] sequenceB_261/CAM2/image0054.bmp
+[app3] sequenceB_261/CAM2/image0055.bmp
+[app3] sequenceB_261/CAM2/image0056.bmp
+[app3] sequenceB_261/CAM2/image0057.bmp
+[app3] sequenceB_261/CAM2/image0058.bmp
+[app3] sequenceB_261/CAM2/image0059.bmp
+[app3] sequenceB_261/CAM2/image0060.bmp
+[app3] sequenceB_261/CAM2/image0061.bmp
+[app3] sequenceB_261/CAM2/image0062.bmp
+[app3] sequenceB_261/CAM2/image0063.bmp
+[app3] sequenceB_261/CAM2/image0064.bmp
+[app3] sequenceB_261/CAM2/image0065.bmp
+[app3] sequenceB_261/CAM2/image0066.bmp
+[app3] sequenceB_261/CAM2/image0067.bmp
+[app3] sequenceB_261/CAM2/image0068.bmp
+[app3] sequenceB_261/CAM2/image0069.bmp
+[app3] sequenceB_261/CAM2/image0070.bmp
+[app3] sequenceB_261/CAM2/image0071.bmp
+[app3] sequenceB_261/CAM2/image0072.bmp
+[app3] sequenceB_261/CAM2/image0073.bmp
+[app3] sequenceB_261/CAM2/image0074.bmp
+[app3] sequenceB_261/CAM2/image0075.bmp
+[app3] sequenceB_261/CAM2/image0076.bmp
+[app3] sequenceB_261/CAM2/image0077.bmp
+[app3] sequenceB_261/CAM2/image0078.bmp
+[app3] sequenceB_261/CAM2/image0079.bmp
+[app3] sequenceB_261/CAM2/image0080.bmp
+[app3] sequenceB_261/CAM2/image0081.bmp
+[app3] sequenceB_261/CAM2/image0082.bmp
+[app3] sequenceB_261/CAM2/image0083.bmp
+[app3] sequenceB_261/CAM2/image0084.bmp
+[app3] sequenceB_261/CAM2/image0085.bmp
+[app3] sequenceB_261/CAM2/image0086.bmp
+[app3] sequenceB_261/CAM2/image0087.bmp
+[app3] sequenceB_261/CAM2/image0088.bmp
+[app3] sequenceB_261/CAM2/image0089.bmp
+[app3] sequenceB_261/CAM2/image0090.bmp
+[app3] sequenceB_261/CAM2/image0091.bmp
+[app3] sequenceB_261/CAM2/image0092.bmp
+[app3] sequenceB_261/CAM2/image0093.bmp
+[app3] sequenceB_261/CAM2/image0094.bmp
+[app3] sequenceB_261/CAM2/image0095.bmp
+[app3] sequenceB_261/CAM2/image0096.bmp
+[app3] sequenceB_261/CAM2/image0097.bmp
+[app3] sequenceB_261/CAM2/image0098.bmp
+[app3] sequenceB_261/CAM2/image0099.bmp
+[app3] sequenceB_261/CAM2/image0100.bmp
+[app3] sequenceB_261/CAM2/image0101.bmp
+[app3] sequenceB_261/CAM2/image0102.bmp
+[app3] sequenceB_261/CAM2/image0103.bmp
+[app3] sequenceB_261/CAM2/image0104.bmp
+[app3] sequenceB_261/CAM2/image0105.bmp
+[app3] sequenceB_261/CAM2/image0106.bmp
+[app3] sequenceB_261/CAM2/image0107.bmp
+[app3] sequenceB_261/CAM2/image0108.bmp
+[app3] sequenceB_261/CAM2/image0109.bmp
+[app3] sequenceB_261/CAM2/image0110.bmp
+[app3] sequenceB_261/CAM2/image0111.bmp
+[app3] sequenceB_261/CAM2/image0112.bmp
+[app3] sequenceB_261/CAM2/image0113.bmp
+[app3] sequenceB_261/CAM2/image0114.bmp
+[app3] sequenceB_261/CAM2/image0115.bmp
+[app3] sequenceB_261/CAM2/image0116.bmp
+[app3] sequenceB_261/CAM2/image0117.bmp
+[app3] sequenceB_261/CAM2/image0118.bmp
+[app3] sequenceB_261/CAM2/image0119.bmp
+[app3] sequenceB_261/CAM2/image0120.bmp
+[app3] sequenceB_261/CAM2/image0121.bmp
+[app3] sequenceB_261/CAM2/image0122.bmp
+[app3] sequenceB_261/CAM2/image0123.bmp
+[app3] sequenceB_261/CAM2/image0124.bmp
+[app3] sequenceB_261/CAM2/image0125.bmp
+[app3] sequenceB_261/CAM2/image0126.bmp
+[app3] sequenceB_261/CAM2/image0127.bmp
+[app3] sequenceB_261/CAM2/image0128.bmp
+[app3] sequenceB_261/CAM2/image0129.bmp
+[app3] sequenceB_261/CAM2/image0130.bmp
+[app3] sequenceB_261/CAM2/image0131.bmp
+[app3] sequenceB_261/CAM2/image0132.bmp
+[app3] sequenceB_261/CAM2/image0133.bmp
+[app3] sequenceB_261/CAM2/image0134.bmp
+[app3] sequenceB_261/CAM2/image0135.bmp
+[app3] sequenceB_261/CAM2/image0136.bmp
+[app3] sequenceB_261/CAM2/image0137.bmp
+[app3] sequenceB_261/CAM2/image0138.bmp
+[app3] sequenceB_261/CAM2/image0139.bmp
+[app3] sequenceB_261/CAM2/image0140.bmp
+[app3] sequenceB_261/CAM2/image0141.bmp
+[app3] sequenceB_261/CAM2/image0142.bmp
+[app3] sequenceB_261/CAM2/image0143.bmp
+[app3] sequenceB_261/CAM2/image0144.bmp
+[app3] sequenceB_261/CAM2/image0145.bmp
+[app3] sequenceB_261/CAM2/image0146.bmp
+[app3] sequenceB_261/CAM2/image0147.bmp
+[app3] sequenceB_261/CAM2/image0148.bmp
+[app3] sequenceB_261/CAM2/image0149.bmp
+[app3] sequenceB_261/CAM2/image0150.bmp
+[app3] sequenceB_261/CAM2/image0151.bmp
+[app3] sequenceB_261/CAM2/image0152.bmp
+[app3] sequenceB_261/CAM2/image0153.bmp
+[app3] sequenceB_261/CAM2/image0154.bmp
+[app3] sequenceB_261/CAM2/image0155.bmp
+[app3] sequenceB_261/CAM2/image0156.bmp
+[app3] sequenceB_261/CAM2/image0157.bmp
+[app3] sequenceB_261/CAM2/image0158.bmp
+[app3] sequenceB_261/CAM2/image0159.bmp
+[app3] sequenceB_261/CAM2/image0160.bmp
+[app3] sequenceB_261/CAM2/image0161.bmp
+[app3] sequenceB_261/CAM2/image0162.bmp
+[app3] sequenceB_261/CAM2/image0163.bmp
+[app3] sequenceB_261/CAM2/image0164.bmp
+[app3] sequenceB_261/CAM2/image0165.bmp
+[app3] sequenceB_261/CAM2/image0166.bmp
+[app3] sequenceB_261/CAM2/image0167.bmp
+[app3] sequenceB_261/CAM2/image0168.bmp
+[app3] sequenceB_261/CAM2/image0169.bmp
+[app3] sequenceB_261/CAM2/image0170.bmp
+[app3] sequenceB_261/CAM2/image0171.bmp
+[app3] sequenceB_261/CAM2/image0172.bmp
+[app3] sequenceB_261/CAM2/image0173.bmp
+[app3] sequenceB_261/CAM2/image0174.bmp
+[app3] sequenceB_261/CAM2/image0175.bmp
+[app3] sequenceB_261/CAM2/image0176.bmp
+[app3] sequenceB_261/CAM2/image0177.bmp
+[app3] sequenceB_261/CAM2/image0178.bmp
+[app3] sequenceB_261/CAM2/image0179.bmp
+[app3] sequenceB_261/CAM2/image0180.bmp
+[app3] sequenceB_261/CAM2/image0181.bmp
+[app3] sequenceB_261/CAM2/image0182.bmp
+[app3] sequenceB_261/CAM2/image0183.bmp
+[app3] sequenceB_261/CAM2/image0184.bmp
+[app3] sequenceB_261/CAM2/image0185.bmp
+[app3] sequenceB_261/CAM2/image0186.bmp
+[app3] sequenceB_261/CAM2/image0187.bmp
+[app3] sequenceB_261/CAM2/image0188.bmp
+[app3] sequenceB_261/CAM2/image0189.bmp
+[app3] sequenceB_261/CAM2/image0190.bmp
+[app3] sequenceB_261/CAM2/image0191.bmp
+[app3] sequenceB_261/CAM2/image0192.bmp
+[app3] sequenceB_261/CAM2/image0193.bmp
+[app3] sequenceB_261/CAM2/image0194.bmp
+[app3] sequenceB_261/CAM2/image0195.bmp
+[app3] sequenceB_261/CAM2/image0196.bmp
+[app3] sequenceB_261/CAM2/image0197.bmp
+[app3] sequenceB_261/CAM2/image0198.bmp
+[app3] sequenceB_261/CAM2/image0199.bmp
+[app3] sequenceB_261/CAM2/image0200.bmp
+[app3] sequenceB_261/CAM2/image0201.bmp
+[app3] sequenceB_261/CAM2/image0202.bmp
+[app3] sequenceB_261/CAM2/image0203.bmp
+[app3] sequenceB_261/CAM2/image0204.bmp
+[app3] sequenceB_261/CAM2/image0205.bmp
+[app3] sequenceB_261/CAM2/image0206.bmp
+[app3] sequenceB_261/CAM2/image0207.bmp
+[app3] sequenceB_261/CAM2/image0208.bmp
+[app3] sequenceB_261/CAM2/image0209.bmp
+[app3] sequenceB_261/CAM2/image0210.bmp
+[app3] sequenceB_261/CAM2/image0211.bmp
+[app3] sequenceB_261/CAM2/image0212.bmp
+[app3] sequenceB_261/CAM2/image0213.bmp
+[app3] sequenceB_261/CAM2/image0214.bmp
+[app3] sequenceB_261/CAM2/image0215.bmp
+[app3] sequenceB_261/CAM2/image0216.bmp
+[app3] sequenceB_261/CAM2/image0217.bmp
+[app3] sequenceB_261/CAM2/image0218.bmp
+[app3] sequenceB_261/CAM2/image0219.bmp
+[app3] sequenceB_261/CAM2/image0220.bmp
+[app3] sequenceB_261/CAM2/image0221.bmp
+[app3] sequenceB_261/CAM2/image0222.bmp
+[app3] sequenceB_261/CAM2/image0223.bmp
+[app3] sequenceB_261/CAM2/image0224.bmp
+[app3] sequenceB_261/CAM2/image0225.bmp
+[app3] sequenceB_261/CAM2/image0226.bmp
+[app3] sequenceB_261/CAM2/image0227.bmp
+[app3] sequenceB_261/CAM2/image0228.bmp
+[app3] sequenceB_261/CAM2/image0229.bmp
+[app3] sequenceB_261/CAM2/image0230.bmp
+[app3] sequenceB_261/CAM2/image0231.bmp
+[app3] sequenceB_261/CAM2/image0232.bmp
+[app3] sequenceB_261/CAM2/image0233.bmp
+[app3] sequenceB_261/CAM2/image0234.bmp
+[app3] sequenceB_261/CAM2/image0235.bmp
+[app3] sequenceB_261/CAM2/image0236.bmp
+[app3] sequenceB_261/CAM2/image0237.bmp
+[app3] sequenceB_261/CAM2/image0238.bmp
+[app3] sequenceB_261/CAM2/image0239.bmp
+[app3] sequenceB_261/CAM2/image0240.bmp
+[app3] sequenceB_261/CAM2/image0241.bmp
+[app3] sequenceB_261/CAM2/image0242.bmp
+[app3] sequenceB_261/CAM2/image0243.bmp
+[app3] sequenceB_261/CAM2/image0244.bmp
+[app3] sequenceB_261/CAM2/image0245.bmp
+[app3] sequenceB_261/CAM2/image0246.bmp
+[app3] sequenceB_261/CAM2/image0247.bmp
+[app3] sequenceB_261/CAM2/image0248.bmp
+[app3] sequenceB_261/CAM2/image0249.bmp
+[app3] sequenceB_261/CAM2/image0250.bmp
+[app3] sequenceB_261/CAM2/image0251.bmp
+[app3] sequenceB_261/CAM2/image0252.bmp
+[app3] sequenceB_261/CAM2/image0253.bmp
+[app3] sequenceB_261/CAM2/image0254.bmp
+[app3] sequenceB_261/CAM2/image0255.bmp
+[app3] sequenceB_261/CAM2/image0256.bmp
+[app3] sequenceB_261/CAM2/image0257.bmp
+[app3] sequenceB_261/CAM2/image0258.bmp
+[app3] sequenceB_261/CAM2/image0259.bmp
+[app3] sequenceB_261/CAM2/image0260.bmp
+[app3] sequenceB_261/CAM3/
+[app3] sequenceB_261/CAM3/image0000.bmp
+[app3] sequenceB_261/CAM3/image0001.bmp
+[app3] sequenceB_261/CAM3/image0002.bmp
+[app3] sequenceB_261/CAM3/image0003.bmp
+[app3] sequenceB_261/CAM3/image0004.bmp
+[app3] sequenceB_261/CAM3/image0005.bmp
+[app3] sequenceB_261/CAM3/image0006.bmp
+[app3] sequenceB_261/CAM3/image0007.bmp
+[app3] sequenceB_261/CAM3/image0008.bmp
+[app3] sequenceB_261/CAM3/image0009.bmp
+[app3] sequenceB_261/CAM3/image0010.bmp
+[app3] sequenceB_261/CAM3/image0011.bmp
+[app3] sequenceB_261/CAM3/image0012.bmp
+[app3] sequenceB_261/CAM3/image0013.bmp
+[app3] sequenceB_261/CAM3/image0014.bmp
+[app3] sequenceB_261/CAM3/image0015.bmp
+[app3] sequenceB_261/CAM3/image0016.bmp
+[app3] sequenceB_261/CAM3/image0017.bmp
+[app3] sequenceB_261/CAM3/image0018.bmp
+[app3] sequenceB_261/CAM3/image0019.bmp
+[app3] sequenceB_261/CAM3/image0020.bmp
+[app3] sequenceB_261/CAM3/image0021.bmp
+[app3] sequenceB_261/CAM3/image0022.bmp
+[app3] sequenceB_261/CAM3/image0023.bmp
+[app3] sequenceB_261/CAM3/image0024.bmp
+[app3] sequenceB_261/CAM3/image0025.bmp
+[app3] sequenceB_261/CAM3/image0026.bmp
+[app3] sequenceB_261/CAM3/image0027.bmp
+[app3] sequenceB_261/CAM3/image0028.bmp
+[app3] sequenceB_261/CAM3/image0029.bmp
+[app3] sequenceB_261/CAM3/image0030.bmp
+[app3] sequenceB_261/CAM3/image0031.bmp
+[app3] sequenceB_261/CAM3/image0032.bmp
+[app3] sequenceB_261/CAM3/image0033.bmp
+[app3] sequenceB_261/CAM3/image0034.bmp
+[app3] sequenceB_261/CAM3/image0035.bmp
+[app3] sequenceB_261/CAM3/image0036.bmp
+[app3] sequenceB_261/CAM3/image0037.bmp
+[app3] sequenceB_261/CAM3/image0038.bmp
+[app3] sequenceB_261/CAM3/image0039.bmp
+[app3] sequenceB_261/CAM3/image0040.bmp
+[app3] sequenceB_261/CAM3/image0041.bmp
+[app3] sequenceB_261/CAM3/image0042.bmp
+[app3] sequenceB_261/CAM3/image0043.bmp
+[app3] sequenceB_261/CAM3/image0044.bmp
+[app3] sequenceB_261/CAM3/image0045.bmp
+[app3] sequenceB_261/CAM3/image0046.bmp
+[app3] sequenceB_261/CAM3/image0047.bmp
+[app3] sequenceB_261/CAM3/image0048.bmp
+[app3] sequenceB_261/CAM3/image0049.bmp
+[app3] sequenceB_261/CAM3/image0050.bmp
+[app3] sequenceB_261/CAM3/image0051.bmp
+[app3] sequenceB_261/CAM3/image0052.bmp
+[app3] sequenceB_261/CAM3/image0053.bmp
+[app3] sequenceB_261/CAM3/image0054.bmp
+[app3] sequenceB_261/CAM3/image0055.bmp
+[app3] sequenceB_261/CAM3/image0056.bmp
+[app3] sequenceB_261/CAM3/image0057.bmp
+[app3] sequenceB_261/CAM3/image0058.bmp
+[app3] sequenceB_261/CAM3/image0059.bmp
+[app3] sequenceB_261/CAM3/image0060.bmp
+[app3] sequenceB_261/CAM3/image0061.bmp
+[app3] sequenceB_261/CAM3/image0062.bmp
+[app3] sequenceB_261/CAM3/image0063.bmp
+[app3] sequenceB_261/CAM3/image0064.bmp
+[app3] sequenceB_261/CAM3/image0065.bmp
+[app3] sequenceB_261/CAM3/image0066.bmp
+[app3] sequenceB_261/CAM3/image0067.bmp
+[app3] sequenceB_261/CAM3/image0068.bmp
+[app3] sequenceB_261/CAM3/image0069.bmp
+[app3] sequenceB_261/CAM3/image0070.bmp
+[app3] sequenceB_261/CAM3/image0071.bmp
+[app3] sequenceB_261/CAM3/image0072.bmp
+[app3] sequenceB_261/CAM3/image0073.bmp
+[app3] sequenceB_261/CAM3/image0074.bmp
+[app3] sequenceB_261/CAM3/image0075.bmp
+[app3] sequenceB_261/CAM3/image0076.bmp
+[app3] sequenceB_261/CAM3/image0077.bmp
+[app3] sequenceB_261/CAM3/image0078.bmp
+[app3] sequenceB_261/CAM3/image0079.bmp
+[app3] sequenceB_261/CAM3/image0080.bmp
+[app3] sequenceB_261/CAM3/image0081.bmp
+[app3] sequenceB_261/CAM3/image0082.bmp
+[app3] sequenceB_261/CAM3/image0083.bmp
+[app3] sequenceB_261/CAM3/image0084.bmp
+[app3] sequenceB_261/CAM3/image0085.bmp
+[app3] sequenceB_261/CAM3/image0086.bmp
+[app3] sequenceB_261/CAM3/image0087.bmp
+[app3] sequenceB_261/CAM3/image0088.bmp
+[app3] sequenceB_261/CAM3/image0089.bmp
+[app3] sequenceB_261/CAM3/image0090.bmp
+[app3] sequenceB_261/CAM3/image0091.bmp
+[app3] sequenceB_261/CAM3/image0092.bmp
+[app3] sequenceB_261/CAM3/image0093.bmp
+[app3] sequenceB_261/CAM3/image0094.bmp
+[app3] sequenceB_261/CAM3/image0095.bmp
+[app3] sequenceB_261/CAM3/image0096.bmp
+[app3] sequenceB_261/CAM3/image0097.bmp
+[app3] sequenceB_261/CAM3/image0098.bmp
+[app3] sequenceB_261/CAM3/image0099.bmp
+[app3] sequenceB_261/CAM3/image0100.bmp
+[app3] sequenceB_261/CAM3/image0101.bmp
+[app3] sequenceB_261/CAM3/image0102.bmp
+[app3] sequenceB_261/CAM3/image0103.bmp
+[app3] sequenceB_261/CAM3/image0104.bmp
+[app3] sequenceB_261/CAM3/image0105.bmp
+[app3] sequenceB_261/CAM3/image0106.bmp
+[app3] sequenceB_261/CAM3/image0107.bmp
+[app3] sequenceB_261/CAM3/image0108.bmp
+[app3] sequenceB_261/CAM3/image0109.bmp
+[app3] sequenceB_261/CAM3/image0110.bmp
+[app3] sequenceB_261/CAM3/image0111.bmp
+[app3] sequenceB_261/CAM3/image0112.bmp
+[app3] sequenceB_261/CAM3/image0113.bmp
+[app3] sequenceB_261/CAM3/image0114.bmp
+[app3] sequenceB_261/CAM3/image0115.bmp
+[app3] sequenceB_261/CAM3/image0116.bmp
+[app3] sequenceB_261/CAM3/image0117.bmp
+[app3] sequenceB_261/CAM3/image0118.bmp
+[app3] sequenceB_261/CAM3/image0119.bmp
+[app3] sequenceB_261/CAM3/image0120.bmp
+[app3] sequenceB_261/CAM3/image0121.bmp
+[app3] sequenceB_261/CAM3/image0122.bmp
+[app3] sequenceB_261/CAM3/image0123.bmp
+[app3] sequenceB_261/CAM3/image0124.bmp
+[app3] sequenceB_261/CAM3/image0125.bmp
+[app3] sequenceB_261/CAM3/image0126.bmp
+[app3] sequenceB_261/CAM3/image0127.bmp
+[app3] sequenceB_261/CAM3/image0128.bmp
+[app3] sequenceB_261/CAM3/image0129.bmp
+[app3] sequenceB_261/CAM3/image0130.bmp
+[app2] [PARSEC] Running '/homes/grads/dek61/SNIPER/sniper/record-trace --routine-tracing -o /tmp/tmp1r6AX3/run_benchmarks -e 1 -r 1 -s 2 --roi -- /homes/grads/dek61/SNIPER/benchmarks/parsec/parsec-2.1/pkgs/apps/freqmine/inst/amd64-linux.gcc-sniper/bin/freqmine webdocs_250k.dat 11000':
+[app2] [PARSEC] [---------- Beginning of output ----------]
+[app3] sequenceB_261/CAM3/image0131.bmp
+[app3] sequenceB_261/CAM3/image0132.bmp
+[app3] sequenceB_261/CAM3/image0133.bmp
+[app3] sequenceB_261/CAM3/image0134.bmp
+[app3] sequenceB_261/CAM3/image0135.bmp
+[app3] sequenceB_261/CAM3/image0136.bmp
+[app3] sequenceB_261/CAM3/image0137.bmp
+[app3] sequenceB_261/CAM3/image0138.bmp
+[app3] sequenceB_261/CAM3/image0139.bmp
+[app3] sequenceB_261/CAM3/image0140.bmp
+[app3] sequenceB_261/CAM3/image0141.bmp
+[app3] sequenceB_261/CAM3/image0142.bmp
+[app3] sequenceB_261/CAM3/image0143.bmp
+[app3] sequenceB_261/CAM3/image0144.bmp
+[app3] sequenceB_261/CAM3/image0145.bmp
+[app3] sequenceB_261/CAM3/image0146.bmp
+[app3] sequenceB_261/CAM3/image0147.bmp
+[app3] sequenceB_261/CAM3/image0148.bmp
+[app3] sequenceB_261/CAM3/image0149.bmp
+[app3] sequenceB_261/CAM3/image0150.bmp
+[app3] sequenceB_261/CAM3/image0151.bmp
+[app3] sequenceB_261/CAM3/image0152.bmp
+[app3] sequenceB_261/CAM3/image0153.bmp
+[app3] sequenceB_261/CAM3/image0154.bmp
+[app3] sequenceB_261/CAM3/image0155.bmp
+[app3] sequenceB_261/CAM3/image0156.bmp
+[app3] sequenceB_261/CAM3/image0157.bmp
+[app3] sequenceB_261/CAM3/image0158.bmp
+[app3] sequenceB_261/CAM3/image0159.bmp
+[app3] sequenceB_261/CAM3/image0160.bmp
+[app3] sequenceB_261/CAM3/image0161.bmp
+[app3] sequenceB_261/CAM3/image0162.bmp
+[app3] sequenceB_261/CAM3/image0163.bmp
+[app3] sequenceB_261/CAM3/image0164.bmp
+[app3] sequenceB_261/CAM3/image0165.bmp
+[app3] sequenceB_261/CAM3/image0166.bmp
+[app3] sequenceB_261/CAM3/image0167.bmp
+[app3] sequenceB_261/CAM3/image0168.bmp
+[app3] sequenceB_261/CAM3/image0169.bmp
+[app3] sequenceB_261/CAM3/image0170.bmp
+[app3] sequenceB_261/CAM3/image0171.bmp
+[app3] sequenceB_261/CAM3/image0172.bmp
+[app3] sequenceB_261/CAM3/image0173.bmp
+[app3] sequenceB_261/CAM3/image0174.bmp
+[app3] sequenceB_261/CAM3/image0175.bmp
+[app3] sequenceB_261/CAM3/image0176.bmp
+[app3] sequenceB_261/CAM3/image0177.bmp
+[app3] sequenceB_261/CAM3/image0178.bmp
+[app3] sequenceB_261/CAM3/image0179.bmp
+[app3] sequenceB_261/CAM3/image0180.bmp
+[app3] sequenceB_261/CAM3/image0181.bmp
+[app3] sequenceB_261/CAM3/image0182.bmp
+[app3] sequenceB_261/CAM3/image0183.bmp
+[app3] sequenceB_261/CAM3/image0184.bmp
+[app3] sequenceB_261/CAM3/image0185.bmp
+[app3] sequenceB_261/CAM3/image0186.bmp
+[app3] sequenceB_261/CAM3/image0187.bmp
+[app3] sequenceB_261/CAM3/image0188.bmp
+[app3] sequenceB_261/CAM3/image0189.bmp
+[app3] sequenceB_261/CAM3/image0190.bmp
+[app3] sequenceB_261/CAM3/image0191.bmp
+[app3] sequenceB_261/CAM3/image0192.bmp
+[app3] sequenceB_261/CAM3/image0193.bmp
+[app3] sequenceB_261/CAM3/image0194.bmp
+[app3] sequenceB_261/CAM3/image0195.bmp
+[app3] sequenceB_261/CAM3/image0196.bmp
+[app3] sequenceB_261/CAM3/image0197.bmp
+[app3] sequenceB_261/CAM3/image0198.bmp
+[app3] sequenceB_261/CAM3/image0199.bmp
+[app3] sequenceB_261/CAM3/image0200.bmp
+[app3] sequenceB_261/CAM3/image0201.bmp
+[app3] sequenceB_261/CAM3/image0202.bmp
+[app3] sequenceB_261/CAM3/image0203.bmp
+[app3] sequenceB_261/CAM3/image0204.bmp
+[app3] sequenceB_261/CAM3/image0205.bmp
+[app3] sequenceB_261/CAM3/image0206.bmp
+[app3] sequenceB_261/CAM3/image0207.bmp
+[app3] sequenceB_261/CAM3/image0208.bmp
+[app3] sequenceB_261/CAM3/image0209.bmp
+[app3] sequenceB_261/CAM3/image0210.bmp
+[app3] sequenceB_261/CAM3/image0211.bmp
+[app3] sequenceB_261/CAM3/image0212.bmp
+[app3] sequenceB_261/CAM3/image0213.bmp
+[app3] sequenceB_261/CAM3/image0214.bmp
+[app3] sequenceB_261/CAM3/image0215.bmp
+[app3] sequenceB_261/CAM3/image0216.bmp
+[app3] sequenceB_261/CAM3/image0217.bmp
+[app3] sequenceB_261/CAM3/image0218.bmp
+[app3] sequenceB_261/CAM3/image0219.bmp
+[app3] sequenceB_261/CAM3/image0220.bmp
+[app3] sequenceB_261/CAM3/image0221.bmp
+[app3] sequenceB_261/CAM3/image0222.bmp
+[app3] sequenceB_261/CAM3/image0223.bmp
+[app3] sequenceB_261/CAM3/image0224.bmp
+[app3] sequenceB_261/CAM3/image0225.bmp
+[app3] sequenceB_261/CAM3/image0226.bmp
+[app3] sequenceB_261/CAM3/image0227.bmp
+[app3] sequenceB_261/CAM3/image0228.bmp
+[app3] sequenceB_261/CAM3/image0229.bmp
+[app3] sequenceB_261/CAM3/image0230.bmp
+[app3] sequenceB_261/CAM3/image0231.bmp
+[app3] sequenceB_261/CAM3/image0232.bmp
+[app3] sequenceB_261/CAM3/image0233.bmp
+[app3] sequenceB_261/CAM3/image0234.bmp
+[app3] sequenceB_261/CAM3/image0235.bmp
+[app3] sequenceB_261/CAM3/image0236.bmp
+[app3] sequenceB_261/CAM3/image0237.bmp
+[app3] sequenceB_261/CAM3/image0238.bmp
+[app3] sequenceB_261/CAM3/image0239.bmp
+[app3] sequenceB_261/CAM3/image0240.bmp
+[app3] sequenceB_261/CAM3/image0241.bmp
+[app3] sequenceB_261/CAM3/image0242.bmp
+[app3] sequenceB_261/CAM3/image0243.bmp
+[app3] sequenceB_261/CAM3/image0244.bmp
+[app3] sequenceB_261/CAM3/image0245.bmp
+[app3] sequenceB_261/CAM3/image0246.bmp
+[app3] sequenceB_261/CAM3/image0247.bmp
+[app3] sequenceB_261/CAM3/image0248.bmp
+[app3] sequenceB_261/CAM3/image0249.bmp
+[app3] sequenceB_261/CAM3/image0250.bmp
+[app3] sequenceB_261/CAM3/image0251.bmp
+[app3] sequenceB_261/CAM3/image0252.bmp
+[app3] sequenceB_261/CAM3/image0253.bmp
+[app3] sequenceB_261/CAM3/image0254.bmp
+[app3] sequenceB_261/CAM3/image0255.bmp
+[app3] sequenceB_261/CAM3/image0256.bmp
+[app3] sequenceB_261/CAM3/image0257.bmp
+[app3] sequenceB_261/CAM3/image0258.bmp
+[app3] sequenceB_261/CAM3/image0259.bmp
+[app3] sequenceB_261/CAM3/image0260.bmp
+[app3] sequenceB_261/CAM4/
+[app3] sequenceB_261/CAM4/image0000.bmp
+[app3] sequenceB_261/CAM4/image0001.bmp
+[app3] sequenceB_261/CAM4/image0002.bmp
+[app3] sequenceB_261/CAM4/image0003.bmp
+[app3] sequenceB_261/CAM4/image0004.bmp
+[app3] sequenceB_261/CAM4/image0005.bmp
+[app3] sequenceB_261/CAM4/image0006.bmp
+[app3] sequenceB_261/CAM4/image0007.bmp
+[app3] sequenceB_261/CAM4/image0008.bmp
+[app3] sequenceB_261/CAM4/image0009.bmp
+[app3] sequenceB_261/CAM4/image0010.bmp
+[app3] sequenceB_261/CAM4/image0011.bmp
+[app3] sequenceB_261/CAM4/image0012.bmp
+[app3] sequenceB_261/CAM4/image0013.bmp
+[app3] sequenceB_261/CAM4/image0014.bmp
+[app3] sequenceB_261/CAM4/image0015.bmp
+[app3] sequenceB_261/CAM4/image0016.bmp
+[app3] sequenceB_261/CAM4/image0017.bmp
+[app3] sequenceB_261/CAM4/image0018.bmp
+[app3] sequenceB_261/CAM4/image0019.bmp
+[app3] sequenceB_261/CAM4/image0020.bmp
+[app3] sequenceB_261/CAM4/image0021.bmp
+[app3] sequenceB_261/CAM4/image0022.bmp
+[app3] sequenceB_261/CAM4/image0023.bmp
+[app3] sequenceB_261/CAM4/image0024.bmp
+[app3] sequenceB_261/CAM4/image0025.bmp
+[app3] sequenceB_261/CAM4/image0026.bmp
+[app3] sequenceB_261/CAM4/image0027.bmp
+[app3] sequenceB_261/CAM4/image0028.bmp
+[app3] sequenceB_261/CAM4/image0029.bmp
+[app3] sequenceB_261/CAM4/image0030.bmp
+[app3] sequenceB_261/CAM4/image0031.bmp
+[app3] sequenceB_261/CAM4/image0032.bmp
+[app3] sequenceB_261/CAM4/image0033.bmp
+[app3] sequenceB_261/CAM4/image0034.bmp
+[app3] sequenceB_261/CAM4/image0035.bmp
+[app3] sequenceB_261/CAM4/image0036.bmp
+[app3] sequenceB_261/CAM4/image0037.bmp
+[app3] sequenceB_261/CAM4/image0038.bmp
+[app3] sequenceB_261/CAM4/image0039.bmp
+[app3] sequenceB_261/CAM4/image0040.bmp
+[app3] sequenceB_261/CAM4/image0041.bmp
+[app3] sequenceB_261/CAM4/image0042.bmp
+[app3] sequenceB_261/CAM4/image0043.bmp
+[app3] sequenceB_261/CAM4/image0044.bmp
+[app3] sequenceB_261/CAM4/image0045.bmp
+[app3] sequenceB_261/CAM4/image0046.bmp
+[app3] sequenceB_261/CAM4/image0047.bmp
+[app3] sequenceB_261/CAM4/image0048.bmp
+[app3] sequenceB_261/CAM4/image0049.bmp
+[app3] sequenceB_261/CAM4/image0050.bmp
+[app3] sequenceB_261/CAM4/image0051.bmp
+[app3] sequenceB_261/CAM4/image0052.bmp
+[app3] sequenceB_261/CAM4/image0053.bmp
+[app3] sequenceB_261/CAM4/image0054.bmp
+[app3] sequenceB_261/CAM4/image0055.bmp
+[app3] sequenceB_261/CAM4/image0056.bmp
+[app3] sequenceB_261/CAM4/image0057.bmp
+[app3] sequenceB_261/CAM4/image0058.bmp
+[app3] sequenceB_261/CAM4/image0059.bmp
+[app3] sequenceB_261/CAM4/image0060.bmp
+[app3] sequenceB_261/CAM4/image0061.bmp
+[app3] sequenceB_261/CAM4/image0062.bmp
+[app3] sequenceB_261/CAM4/image0063.bmp
+[app3] sequenceB_261/CAM4/image0064.bmp
+[app3] sequenceB_261/CAM4/image0065.bmp
+[app3] sequenceB_261/CAM4/image0066.bmp
+[app3] sequenceB_261/CAM4/image0067.bmp
+[app3] sequenceB_261/CAM4/image0068.bmp
+[app3] sequenceB_261/CAM4/image0069.bmp
+[app3] sequenceB_261/CAM4/image0070.bmp
+[app3] sequenceB_261/CAM4/image0071.bmp
+[app3] sequenceB_261/CAM4/image0072.bmp
+[app3] sequenceB_261/CAM4/image0073.bmp
+[app3] sequenceB_261/CAM4/image0074.bmp
+[app3] sequenceB_261/CAM4/image0075.bmp
+[app3] sequenceB_261/CAM4/image0076.bmp
+[app3] sequenceB_261/CAM4/image0077.bmp
+[app3] sequenceB_261/CAM4/image0078.bmp
+[app3] sequenceB_261/CAM4/image0079.bmp
+[app3] sequenceB_261/CAM4/image0080.bmp
+[app3] sequenceB_261/CAM4/image0081.bmp
+[app3] sequenceB_261/CAM4/image0082.bmp
+[app3] sequenceB_261/CAM4/image0083.bmp
+[app3] sequenceB_261/CAM4/image0084.bmp
+[app3] sequenceB_261/CAM4/image0085.bmp
+[app3] sequenceB_261/CAM4/image0086.bmp
+[app3] sequenceB_261/CAM4/image0087.bmp
+[app3] sequenceB_261/CAM4/image0088.bmp
+[app3] sequenceB_261/CAM4/image0089.bmp
+[app3] sequenceB_261/CAM4/image0090.bmp
+[app3] sequenceB_261/CAM4/image0091.bmp
+[app3] sequenceB_261/CAM4/image0092.bmp
+[app3] sequenceB_261/CAM4/image0093.bmp
+[app3] sequenceB_261/CAM4/image0094.bmp
+[app3] sequenceB_261/CAM4/image0095.bmp
+[app3] sequenceB_261/CAM4/image0096.bmp
+[app3] sequenceB_261/CAM4/image0097.bmp
+[app3] sequenceB_261/CAM4/image0098.bmp
+[app3] sequenceB_261/CAM4/image0099.bmp
+[app3] sequenceB_261/CAM4/image0100.bmp
+[app3] sequenceB_261/CAM4/image0101.bmp
+[app3] sequenceB_261/CAM4/image0102.bmp
+[app3] sequenceB_261/CAM4/image0103.bmp
+[app3] sequenceB_261/CAM4/image0104.bmp
+[app3] sequenceB_261/CAM4/image0105.bmp
+[app3] sequenceB_261/CAM4/image0106.bmp
+[app3] sequenceB_261/CAM4/image0107.bmp
+[app3] sequenceB_261/CAM4/image0108.bmp
+[app3] sequenceB_261/CAM4/image0109.bmp
+[app3] sequenceB_261/CAM4/image0110.bmp
+[app3] sequenceB_261/CAM4/image0111.bmp
+[app3] sequenceB_261/CAM4/image0112.bmp
+[app3] sequenceB_261/CAM4/image0113.bmp
+[app3] sequenceB_261/CAM4/image0114.bmp
+[app3] sequenceB_261/CAM4/image0115.bmp
+[app3] sequenceB_261/CAM4/image0116.bmp
+[app3] sequenceB_261/CAM4/image0117.bmp
+[app3] sequenceB_261/CAM4/image0118.bmp
+[app3] sequenceB_261/CAM4/image0119.bmp
+[app3] sequenceB_261/CAM4/image0120.bmp
+[app3] sequenceB_261/CAM4/image0121.bmp
+[app3] sequenceB_261/CAM4/image0122.bmp
+[app3] sequenceB_261/CAM4/image0123.bmp
+[app3] sequenceB_261/CAM4/image0124.bmp
+[app3] sequenceB_261/CAM4/image0125.bmp
+[app3] sequenceB_261/CAM4/image0126.bmp
+[app3] sequenceB_261/CAM4/image0127.bmp
+[app3] sequenceB_261/CAM4/image0128.bmp
+[app3] sequenceB_261/CAM4/image0129.bmp
+[app3] sequenceB_261/CAM4/image0130.bmp
+[app3] sequenceB_261/CAM4/image0131.bmp
+[app3] sequenceB_261/CAM4/image0132.bmp
+[app3] sequenceB_261/CAM4/image0133.bmp
+[app3] sequenceB_261/CAM4/image0134.bmp
+[app3] sequenceB_261/CAM4/image0135.bmp
+[app3] sequenceB_261/CAM4/image0136.bmp
+[app3] sequenceB_261/CAM4/image0137.bmp
+[app3] sequenceB_261/CAM4/image0138.bmp
+[app3] sequenceB_261/CAM4/image0139.bmp
+[app3] sequenceB_261/CAM4/image0140.bmp
+[app3] sequenceB_261/CAM4/image0141.bmp
+[app3] sequenceB_261/CAM4/image0142.bmp
+[app3] sequenceB_261/CAM4/image0143.bmp
+[app3] sequenceB_261/CAM4/image0144.bmp
+[app3] sequenceB_261/CAM4/image0145.bmp
+[app3] sequenceB_261/CAM4/image0146.bmp
+[app3] sequenceB_261/CAM4/image0147.bmp
+[app3] sequenceB_261/CAM4/image0148.bmp
+[app3] sequenceB_261/CAM4/image0149.bmp
+[app3] sequenceB_261/CAM4/image0150.bmp
+[app3] sequenceB_261/CAM4/image0151.bmp
+[app3] sequenceB_261/CAM4/image0152.bmp
+[app3] sequenceB_261/CAM4/image0153.bmp
+[app3] sequenceB_261/CAM4/image0154.bmp
+[app3] sequenceB_261/CAM4/image0155.bmp
+[app3] sequenceB_261/CAM4/image0156.bmp
+[app3] sequenceB_261/CAM4/image0157.bmp
+[app3] sequenceB_261/CAM4/image0158.bmp
+[app3] sequenceB_261/CAM4/image0159.bmp
+Executing Python script /scratch/nbp3/PARSEC_MUTLIPROGRAM_SHELL/4core/45/1/rtview_fluidanimate_freqmine_bodytrack/sim.scripts.py
+[STOPBYICOUNT] Starting in ROI (detail)
+[STOPBYICOUNT] Then stopping after simulating at least 10000000000 instructions in detail
+[SNIPER] --------------------------------------------------------------------------------
+[SNIPER] Sniper using SIFT/trace-driven frontend
+[SNIPER] Running full application in DETAILED mode
+[SNIPER] --------------------------------------------------------------------------------
+[app3] sequenceB_261/CAM4/image0160.bmp
+[app3] sequenceB_261/CAM4/image0161.bmp
+[app3] sequenceB_261/CAM4/image0162.bmp
+[app3] sequenceB_261/CAM4/image0163.bmp
+[app3] sequenceB_261/CAM4/image0164.bmp
+[app3] sequenceB_261/CAM4/image0165.bmp
+[app3] sequenceB_261/CAM4/image0166.bmp
+[app3] sequenceB_261/CAM4/image0167.bmp
+[app3] sequenceB_261/CAM4/image0168.bmp
+[app3] sequenceB_261/CAM4/image0169.bmp
+[app3] sequenceB_261/CAM4/image0170.bmp
+[app3] sequenceB_261/CAM4/image0171.bmp
+[app3] sequenceB_261/CAM4/image0172.bmp
+[app3] sequenceB_261/CAM4/image0173.bmp
+[app3] sequenceB_261/CAM4/image0174.bmp
+[app3] sequenceB_261/CAM4/image0175.bmp
+[SNIPER] Enabling performance models
+[SNIPER] Setting instrumentation mode to DETAILED
+[app3] sequenceB_261/CAM4/image0176.bmp
+[app3] sequenceB_261/CAM4/image0177.bmp
+[app3] sequenceB_261/CAM4/image0178.bmp
+[app3] sequenceB_261/CAM4/image0179.bmp
+[app3] sequenceB_261/CAM4/image0180.bmp
+[app3] sequenceB_261/CAM4/image0181.bmp
+[app3] sequenceB_261/CAM4/image0182.bmp
+[app3] sequenceB_261/CAM4/image0183.bmp
+[app3] sequenceB_261/CAM4/image0184.bmp
+[app3] sequenceB_261/CAM4/image0185.bmp
+[app3] sequenceB_261/CAM4/image0186.bmp
+[app3] sequenceB_261/CAM4/image0187.bmp
+[app3] sequenceB_261/CAM4/image0188.bmp
+[app3] sequenceB_261/CAM4/image0189.bmp
+[app3] sequenceB_261/CAM4/image0190.bmp
+[app3] sequenceB_261/CAM4/image0191.bmp
+[app3] sequenceB_261/CAM4/image0192.bmp
+[app3] sequenceB_261/CAM4/image0193.bmp
+[app3] sequenceB_261/CAM4/image0194.bmp
+[app3] sequenceB_261/CAM4/image0195.bmp
+[app3] sequenceB_261/CAM4/image0196.bmp
+[app3] sequenceB_261/CAM4/image0197.bmp
+[app3] sequenceB_261/CAM4/image0198.bmp
+[app3] sequenceB_261/CAM4/image0199.bmp
+[app3] sequenceB_261/CAM4/image0200.bmp
+[app3] sequenceB_261/CAM4/image0201.bmp
+[app3] sequenceB_261/CAM4/image0202.bmp
+[app3] sequenceB_261/CAM4/image0203.bmp
+[app3] sequenceB_261/CAM4/image0204.bmp
+[app3] sequenceB_261/CAM4/image0205.bmp
+[app3] sequenceB_261/CAM4/image0206.bmp
+[app3] sequenceB_261/CAM4/image0207.bmp
+[app3] sequenceB_261/CAM4/image0208.bmp
+[app3] sequenceB_261/CAM4/image0209.bmp
+[app3] sequenceB_261/CAM4/image0210.bmp
+[app3] sequenceB_261/CAM4/image0211.bmp
+[app3] sequenceB_261/CAM4/image0212.bmp
+[app3] sequenceB_261/CAM4/image0213.bmp
+[app3] sequenceB_261/CAM4/image0214.bmp
+[app3] sequenceB_261/CAM4/image0215.bmp
+[app3] sequenceB_261/CAM4/image0216.bmp
+[app3] sequenceB_261/CAM4/image0217.bmp
+[app3] sequenceB_261/CAM4/image0218.bmp
+[app3] sequenceB_261/CAM4/image0219.bmp
+[app3] sequenceB_261/CAM4/image0220.bmp
+[app3] sequenceB_261/CAM4/image0221.bmp
+[app3] sequenceB_261/CAM4/image0222.bmp
+[app3] sequenceB_261/CAM4/image0223.bmp
+[app3] sequenceB_261/CAM4/image0224.bmp
+[app3] sequenceB_261/CAM4/image0225.bmp
+[app3] sequenceB_261/CAM4/image0226.bmp
+[app3] sequenceB_261/CAM4/image0227.bmp
+[app3] sequenceB_261/CAM4/image0228.bmp
+[app3] sequenceB_261/CAM4/image0229.bmp
+[app3] sequenceB_261/CAM4/image0230.bmp
+[app3] sequenceB_261/CAM4/image0231.bmp
+[app3] sequenceB_261/CAM4/image0232.bmp
+[app3] sequenceB_261/CAM4/image0233.bmp
+[app3] sequenceB_261/CAM4/image0234.bmp
+[app3] sequenceB_261/CAM4/image0235.bmp
+[app3] sequenceB_261/CAM4/image0236.bmp
+[app3] sequenceB_261/CAM4/image0237.bmp
+[app3] sequenceB_261/CAM4/image0238.bmp
+[app3] sequenceB_261/CAM4/image0239.bmp
+[app3] sequenceB_261/CAM4/image0240.bmp
+[app3] sequenceB_261/CAM4/image0241.bmp
+[app3] sequenceB_261/CAM4/image0242.bmp
+[app3] sequenceB_261/CAM4/image0243.bmp
+[app3] sequenceB_261/CAM4/image0244.bmp
+[app3] sequenceB_261/CAM4/image0245.bmp
+[app3] sequenceB_261/CAM4/image0246.bmp
+[app3] sequenceB_261/CAM4/image0247.bmp
+[app3] sequenceB_261/CAM4/image0248.bmp
+[app3] sequenceB_261/CAM4/image0249.bmp
+[app3] sequenceB_261/CAM4/image0250.bmp
+[app3] sequenceB_261/CAM4/image0251.bmp
+[app3] sequenceB_261/CAM4/image0252.bmp
+[app3] sequenceB_261/CAM4/image0253.bmp
+[app3] sequenceB_261/CAM4/image0254.bmp
+[app3] sequenceB_261/CAM4/image0255.bmp
+[app3] sequenceB_261/CAM4/image0256.bmp
+[app3] sequenceB_261/CAM4/image0257.bmp
+[app3] sequenceB_261/CAM4/image0258.bmp
+[app3] sequenceB_261/CAM4/image0259.bmp
+[app3] sequenceB_261/CAM4/image0260.bmp
+[app3] sequenceB_261/FG1/
+[app3] sequenceB_261/FG1/image0000.bmp
+[app3] sequenceB_261/FG1/image0001.bmp
+[app3] sequenceB_261/FG1/image0002.bmp
+[app3] sequenceB_261/FG1/image0003.bmp
+[app3] sequenceB_261/FG1/image0004.bmp
+[app3] sequenceB_261/FG1/image0005.bmp
+[app3] sequenceB_261/FG1/image0006.bmp
+[app3] sequenceB_261/FG1/image0007.bmp
+[app3] sequenceB_261/FG1/image0008.bmp
+[app3] sequenceB_261/FG1/image0009.bmp
+[app3] sequenceB_261/FG1/image0010.bmp
+[app3] sequenceB_261/FG1/image0011.bmp
+[app3] sequenceB_261/FG1/image0012.bmp
+[app3] sequenceB_261/FG1/image0013.bmp
+[app3] sequenceB_261/FG1/image0014.bmp
+[app3] sequenceB_261/FG1/image0015.bmp
+[app3] sequenceB_261/FG1/image0016.bmp
+[app3] sequenceB_261/FG1/image0017.bmp
+[app3] sequenceB_261/FG1/image0018.bmp
+[app3] sequenceB_261/FG1/image0019.bmp
+[app3] sequenceB_261/FG1/image0020.bmp
+[app3] sequenceB_261/FG1/image0021.bmp
+[app3] sequenceB_261/FG1/image0022.bmp
+[app3] sequenceB_261/FG1/image0023.bmp
+[app3] sequenceB_261/FG1/image0024.bmp
+[app3] sequenceB_261/FG1/image0025.bmp
+[app3] sequenceB_261/FG1/image0026.bmp
+[app3] sequenceB_261/FG1/image0027.bmp
+[app3] sequenceB_261/FG1/image0028.bmp
+[app0] [PARSEC] Running '/homes/grads/dek61/SNIPER/sniper/record-trace --routine-tracing -o /tmp/tmp1r6AX3/run_benchmarks -e 1 -r 1 -s 0 --roi -- /homes/grads/dek61/SNIPER/benchmarks/parsec/parsec-2.1/pkgs/apps/raytrace/inst/amd64-linux.gcc-sniper/bin/rtview thai_statue.obj -nodisplay -automove -nthreads 4 -frames 200 -res 1920 1080':
+[app0] [PARSEC] [---------- Beginning of output ----------]
+[app3] sequenceB_261/FG1/image0029.bmp
+[app3] sequenceB_261/FG1/image0030.bmp
+[app3] sequenceB_261/FG1/image0031.bmp
+[app3] sequenceB_261/FG1/image0032.bmp
+[app3] sequenceB_261/FG1/image0033.bmp
+[app3] sequenceB_261/FG1/image0034.bmp
+[app3] sequenceB_261/FG1/image0035.bmp
+[app3] sequenceB_261/FG1/image0036.bmp
+[app3] sequenceB_261/FG1/image0037.bmp
+[app3] sequenceB_261/FG1/image0038.bmp
+[app3] sequenceB_261/FG1/image0039.bmp
+[app3] sequenceB_261/FG1/image0040.bmp
+[app3] sequenceB_261/FG1/image0041.bmp
+[app3] sequenceB_261/FG1/image0042.bmp
+[app3] sequenceB_261/FG1/image0043.bmp
+[app3] sequenceB_261/FG1/image0044.bmp
+[app3] sequenceB_261/FG1/image0045.bmp
+[app3] sequenceB_261/FG1/image0046.bmp
+[app3] sequenceB_261/FG1/image0047.bmp
+[app3] sequenceB_261/FG1/image0048.bmp
+[app3] sequenceB_261/FG1/image0049.bmp
+[app3] sequenceB_261/FG1/image0050.bmp
+[app3] sequenceB_261/FG1/image0051.bmp
+[app3] sequenceB_261/FG1/image0052.bmp
+[app3] sequenceB_261/FG1/image0053.bmp
+[app3] sequenceB_261/FG1/image0054.bmp
+[app3] sequenceB_261/FG1/image0055.bmp
+[app3] sequenceB_261/FG1/image0056.bmp
+[app3] sequenceB_261/FG1/image0057.bmp
+[app3] sequenceB_261/FG1/image0058.bmp
+[app3] sequenceB_261/FG1/image0059.bmp
+[app3] sequenceB_261/FG1/image0060.bmp
+[app3] sequenceB_261/FG1/image0061.bmp
+[app3] sequenceB_261/FG1/image0062.bmp
+[app3] sequenceB_261/FG1/image0063.bmp
+[app3] sequenceB_261/FG1/image0064.bmp
+[app3] sequenceB_261/FG1/image0065.bmp
+[app3] sequenceB_261/FG1/image0066.bmp
+[app3] sequenceB_261/FG1/image0067.bmp
+[app3] sequenceB_261/FG1/image0068.bmp
+[app3] sequenceB_261/FG1/image0069.bmp
+[app3] sequenceB_261/FG1/image0070.bmp
+[app3] sequenceB_261/FG1/image0071.bmp
+[app3] sequenceB_261/FG1/image0072.bmp
+[app3] sequenceB_261/FG1/image0073.bmp
+[app3] sequenceB_261/FG1/image0074.bmp
+[app3] sequenceB_261/FG1/image0075.bmp
+[app3] sequenceB_261/FG1/image0076.bmp
+[app3] sequenceB_261/FG1/image0077.bmp
+[app3] sequenceB_261/FG1/image0078.bmp
+[app3] sequenceB_261/FG1/image0079.bmp
+[app3] sequenceB_261/FG1/image0080.bmp
+[app3] sequenceB_261/FG1/image0081.bmp
+[app3] sequenceB_261/FG1/image0082.bmp
+[app3] sequenceB_261/FG1/image0083.bmp
+[app3] sequenceB_261/FG1/image0084.bmp
+[app3] sequenceB_261/FG1/image0085.bmp
+[app3] sequenceB_261/FG1/image0086.bmp
+[app3] sequenceB_261/FG1/image0087.bmp
+[app3] sequenceB_261/FG1/image0088.bmp
+[app3] sequenceB_261/FG1/image0089.bmp
+[app3] sequenceB_261/FG1/image0090.bmp
+[app3] sequenceB_261/FG1/image0091.bmp
+[app3] sequenceB_261/FG1/image0092.bmp
+[app3] sequenceB_261/FG1/image0093.bmp
+[app3] sequenceB_261/FG1/image0094.bmp
+[app3] sequenceB_261/FG1/image0095.bmp
+[app3] sequenceB_261/FG1/image0096.bmp
+[app3] sequenceB_261/FG1/image0097.bmp
+[app3] sequenceB_261/FG1/image0098.bmp
+[app3] sequenceB_261/FG1/image0099.bmp
+[app3] sequenceB_261/FG1/image0100.bmp
+[app3] sequenceB_261/FG1/image0101.bmp
+[app3] sequenceB_261/FG1/image0102.bmp
+[app3] sequenceB_261/FG1/image0103.bmp
+[app3] sequenceB_261/FG1/image0104.bmp
+[app3] sequenceB_261/FG1/image0105.bmp
+[app3] sequenceB_261/FG1/image0106.bmp
+[app3] sequenceB_261/FG1/image0107.bmp
+[app3] sequenceB_261/FG1/image0108.bmp
+[app3] sequenceB_261/FG1/image0109.bmp
+[app3] sequenceB_261/FG1/image0110.bmp
+[app3] sequenceB_261/FG1/image0111.bmp
+[app3] sequenceB_261/FG1/image0112.bmp
+[app3] sequenceB_261/FG1/image0113.bmp
+[app3] sequenceB_261/FG1/image0114.bmp
+[app3] sequenceB_261/FG1/image0115.bmp
+[app3] sequenceB_261/FG1/image0116.bmp
+[app3] sequenceB_261/FG1/image0117.bmp
+[app3] sequenceB_261/FG1/image0118.bmp
+[app3] sequenceB_261/FG1/image0119.bmp
+[app3] sequenceB_261/FG1/image0120.bmp
+[app3] sequenceB_261/FG1/image0121.bmp
+[app3] sequenceB_261/FG1/image0122.bmp
+[app3] sequenceB_261/FG1/image0123.bmp
+[app3] sequenceB_261/FG1/image0124.bmp
+[app3] sequenceB_261/FG1/image0125.bmp
+[app3] sequenceB_261/FG1/image0126.bmp
+[app3] sequenceB_261/FG1/image0127.bmp
+[app3] sequenceB_261/FG1/image0128.bmp
+[app3] sequenceB_261/FG1/image0129.bmp
+[app3] sequenceB_261/FG1/image0130.bmp
+[app3] sequenceB_261/FG1/image0131.bmp
+[app3] sequenceB_261/FG1/image0132.bmp
+[app3] sequenceB_261/FG1/image0133.bmp
+[app3] sequenceB_261/FG1/image0134.bmp
+[app3] sequenceB_261/FG1/image0135.bmp
+[app3] sequenceB_261/FG1/image0136.bmp
+[app3] sequenceB_261/FG1/image0137.bmp
+[app3] sequenceB_261/FG1/image0138.bmp
+[app3] sequenceB_261/FG1/image0139.bmp
+[app3] sequenceB_261/FG1/image0140.bmp
+[app3] sequenceB_261/FG1/image0141.bmp
+[app3] sequenceB_261/FG1/image0142.bmp
+[app3] sequenceB_261/FG1/image0143.bmp
+[app3] sequenceB_261/FG1/image0144.bmp
+[app3] sequenceB_261/FG1/image0145.bmp
+[app3] sequenceB_261/FG1/image0146.bmp
+[app3] sequenceB_261/FG1/image0147.bmp
+[app3] sequenceB_261/FG1/image0148.bmp
+[app3] sequenceB_261/FG1/image0149.bmp
+[app3] sequenceB_261/FG1/image0150.bmp
+[app3] sequenceB_261/FG1/image0151.bmp
+[app3] sequenceB_261/FG1/image0152.bmp
+[app3] sequenceB_261/FG1/image0153.bmp
+[app3] sequenceB_261/FG1/image0154.bmp
+[app3] sequenceB_261/FG1/image0155.bmp
+[app3] sequenceB_261/FG1/image0156.bmp
+[app3] sequenceB_261/FG1/image0157.bmp
+[app3] sequenceB_261/FG1/image0158.bmp
+[app3] sequenceB_261/FG1/image0159.bmp
+[app3] sequenceB_261/FG1/image0160.bmp
+[app3] sequenceB_261/FG1/image0161.bmp
+[app3] sequenceB_261/FG1/image0162.bmp
+[app3] sequenceB_261/FG1/image0163.bmp
+[app3] sequenceB_261/FG1/image0164.bmp
+[app3] sequenceB_261/FG1/image0165.bmp
+[app3] sequenceB_261/FG1/image0166.bmp
+[app3] sequenceB_261/FG1/image0167.bmp
+[app3] sequenceB_261/FG1/image0168.bmp
+[app3] sequenceB_261/FG1/image0169.bmp
+[app3] sequenceB_261/FG1/image0170.bmp
+[app3] sequenceB_261/FG1/image0171.bmp
+[app3] sequenceB_261/FG1/image0172.bmp
+[app3] sequenceB_261/FG1/image0173.bmp
+[app3] sequenceB_261/FG1/image0174.bmp
+[app3] sequenceB_261/FG1/image0175.bmp
+[app3] sequenceB_261/FG1/image0176.bmp
+[app3] sequenceB_261/FG1/image0177.bmp
+[app3] sequenceB_261/FG1/image0178.bmp
+[app3] sequenceB_261/FG1/image0179.bmp
+[app3] sequenceB_261/FG1/image0180.bmp
+[app3] sequenceB_261/FG1/image0181.bmp
+[app3] sequenceB_261/FG1/image0182.bmp
+[app3] sequenceB_261/FG1/image0183.bmp
+[app3] sequenceB_261/FG1/image0184.bmp
+[app3] sequenceB_261/FG1/image0185.bmp
+[app3] sequenceB_261/FG1/image0186.bmp
+[app3] sequenceB_261/FG1/image0187.bmp
+[app3] sequenceB_261/FG1/image0188.bmp
+[app3] sequenceB_261/FG1/image0189.bmp
+[app3] sequenceB_261/FG1/image0190.bmp
+[app3] sequenceB_261/FG1/image0191.bmp
+[app3] sequenceB_261/FG1/image0192.bmp
+[app3] sequenceB_261/FG1/image0193.bmp
+[app3] sequenceB_261/FG1/image0194.bmp
+[app3] sequenceB_261/FG1/image0195.bmp
+[app3] sequenceB_261/FG1/image0196.bmp
+[app3] sequenceB_261/FG1/image0197.bmp
+[app3] sequenceB_261/FG1/image0198.bmp
+[app3] sequenceB_261/FG1/image0199.bmp
+[app3] sequenceB_261/FG1/image0200.bmp
+[app3] sequenceB_261/FG1/image0201.bmp
+[app3] sequenceB_261/FG1/image0202.bmp
+[app3] sequenceB_261/FG1/image0203.bmp
+[app3] sequenceB_261/FG1/image0204.bmp
+[app3] sequenceB_261/FG1/image0205.bmp
+[app3] sequenceB_261/FG1/image0206.bmp
+[app3] sequenceB_261/FG1/image0207.bmp
+[app3] sequenceB_261/FG1/image0208.bmp
+[app3] sequenceB_261/FG1/image0209.bmp
+[app3] sequenceB_261/FG1/image0210.bmp
+[app3] sequenceB_261/FG1/image0211.bmp
+[app3] sequenceB_261/FG1/image0212.bmp
+[app3] sequenceB_261/FG1/image0213.bmp
+[app3] sequenceB_261/FG1/image0214.bmp
+[app3] sequenceB_261/FG1/image0215.bmp
+[app3] sequenceB_261/FG1/image0216.bmp
+[app3] sequenceB_261/FG1/image0217.bmp
+[app3] sequenceB_261/FG1/image0218.bmp
+[app3] sequenceB_261/FG1/image0219.bmp
+[app3] sequenceB_261/FG1/image0220.bmp
+[app3] sequenceB_261/FG1/image0221.bmp
+[app3] sequenceB_261/FG1/image0222.bmp
+[app3] sequenceB_261/FG1/image0223.bmp
+[app3] sequenceB_261/FG1/image0224.bmp
+[app3] sequenceB_261/FG1/image0225.bmp
+[app3] sequenceB_261/FG1/image0226.bmp
+[app3] sequenceB_261/FG1/image0227.bmp
+[app3] sequenceB_261/FG1/image0228.bmp
+[app3] sequenceB_261/FG1/image0229.bmp
+[app3] sequenceB_261/FG1/image0230.bmp
+[app3] sequenceB_261/FG1/image0231.bmp
+[app3] sequenceB_261/FG1/image0232.bmp
+[app3] sequenceB_261/FG1/image0233.bmp
+[app3] sequenceB_261/FG1/image0234.bmp
+[app3] sequenceB_261/FG1/image0235.bmp
+[app3] sequenceB_261/FG1/image0236.bmp
+[app3] sequenceB_261/FG1/image0237.bmp
+[app3] sequenceB_261/FG1/image0238.bmp
+[app3] sequenceB_261/FG1/image0239.bmp
+[app3] sequenceB_261/FG1/image0240.bmp
+[app3] sequenceB_261/FG1/image0241.bmp
+[app3] sequenceB_261/FG1/image0242.bmp
+[app3] sequenceB_261/FG1/image0243.bmp
+[app3] sequenceB_261/FG1/image0244.bmp
+[app3] sequenceB_261/FG1/image0245.bmp
+[app3] sequenceB_261/FG1/image0246.bmp
+[app3] sequenceB_261/FG1/image0247.bmp
+[app3] sequenceB_261/FG1/image0248.bmp
+[app3] sequenceB_261/FG1/image0249.bmp
+[app3] sequenceB_261/FG1/image0250.bmp
+[app3] sequenceB_261/FG1/image0251.bmp
+[app3] sequenceB_261/FG1/image0252.bmp
+[app3] sequenceB_261/FG1/image0253.bmp
+[app3] sequenceB_261/FG1/image0254.bmp
+[app3] sequenceB_261/FG1/image0255.bmp
+[app3] sequenceB_261/FG1/image0256.bmp
+[app3] sequenceB_261/FG1/image0257.bmp
+[app3] sequenceB_261/FG1/image0258.bmp
+[app3] sequenceB_261/FG1/image0259.bmp
+[app3] sequenceB_261/FG1/image0260.bmp
+[app3] sequenceB_261/FG2/
+[app3] sequenceB_261/FG2/image0000.bmp
+[app3] sequenceB_261/FG2/image0001.bmp
+[app3] sequenceB_261/FG2/image0002.bmp
+[app3] sequenceB_261/FG2/image0003.bmp
+[app3] sequenceB_261/FG2/image0004.bmp
+[app3] sequenceB_261/FG2/image0005.bmp
+[app3] sequenceB_261/FG2/image0006.bmp
+[app3] sequenceB_261/FG2/image0007.bmp
+[app3] sequenceB_261/FG2/image0008.bmp
+[app3] sequenceB_261/FG2/image0009.bmp
+[app3] sequenceB_261/FG2/image0010.bmp
+[app3] sequenceB_261/FG2/image0011.bmp
+[app3] sequenceB_261/FG2/image0012.bmp
+[app3] sequenceB_261/FG2/image0013.bmp
+[app3] sequenceB_261/FG2/image0014.bmp
+[app3] sequenceB_261/FG2/image0015.bmp
+[app3] sequenceB_261/FG2/image0016.bmp
+[app3] sequenceB_261/FG2/image0017.bmp
+[app3] sequenceB_261/FG2/image0018.bmp
+[app3] sequenceB_261/FG2/image0019.bmp
+[app3] sequenceB_261/FG2/image0020.bmp
+[app3] sequenceB_261/FG2/image0021.bmp
+[app3] sequenceB_261/FG2/image0022.bmp
+[app3] sequenceB_261/FG2/image0023.bmp
+[app3] sequenceB_261/FG2/image0024.bmp
+[app3] sequenceB_261/FG2/image0025.bmp
+[app3] sequenceB_261/FG2/image0026.bmp
+[app3] sequenceB_261/FG2/image0027.bmp
+[app3] sequenceB_261/FG2/image0028.bmp
+[app3] sequenceB_261/FG2/image0029.bmp
+[app3] sequenceB_261/FG2/image0030.bmp
+[app3] sequenceB_261/FG2/image0031.bmp
+[app3] sequenceB_261/FG2/image0032.bmp
+[app3] sequenceB_261/FG2/image0033.bmp
+[app3] sequenceB_261/FG2/image0034.bmp
+[app3] sequenceB_261/FG2/image0035.bmp
+[app3] sequenceB_261/FG2/image0036.bmp
+[app3] sequenceB_261/FG2/image0037.bmp
+[app3] sequenceB_261/FG2/image0038.bmp
+[app3] sequenceB_261/FG2/image0039.bmp
+[app3] sequenceB_261/FG2/image0040.bmp
+[app3] sequenceB_261/FG2/image0041.bmp
+[app3] sequenceB_261/FG2/image0042.bmp
+[app3] sequenceB_261/FG2/image0043.bmp
+[app3] sequenceB_261/FG2/image0044.bmp
+[app3] sequenceB_261/FG2/image0045.bmp
+[app3] sequenceB_261/FG2/image0046.bmp
+[app3] sequenceB_261/FG2/image0047.bmp
+[app3] sequenceB_261/FG2/image0048.bmp
+[app3] sequenceB_261/FG2/image0049.bmp
+[app3] sequenceB_261/FG2/image0050.bmp
+[app3] sequenceB_261/FG2/image0051.bmp
+[app3] sequenceB_261/FG2/image0052.bmp
+[app3] sequenceB_261/FG2/image0053.bmp
+[app3] sequenceB_261/FG2/image0054.bmp
+[app3] sequenceB_261/FG2/image0055.bmp
+[app3] sequenceB_261/FG2/image0056.bmp
+[app3] sequenceB_261/FG2/image0057.bmp
+[app3] sequenceB_261/FG2/image0058.bmp
+[app3] sequenceB_261/FG2/image0059.bmp
+[app3] sequenceB_261/FG2/image0060.bmp
+[app3] sequenceB_261/FG2/image0061.bmp
+[app3] sequenceB_261/FG2/image0062.bmp
+[app3] sequenceB_261/FG2/image0063.bmp
+[app3] sequenceB_261/FG2/image0064.bmp
+[app3] sequenceB_261/FG2/image0065.bmp
+[app3] sequenceB_261/FG2/image0066.bmp
+[app3] sequenceB_261/FG2/image0067.bmp
+[app3] sequenceB_261/FG2/image0068.bmp
+[app3] sequenceB_261/FG2/image0069.bmp
+[app3] sequenceB_261/FG2/image0070.bmp
+[app3] sequenceB_261/FG2/image0071.bmp
+[app3] sequenceB_261/FG2/image0072.bmp
+[app3] sequenceB_261/FG2/image0073.bmp
+[app3] sequenceB_261/FG2/image0074.bmp
+[app3] sequenceB_261/FG2/image0075.bmp
+[app3] sequenceB_261/FG2/image0076.bmp
+[app3] sequenceB_261/FG2/image0077.bmp
+[app3] sequenceB_261/FG2/image0078.bmp
+[app3] sequenceB_261/FG2/image0079.bmp
+[app3] sequenceB_261/FG2/image0080.bmp
+[app3] sequenceB_261/FG2/image0081.bmp
+[app3] sequenceB_261/FG2/image0082.bmp
+[app3] sequenceB_261/FG2/image0083.bmp
+[app3] sequenceB_261/FG2/image0084.bmp
+[app3] sequenceB_261/FG2/image0085.bmp
+[app3] sequenceB_261/FG2/image0086.bmp
+[app3] sequenceB_261/FG2/image0087.bmp
+[app3] sequenceB_261/FG2/image0088.bmp
+[app3] sequenceB_261/FG2/image0089.bmp
+[app3] sequenceB_261/FG2/image0090.bmp
+[app3] sequenceB_261/FG2/image0091.bmp
+[app3] sequenceB_261/FG2/image0092.bmp
+[app3] sequenceB_261/FG2/image0093.bmp
+[app3] sequenceB_261/FG2/image0094.bmp
+[app3] sequenceB_261/FG2/image0095.bmp
+[app3] sequenceB_261/FG2/image0096.bmp
+[app3] sequenceB_261/FG2/image0097.bmp
+[app3] sequenceB_261/FG2/image0098.bmp
+[app3] sequenceB_261/FG2/image0099.bmp
+[app3] sequenceB_261/FG2/image0100.bmp
+[app3] sequenceB_261/FG2/image0101.bmp
+[app3] sequenceB_261/FG2/image0102.bmp
+[app3] sequenceB_261/FG2/image0103.bmp
+[app3] sequenceB_261/FG2/image0104.bmp
+[app3] sequenceB_261/FG2/image0105.bmp
+[app3] sequenceB_261/FG2/image0106.bmp
+[app3] sequenceB_261/FG2/image0107.bmp
+[app3] sequenceB_261/FG2/image0108.bmp
+[app3] sequenceB_261/FG2/image0109.bmp
+[app3] sequenceB_261/FG2/image0110.bmp
+[app3] sequenceB_261/FG2/image0111.bmp
+[app3] sequenceB_261/FG2/image0112.bmp
+[app3] sequenceB_261/FG2/image0113.bmp
+[app3] sequenceB_261/FG2/image0114.bmp
+[app3] sequenceB_261/FG2/image0115.bmp
+[app3] sequenceB_261/FG2/image0116.bmp
+[app3] sequenceB_261/FG2/image0117.bmp
+[app3] sequenceB_261/FG2/image0118.bmp
+[app3] sequenceB_261/FG2/image0119.bmp
+[app3] sequenceB_261/FG2/image0120.bmp
+[app3] sequenceB_261/FG2/image0121.bmp
+[app3] sequenceB_261/FG2/image0122.bmp
+[app3] sequenceB_261/FG2/image0123.bmp
+[app3] sequenceB_261/FG2/image0124.bmp
+[app3] sequenceB_261/FG2/image0125.bmp
+[app3] sequenceB_261/FG2/image0126.bmp
+[app3] sequenceB_261/FG2/image0127.bmp
+[app3] sequenceB_261/FG2/image0128.bmp
+[app3] sequenceB_261/FG2/image0129.bmp
+[app3] sequenceB_261/FG2/image0130.bmp
+[app3] sequenceB_261/FG2/image0131.bmp
+[app3] sequenceB_261/FG2/image0132.bmp
+[app3] sequenceB_261/FG2/image0133.bmp
+[app3] sequenceB_261/FG2/image0134.bmp
+[app3] sequenceB_261/FG2/image0135.bmp
+[app3] sequenceB_261/FG2/image0136.bmp
+[app3] sequenceB_261/FG2/image0137.bmp
+[app3] sequenceB_261/FG2/image0138.bmp
+[app3] sequenceB_261/FG2/image0139.bmp
+[app3] sequenceB_261/FG2/image0140.bmp
+[app3] sequenceB_261/FG2/image0141.bmp
+[app3] sequenceB_261/FG2/image0142.bmp
+[app3] sequenceB_261/FG2/image0143.bmp
+[app3] sequenceB_261/FG2/image0144.bmp
+[app3] sequenceB_261/FG2/image0145.bmp
+[app3] sequenceB_261/FG2/image0146.bmp
+[app3] sequenceB_261/FG2/image0147.bmp
+[app3] sequenceB_261/FG2/image0148.bmp
+[app3] sequenceB_261/FG2/image0149.bmp
+[app3] sequenceB_261/FG2/image0150.bmp
+[app3] sequenceB_261/FG2/image0151.bmp
+[app3] sequenceB_261/FG2/image0152.bmp
+[app3] sequenceB_261/FG2/image0153.bmp
+[app3] sequenceB_261/FG2/image0154.bmp
+[app3] sequenceB_261/FG2/image0155.bmp
+[app3] sequenceB_261/FG2/image0156.bmp
+[app3] sequenceB_261/FG2/image0157.bmp
+[app3] sequenceB_261/FG2/image0158.bmp
+[app3] sequenceB_261/FG2/image0159.bmp
+[app3] sequenceB_261/FG2/image0160.bmp
+[app3] sequenceB_261/FG2/image0161.bmp
+[app3] sequenceB_261/FG2/image0162.bmp
+[app3] sequenceB_261/FG2/image0163.bmp
+[app3] sequenceB_261/FG2/image0164.bmp
+[app3] sequenceB_261/FG2/image0165.bmp
+[app3] sequenceB_261/FG2/image0166.bmp
+[app3] sequenceB_261/FG2/image0167.bmp
+[app3] sequenceB_261/FG2/image0168.bmp
+[app3] sequenceB_261/FG2/image0169.bmp
+[app3] sequenceB_261/FG2/image0170.bmp
+[app3] sequenceB_261/FG2/image0171.bmp
+[app3] sequenceB_261/FG2/image0172.bmp
+[app3] sequenceB_261/FG2/image0173.bmp
+[app3] sequenceB_261/FG2/image0174.bmp
+[app3] sequenceB_261/FG2/image0175.bmp
+[app3] sequenceB_261/FG2/image0176.bmp
+[app3] sequenceB_261/FG2/image0177.bmp
+[app3] sequenceB_261/FG2/image0178.bmp
+[app3] sequenceB_261/FG2/image0179.bmp
+[app3] sequenceB_261/FG2/image0180.bmp
+[app3] sequenceB_261/FG2/image0181.bmp
+[app3] sequenceB_261/FG2/image0182.bmp
+[app3] sequenceB_261/FG2/image0183.bmp
+[app3] sequenceB_261/FG2/image0184.bmp
+[app3] sequenceB_261/FG2/image0185.bmp
+[app3] sequenceB_261/FG2/image0186.bmp
+[app3] sequenceB_261/FG2/image0187.bmp
+[app3] sequenceB_261/FG2/image0188.bmp
+[app3] sequenceB_261/FG2/image0189.bmp
+[app3] sequenceB_261/FG2/image0190.bmp
+[app3] sequenceB_261/FG2/image0191.bmp
+[app3] sequenceB_261/FG2/image0192.bmp
+[app3] sequenceB_261/FG2/image0193.bmp
+[app3] sequenceB_261/FG2/image0194.bmp
+[app3] sequenceB_261/FG2/image0195.bmp
+[app3] sequenceB_261/FG2/image0196.bmp
+[app3] sequenceB_261/FG2/image0197.bmp
+[app3] sequenceB_261/FG2/image0198.bmp
+[app3] sequenceB_261/FG2/image0199.bmp
+[app3] sequenceB_261/FG2/image0200.bmp
+[app3] sequenceB_261/FG2/image0201.bmp
+[app3] sequenceB_261/FG2/image0202.bmp
+[app3] sequenceB_261/FG2/image0203.bmp
+[app3] sequenceB_261/FG2/image0204.bmp
+[app3] sequenceB_261/FG2/image0205.bmp
+[app3] sequenceB_261/FG2/image0206.bmp
+[app3] sequenceB_261/FG2/image0207.bmp
+[app3] sequenceB_261/FG2/image0208.bmp
+[app3] sequenceB_261/FG2/image0209.bmp
+[app3] sequenceB_261/FG2/image0210.bmp
+[app3] sequenceB_261/FG2/image0211.bmp
+[app3] sequenceB_261/FG2/image0212.bmp
+[app3] sequenceB_261/FG2/image0213.bmp
+[app3] sequenceB_261/FG2/image0214.bmp
+[app3] sequenceB_261/FG2/image0215.bmp
+[app3] sequenceB_261/FG2/image0216.bmp
+[app3] sequenceB_261/FG2/image0217.bmp
+[app3] sequenceB_261/FG2/image0218.bmp
+[app3] sequenceB_261/FG2/image0219.bmp
+[app3] sequenceB_261/FG2/image0220.bmp
+[app3] sequenceB_261/FG2/image0221.bmp
+[app3] sequenceB_261/FG2/image0222.bmp
+[app3] sequenceB_261/FG2/image0223.bmp
+[app3] sequenceB_261/FG2/image0224.bmp
+[app3] sequenceB_261/FG2/image0225.bmp
+[app3] sequenceB_261/FG2/image0226.bmp
+[app3] sequenceB_261/FG2/image0227.bmp
+[app3] sequenceB_261/FG2/image0228.bmp
+[app3] sequenceB_261/FG2/image0229.bmp
+[app3] sequenceB_261/FG2/image0230.bmp
+[app3] sequenceB_261/FG2/image0231.bmp
+[app3] sequenceB_261/FG2/image0232.bmp
+[app3] sequenceB_261/FG2/image0233.bmp
+[app3] sequenceB_261/FG2/image0234.bmp
+[app3] sequenceB_261/FG2/image0235.bmp
+[app3] sequenceB_261/FG2/image0236.bmp
+[app3] sequenceB_261/FG2/image0237.bmp
+[app3] sequenceB_261/FG2/image0238.bmp
+[app3] sequenceB_261/FG2/image0239.bmp
+[app3] sequenceB_261/FG2/image0240.bmp
+[app3] sequenceB_261/FG2/image0241.bmp
+[app3] sequenceB_261/FG2/image0242.bmp
+[app3] sequenceB_261/FG2/image0243.bmp
+[app3] sequenceB_261/FG2/image0244.bmp
+[app3] sequenceB_261/FG2/image0245.bmp
+[app3] sequenceB_261/FG2/image0246.bmp
+[app3] sequenceB_261/FG2/image0247.bmp
+[app3] sequenceB_261/FG2/image0248.bmp
+[app3] sequenceB_261/FG2/image0249.bmp
+[app3] sequenceB_261/FG2/image0250.bmp
+[app3] sequenceB_261/FG2/image0251.bmp
+[app3] sequenceB_261/FG2/image0252.bmp
+[app3] sequenceB_261/FG2/image0253.bmp
+[app3] sequenceB_261/FG2/image0254.bmp
+[app3] sequenceB_261/FG2/image0255.bmp
+[app3] sequenceB_261/FG2/image0256.bmp
+[app3] sequenceB_261/FG2/image0257.bmp
+[app3] sequenceB_261/FG2/image0258.bmp
+[app3] sequenceB_261/FG2/image0259.bmp
+[app3] sequenceB_261/FG2/image0260.bmp
+[app3] sequenceB_261/FG3/
+[app3] sequenceB_261/FG3/image0000.bmp
+[app3] sequenceB_261/FG3/image0001.bmp
+[app3] sequenceB_261/FG3/image0002.bmp
+[app3] sequenceB_261/FG3/image0003.bmp
+[app3] sequenceB_261/FG3/image0004.bmp
+[app3] sequenceB_261/FG3/image0005.bmp
+[app3] sequenceB_261/FG3/image0006.bmp
+[app3] sequenceB_261/FG3/image0007.bmp
+[app3] sequenceB_261/FG3/image0008.bmp
+[app3] sequenceB_261/FG3/image0009.bmp
+[app3] sequenceB_261/FG3/image0010.bmp
+[app3] sequenceB_261/FG3/image0011.bmp
+[app3] sequenceB_261/FG3/image0012.bmp
+[app3] sequenceB_261/FG3/image0013.bmp
+[app3] sequenceB_261/FG3/image0014.bmp
+[app3] sequenceB_261/FG3/image0015.bmp
+[app3] sequenceB_261/FG3/image0016.bmp
+[app3] sequenceB_261/FG3/image0017.bmp
+[app3] sequenceB_261/FG3/image0018.bmp
+[app3] sequenceB_261/FG3/image0019.bmp
+[app3] sequenceB_261/FG3/image0020.bmp
+[app3] sequenceB_261/FG3/image0021.bmp
+[app3] sequenceB_261/FG3/image0022.bmp
+[app3] sequenceB_261/FG3/image0023.bmp
+[app3] sequenceB_261/FG3/image0024.bmp
+[app3] sequenceB_261/FG3/image0025.bmp
+[app3] sequenceB_261/FG3/image0026.bmp
+[app3] sequenceB_261/FG3/image0027.bmp
+[app3] sequenceB_261/FG3/image0028.bmp
+[app3] sequenceB_261/FG3/image0029.bmp
+[app3] sequenceB_261/FG3/image0030.bmp
+[app3] sequenceB_261/FG3/image0031.bmp
+[app3] sequenceB_261/FG3/image0032.bmp
+[app3] sequenceB_261/FG3/image0033.bmp
+[app3] sequenceB_261/FG3/image0034.bmp
+[app3] sequenceB_261/FG3/image0035.bmp
+[app3] sequenceB_261/FG3/image0036.bmp
+[app3] sequenceB_261/FG3/image0037.bmp
+[app3] sequenceB_261/FG3/image0038.bmp
+[app3] sequenceB_261/FG3/image0039.bmp
+[app3] sequenceB_261/FG3/image0040.bmp
+[app3] sequenceB_261/FG3/image0041.bmp
+[app3] sequenceB_261/FG3/image0042.bmp
+[app3] sequenceB_261/FG3/image0043.bmp
+[app3] sequenceB_261/FG3/image0044.bmp
+[app3] sequenceB_261/FG3/image0045.bmp
+[app3] sequenceB_261/FG3/image0046.bmp
+[app3] sequenceB_261/FG3/image0047.bmp
+[app3] sequenceB_261/FG3/image0048.bmp
+[app3] sequenceB_261/FG3/image0049.bmp
+[app3] sequenceB_261/FG3/image0050.bmp
+[app3] sequenceB_261/FG3/image0051.bmp
+[app3] sequenceB_261/FG3/image0052.bmp
+[app3] sequenceB_261/FG3/image0053.bmp
+[app3] sequenceB_261/FG3/image0054.bmp
+[app3] sequenceB_261/FG3/image0055.bmp
+[app3] sequenceB_261/FG3/image0056.bmp
+[app3] sequenceB_261/FG3/image0057.bmp
+[app3] sequenceB_261/FG3/image0058.bmp
+[app3] sequenceB_261/FG3/image0059.bmp
+[app3] sequenceB_261/FG3/image0060.bmp
+[app3] sequenceB_261/FG3/image0061.bmp
+[app3] sequenceB_261/FG3/image0062.bmp
+[app3] sequenceB_261/FG3/image0063.bmp
+[app3] sequenceB_261/FG3/image0064.bmp
+[app3] sequenceB_261/FG3/image0065.bmp
+[app3] sequenceB_261/FG3/image0066.bmp
+[app3] sequenceB_261/FG3/image0067.bmp
+[app3] sequenceB_261/FG3/image0068.bmp
+[app3] sequenceB_261/FG3/image0069.bmp
+[app3] sequenceB_261/FG3/image0070.bmp
+[app3] sequenceB_261/FG3/image0071.bmp
+[app3] sequenceB_261/FG3/image0072.bmp
+[app3] sequenceB_261/FG3/image0073.bmp
+[app3] sequenceB_261/FG3/image0074.bmp
+[app3] sequenceB_261/FG3/image0075.bmp
+[app3] sequenceB_261/FG3/image0076.bmp
+[app3] sequenceB_261/FG3/image0077.bmp
+[app3] sequenceB_261/FG3/image0078.bmp
+[app3] sequenceB_261/FG3/image0079.bmp
+[app3] sequenceB_261/FG3/image0080.bmp
+[app3] sequenceB_261/FG3/image0081.bmp
+[app3] sequenceB_261/FG3/image0082.bmp
+[app3] sequenceB_261/FG3/image0083.bmp
+[app3] sequenceB_261/FG3/image0084.bmp
+[app3] sequenceB_261/FG3/image0085.bmp
+[app3] sequenceB_261/FG3/image0086.bmp
+[app3] sequenceB_261/FG3/image0087.bmp
+[app3] sequenceB_261/FG3/image0088.bmp
+[app3] sequenceB_261/FG3/image0089.bmp
+[app3] sequenceB_261/FG3/image0090.bmp
+[app3] sequenceB_261/FG3/image0091.bmp
+[app3] sequenceB_261/FG3/image0092.bmp
+[app3] sequenceB_261/FG3/image0093.bmp
+[app3] sequenceB_261/FG3/image0094.bmp
+[app3] sequenceB_261/FG3/image0095.bmp
+[app3] sequenceB_261/FG3/image0096.bmp
+[app3] sequenceB_261/FG3/image0097.bmp
+[app3] sequenceB_261/FG3/image0098.bmp
+[app3] sequenceB_261/FG3/image0099.bmp
+[app3] sequenceB_261/FG3/image0100.bmp
+[app3] sequenceB_261/FG3/image0101.bmp
+[app3] sequenceB_261/FG3/image0102.bmp
+[app3] sequenceB_261/FG3/image0103.bmp
+[app3] sequenceB_261/FG3/image0104.bmp
+[app3] sequenceB_261/FG3/image0105.bmp
+[app3] sequenceB_261/FG3/image0106.bmp
+[app3] sequenceB_261/FG3/image0107.bmp
+[app3] sequenceB_261/FG3/image0108.bmp
+[app3] sequenceB_261/FG3/image0109.bmp
+[app3] sequenceB_261/FG3/image0110.bmp
+[app3] sequenceB_261/FG3/image0111.bmp
+[app3] sequenceB_261/FG3/image0112.bmp
+[app3] sequenceB_261/FG3/image0113.bmp
+[app3] sequenceB_261/FG3/image0114.bmp
+[app3] sequenceB_261/FG3/image0115.bmp
+[app3] sequenceB_261/FG3/image0116.bmp
+[app3] sequenceB_261/FG3/image0117.bmp
+[app3] sequenceB_261/FG3/image0118.bmp
+[app3] sequenceB_261/FG3/image0119.bmp
+[app3] sequenceB_261/FG3/image0120.bmp
+[app3] sequenceB_261/FG3/image0121.bmp
+[app3] sequenceB_261/FG3/image0122.bmp
+[app3] sequenceB_261/FG3/image0123.bmp
+[app3] sequenceB_261/FG3/image0124.bmp
+[app3] sequenceB_261/FG3/image0125.bmp
+[app3] sequenceB_261/FG3/image0126.bmp
+[app3] sequenceB_261/FG3/image0127.bmp
+[app3] sequenceB_261/FG3/image0128.bmp
+[app3] sequenceB_261/FG3/image0129.bmp
+[app3] sequenceB_261/FG3/image0130.bmp
+[app3] sequenceB_261/FG3/image0131.bmp
+[app3] sequenceB_261/FG3/image0132.bmp
+[app3] sequenceB_261/FG3/image0133.bmp
+[app3] sequenceB_261/FG3/image0134.bmp
+[app3] sequenceB_261/FG3/image0135.bmp
+[app3] sequenceB_261/FG3/image0136.bmp
+[app3] sequenceB_261/FG3/image0137.bmp
+[app3] sequenceB_261/FG3/image0138.bmp
+[app3] sequenceB_261/FG3/image0139.bmp
+[app3] sequenceB_261/FG3/image0140.bmp
+[app3] sequenceB_261/FG3/image0141.bmp
+[app3] sequenceB_261/FG3/image0142.bmp
+[app3] sequenceB_261/FG3/image0143.bmp
+[app3] sequenceB_261/FG3/image0144.bmp
+[app3] sequenceB_261/FG3/image0145.bmp
+[app3] sequenceB_261/FG3/image0146.bmp
+[app3] sequenceB_261/FG3/image0147.bmp
+[app3] sequenceB_261/FG3/image0148.bmp
+[app3] sequenceB_261/FG3/image0149.bmp
+[app3] sequenceB_261/FG3/image0150.bmp
+[app3] sequenceB_261/FG3/image0151.bmp
+[app3] sequenceB_261/FG3/image0152.bmp
+[app3] sequenceB_261/FG3/image0153.bmp
+[app3] sequenceB_261/FG3/image0154.bmp
+[app3] sequenceB_261/FG3/image0155.bmp
+[app3] sequenceB_261/FG3/image0156.bmp
+[app3] sequenceB_261/FG3/image0157.bmp
+[app3] sequenceB_261/FG3/image0158.bmp
+[app3] sequenceB_261/FG3/image0159.bmp
+[app3] sequenceB_261/FG3/image0160.bmp
+[app3] sequenceB_261/FG3/image0161.bmp
+[app3] sequenceB_261/FG3/image0162.bmp
+[app3] sequenceB_261/FG3/image0163.bmp
+[app3] sequenceB_261/FG3/image0164.bmp
+[app3] sequenceB_261/FG3/image0165.bmp
+[app3] sequenceB_261/FG3/image0166.bmp
+[app3] sequenceB_261/FG3/image0167.bmp
+[app3] sequenceB_261/FG3/image0168.bmp
+[app3] sequenceB_261/FG3/image0169.bmp
+[app3] sequenceB_261/FG3/image0170.bmp
+[app3] sequenceB_261/FG3/image0171.bmp
+[app3] sequenceB_261/FG3/image0172.bmp
+[app3] sequenceB_261/FG3/image0173.bmp
+[app3] sequenceB_261/FG3/image0174.bmp
+[app3] sequenceB_261/FG3/image0175.bmp
+[app3] sequenceB_261/FG3/image0176.bmp
+[app3] sequenceB_261/FG3/image0177.bmp
+[app3] sequenceB_261/FG3/image0178.bmp
+[app3] sequenceB_261/FG3/image0179.bmp
+[app3] sequenceB_261/FG3/image0180.bmp
+[app3] sequenceB_261/FG3/image0181.bmp
+[app3] sequenceB_261/FG3/image0182.bmp
+[app3] sequenceB_261/FG3/image0183.bmp
+[app3] sequenceB_261/FG3/image0184.bmp
+[app3] sequenceB_261/FG3/image0185.bmp
+[app3] sequenceB_261/FG3/image0186.bmp
+[app3] sequenceB_261/FG3/image0187.bmp
+[app3] sequenceB_261/FG3/image0188.bmp
+[app3] sequenceB_261/FG3/image0189.bmp
+[app3] sequenceB_261/FG3/image0190.bmp
+[app3] sequenceB_261/FG3/image0191.bmp
+[app3] sequenceB_261/FG3/image0192.bmp
+[app3] sequenceB_261/FG3/image0193.bmp
+[app3] sequenceB_261/FG3/image0194.bmp
+[app3] sequenceB_261/FG3/image0195.bmp
+[app3] sequenceB_261/FG3/image0196.bmp
+[app3] sequenceB_261/FG3/image0197.bmp
+[app3] sequenceB_261/FG3/image0198.bmp
+[app3] sequenceB_261/FG3/image0199.bmp
+[app3] sequenceB_261/FG3/image0200.bmp
+[app3] sequenceB_261/FG3/image0201.bmp
+[app3] sequenceB_261/FG3/image0202.bmp
+[app3] sequenceB_261/FG3/image0203.bmp
+[app3] sequenceB_261/FG3/image0204.bmp
+[app3] sequenceB_261/FG3/image0205.bmp
+[app3] sequenceB_261/FG3/image0206.bmp
+[app3] sequenceB_261/FG3/image0207.bmp
+[app3] sequenceB_261/FG3/image0208.bmp
+[app3] sequenceB_261/FG3/image0209.bmp
+[app3] sequenceB_261/FG3/image0210.bmp
+[app3] sequenceB_261/FG3/image0211.bmp
+[app3] sequenceB_261/FG3/image0212.bmp
+[app3] sequenceB_261/FG3/image0213.bmp
+[app3] sequenceB_261/FG3/image0214.bmp
+[app3] sequenceB_261/FG3/image0215.bmp
+[app3] sequenceB_261/FG3/image0216.bmp
+[app3] sequenceB_261/FG3/image0217.bmp
+[app3] sequenceB_261/FG3/image0218.bmp
+[app3] sequenceB_261/FG3/image0219.bmp
+[app3] sequenceB_261/FG3/image0220.bmp
+[app3] sequenceB_261/FG3/image0221.bmp
+[app3] sequenceB_261/FG3/image0222.bmp
+[app3] sequenceB_261/FG3/image0223.bmp
+[app3] sequenceB_261/FG3/image0224.bmp
+[app3] sequenceB_261/FG3/image0225.bmp
+[app3] sequenceB_261/FG3/image0226.bmp
+[app3] sequenceB_261/FG3/image0227.bmp
+[app3] sequenceB_261/FG3/image0228.bmp
+[app3] sequenceB_261/FG3/image0229.bmp
+[app3] sequenceB_261/FG3/image0230.bmp
+[app3] sequenceB_261/FG3/image0231.bmp
+[app3] sequenceB_261/FG3/image0232.bmp
+[app3] sequenceB_261/FG3/image0233.bmp
+[app3] sequenceB_261/FG3/image0234.bmp
+[app3] sequenceB_261/FG3/image0235.bmp
+[app3] sequenceB_261/FG3/image0236.bmp
+[app3] sequenceB_261/FG3/image0237.bmp
+[app3] sequenceB_261/FG3/image0238.bmp
+[app3] sequenceB_261/FG3/image0239.bmp
+[app3] sequenceB_261/FG3/image0240.bmp
+[app3] sequenceB_261/FG3/image0241.bmp
+[app3] sequenceB_261/FG3/image0242.bmp
+[app3] sequenceB_261/FG3/image0243.bmp
+[app3] sequenceB_261/FG3/image0244.bmp
+[app3] sequenceB_261/FG3/image0245.bmp
+[app3] sequenceB_261/FG3/image0246.bmp
+[app3] sequenceB_261/FG3/image0247.bmp
+[app3] sequenceB_261/FG3/image0248.bmp
+[app3] sequenceB_261/FG3/image0249.bmp
+[app3] sequenceB_261/FG3/image0250.bmp
+[app3] sequenceB_261/FG3/image0251.bmp
+[app3] sequenceB_261/FG3/image0252.bmp
+[app3] sequenceB_261/FG3/image0253.bmp
+[app3] sequenceB_261/FG3/image0254.bmp
+[app3] sequenceB_261/FG3/image0255.bmp
+[app3] sequenceB_261/FG3/image0256.bmp
+[app3] sequenceB_261/FG3/image0257.bmp
+[app3] sequenceB_261/FG3/image0258.bmp
+[app3] sequenceB_261/FG3/image0259.bmp
+[app3] sequenceB_261/FG3/image0260.bmp
+[app3] sequenceB_261/FG4/
+[app3] sequenceB_261/FG4/image0000.bmp
+[app3] sequenceB_261/FG4/image0001.bmp
+[app3] sequenceB_261/FG4/image0002.bmp
+[app3] sequenceB_261/FG4/image0003.bmp
+[app3] sequenceB_261/FG4/image0004.bmp
+[app3] sequenceB_261/FG4/image0005.bmp
+[app3] sequenceB_261/FG4/image0006.bmp
+[app3] sequenceB_261/FG4/image0007.bmp
+[app3] sequenceB_261/FG4/image0008.bmp
+[app3] sequenceB_261/FG4/image0009.bmp
+[app3] sequenceB_261/FG4/image0010.bmp
+[app3] sequenceB_261/FG4/image0011.bmp
+[app3] sequenceB_261/FG4/image0012.bmp
+[app3] sequenceB_261/FG4/image0013.bmp
+[app3] sequenceB_261/FG4/image0014.bmp
+[app3] sequenceB_261/FG4/image0015.bmp
+[app3] sequenceB_261/FG4/image0016.bmp
+[app3] sequenceB_261/FG4/image0017.bmp
+[app3] sequenceB_261/FG4/image0018.bmp
+[app3] sequenceB_261/FG4/image0019.bmp
+[app3] sequenceB_261/FG4/image0020.bmp
+[app3] sequenceB_261/FG4/image0021.bmp
+[app3] sequenceB_261/FG4/image0022.bmp
+[app3] sequenceB_261/FG4/image0023.bmp
+[app3] sequenceB_261/FG4/image0024.bmp
+[app3] sequenceB_261/FG4/image0025.bmp
+[app3] sequenceB_261/FG4/image0026.bmp
+[app3] sequenceB_261/FG4/image0027.bmp
+[app3] sequenceB_261/FG4/image0028.bmp
+[app3] sequenceB_261/FG4/image0029.bmp
+[app3] sequenceB_261/FG4/image0030.bmp
+[app3] sequenceB_261/FG4/image0031.bmp
+[app3] sequenceB_261/FG4/image0032.bmp
+[app3] sequenceB_261/FG4/image0033.bmp
+[app3] sequenceB_261/FG4/image0034.bmp
+[app3] sequenceB_261/FG4/image0035.bmp
+[app3] sequenceB_261/FG4/image0036.bmp
+[app3] sequenceB_261/FG4/image0037.bmp
+[app3] sequenceB_261/FG4/image0038.bmp
+[app3] sequenceB_261/FG4/image0039.bmp
+[app3] sequenceB_261/FG4/image0040.bmp
+[app3] sequenceB_261/FG4/image0041.bmp
+[app3] sequenceB_261/FG4/image0042.bmp
+[app3] sequenceB_261/FG4/image0043.bmp
+[app3] sequenceB_261/FG4/image0044.bmp
+[app3] sequenceB_261/FG4/image0045.bmp
+[app3] sequenceB_261/FG4/image0046.bmp
+[app3] sequenceB_261/FG4/image0047.bmp
+[app3] sequenceB_261/FG4/image0048.bmp
+[app3] sequenceB_261/FG4/image0049.bmp
+[app3] sequenceB_261/FG4/image0050.bmp
+[app3] sequenceB_261/FG4/image0051.bmp
+[app3] sequenceB_261/FG4/image0052.bmp
+[app3] sequenceB_261/FG4/image0053.bmp
+[app3] sequenceB_261/FG4/image0054.bmp
+[app3] sequenceB_261/FG4/image0055.bmp
+[app3] sequenceB_261/FG4/image0056.bmp
+[app3] sequenceB_261/FG4/image0057.bmp
+[app3] sequenceB_261/FG4/image0058.bmp
+[app3] sequenceB_261/FG4/image0059.bmp
+[app3] sequenceB_261/FG4/image0060.bmp
+[app3] sequenceB_261/FG4/image0061.bmp
+[app3] sequenceB_261/FG4/image0062.bmp
+[app3] sequenceB_261/FG4/image0063.bmp
+[app3] sequenceB_261/FG4/image0064.bmp
+[app3] sequenceB_261/FG4/image0065.bmp
+[app3] sequenceB_261/FG4/image0066.bmp
+[app3] sequenceB_261/FG4/image0067.bmp
+[app3] sequenceB_261/FG4/image0068.bmp
+[app3] sequenceB_261/FG4/image0069.bmp
+[app3] sequenceB_261/FG4/image0070.bmp
+[app3] sequenceB_261/FG4/image0071.bmp
+[app3] sequenceB_261/FG4/image0072.bmp
+[app3] sequenceB_261/FG4/image0073.bmp
+[app3] sequenceB_261/FG4/image0074.bmp
+[app3] sequenceB_261/FG4/image0075.bmp
+[app3] sequenceB_261/FG4/image0076.bmp
+[app3] sequenceB_261/FG4/image0077.bmp
+[app3] sequenceB_261/FG4/image0078.bmp
+[app3] sequenceB_261/FG4/image0079.bmp
+[app3] sequenceB_261/FG4/image0080.bmp
+[app3] sequenceB_261/FG4/image0081.bmp
+[app3] sequenceB_261/FG4/image0082.bmp
+[app3] sequenceB_261/FG4/image0083.bmp
+[app3] sequenceB_261/FG4/image0084.bmp
+[app3] sequenceB_261/FG4/image0085.bmp
+[app3] sequenceB_261/FG4/image0086.bmp
+[app3] sequenceB_261/FG4/image0087.bmp
+[app3] sequenceB_261/FG4/image0088.bmp
+[app3] sequenceB_261/FG4/image0089.bmp
+[app3] sequenceB_261/FG4/image0090.bmp
+[app3] sequenceB_261/FG4/image0091.bmp
+[app3] sequenceB_261/FG4/image0092.bmp
+[app3] sequenceB_261/FG4/image0093.bmp
+[app3] sequenceB_261/FG4/image0094.bmp
+[app3] sequenceB_261/FG4/image0095.bmp
+[app3] sequenceB_261/FG4/image0096.bmp
+[app3] sequenceB_261/FG4/image0097.bmp
+[app3] sequenceB_261/FG4/image0098.bmp
+[app3] sequenceB_261/FG4/image0099.bmp
+[app3] sequenceB_261/FG4/image0100.bmp
+[app3] sequenceB_261/FG4/image0101.bmp
+[app3] sequenceB_261/FG4/image0102.bmp
+[app3] sequenceB_261/FG4/image0103.bmp
+[app3] sequenceB_261/FG4/image0104.bmp
+[app3] sequenceB_261/FG4/image0105.bmp
+[app3] sequenceB_261/FG4/image0106.bmp
+[app3] sequenceB_261/FG4/image0107.bmp
+[app3] sequenceB_261/FG4/image0108.bmp
+[app3] sequenceB_261/FG4/image0109.bmp
+[app3] sequenceB_261/FG4/image0110.bmp
+[app3] sequenceB_261/FG4/image0111.bmp
+[app3] sequenceB_261/FG4/image0112.bmp
+[app3] sequenceB_261/FG4/image0113.bmp
+[app3] sequenceB_261/FG4/image0114.bmp
+[app3] sequenceB_261/FG4/image0115.bmp
+[app3] sequenceB_261/FG4/image0116.bmp
+[app3] sequenceB_261/FG4/image0117.bmp
+[app3] sequenceB_261/FG4/image0118.bmp
+[app3] sequenceB_261/FG4/image0119.bmp
+[app3] sequenceB_261/FG4/image0120.bmp
+[app3] sequenceB_261/FG4/image0121.bmp
+[app3] sequenceB_261/FG4/image0122.bmp
+[app3] sequenceB_261/FG4/image0123.bmp
+[app3] sequenceB_261/FG4/image0124.bmp
+[app3] sequenceB_261/FG4/image0125.bmp
+[app3] sequenceB_261/FG4/image0126.bmp
+[app3] sequenceB_261/FG4/image0127.bmp
+[app3] sequenceB_261/FG4/image0128.bmp
+[app3] sequenceB_261/FG4/image0129.bmp
+[app3] sequenceB_261/FG4/image0130.bmp
+[app3] sequenceB_261/FG4/image0131.bmp
+[app3] sequenceB_261/FG4/image0132.bmp
+[app3] sequenceB_261/FG4/image0133.bmp
+[app3] sequenceB_261/FG4/image0134.bmp
+[app3] sequenceB_261/FG4/image0135.bmp
+[app3] sequenceB_261/FG4/image0136.bmp
+[app3] sequenceB_261/FG4/image0137.bmp
+[app3] sequenceB_261/FG4/image0138.bmp
+[app3] sequenceB_261/FG4/image0139.bmp
+[app3] sequenceB_261/FG4/image0140.bmp
+[app3] sequenceB_261/FG4/image0141.bmp
+[app3] sequenceB_261/FG4/image0142.bmp
+[app3] sequenceB_261/FG4/image0143.bmp
+[app3] sequenceB_261/FG4/image0144.bmp
+[app3] sequenceB_261/FG4/image0145.bmp
+[app3] sequenceB_261/FG4/image0146.bmp
+[app3] sequenceB_261/FG4/image0147.bmp
+[app3] sequenceB_261/FG4/image0148.bmp
+[app3] sequenceB_261/FG4/image0149.bmp
+[app3] sequenceB_261/FG4/image0150.bmp
+[app3] sequenceB_261/FG4/image0151.bmp
+[app3] sequenceB_261/FG4/image0152.bmp
+[app3] sequenceB_261/FG4/image0153.bmp
+[app3] sequenceB_261/FG4/image0154.bmp
+[app3] sequenceB_261/FG4/image0155.bmp
+[app3] sequenceB_261/FG4/image0156.bmp
+[app3] sequenceB_261/FG4/image0157.bmp
+[app3] sequenceB_261/FG4/image0158.bmp
+[app3] sequenceB_261/FG4/image0159.bmp
+[app3] sequenceB_261/FG4/image0160.bmp
+[app3] sequenceB_261/FG4/image0161.bmp
+[app3] sequenceB_261/FG4/image0162.bmp
+[app3] sequenceB_261/FG4/image0163.bmp
+[app3] sequenceB_261/FG4/image0164.bmp
+[app3] sequenceB_261/FG4/image0165.bmp
+[app3] sequenceB_261/FG4/image0166.bmp
+[app3] sequenceB_261/FG4/image0167.bmp
+[app3] sequenceB_261/FG4/image0168.bmp
+[app3] sequenceB_261/FG4/image0169.bmp
+[app3] sequenceB_261/FG4/image0170.bmp
+[app3] sequenceB_261/FG4/image0171.bmp
+[app3] sequenceB_261/FG4/image0172.bmp
+[app3] sequenceB_261/FG4/image0173.bmp
+[app3] sequenceB_261/FG4/image0174.bmp
+[app3] sequenceB_261/FG4/image0175.bmp
+[app3] sequenceB_261/FG4/image0176.bmp
+[app3] sequenceB_261/FG4/image0177.bmp
+[app3] sequenceB_261/FG4/image0178.bmp
+[app3] sequenceB_261/FG4/image0179.bmp
+[app3] sequenceB_261/FG4/image0180.bmp
+[app3] sequenceB_261/FG4/image0181.bmp
+[app3] sequenceB_261/FG4/image0182.bmp
+[app3] sequenceB_261/FG4/image0183.bmp
+[app3] sequenceB_261/FG4/image0184.bmp
+[app3] sequenceB_261/FG4/image0185.bmp
+[app3] sequenceB_261/FG4/image0186.bmp
+[app3] sequenceB_261/FG4/image0187.bmp
+[app3] sequenceB_261/FG4/image0188.bmp
+[app3] sequenceB_261/FG4/image0189.bmp
+[app3] sequenceB_261/FG4/image0190.bmp
+[app3] sequenceB_261/FG4/image0191.bmp
+[app3] sequenceB_261/FG4/image0192.bmp
+[app3] sequenceB_261/FG4/image0193.bmp
+[app3] sequenceB_261/FG4/image0194.bmp
+[app3] sequenceB_261/FG4/image0195.bmp
+[app3] sequenceB_261/FG4/image0196.bmp
+[app3] sequenceB_261/FG4/image0197.bmp
+[app3] sequenceB_261/FG4/image0198.bmp
+[app3] sequenceB_261/FG4/image0199.bmp
+[app3] sequenceB_261/FG4/image0200.bmp
+[app3] sequenceB_261/FG4/image0201.bmp
+[app3] sequenceB_261/FG4/image0202.bmp
+[app3] sequenceB_261/FG4/image0203.bmp
+[app3] sequenceB_261/FG4/image0204.bmp
+[app3] sequenceB_261/FG4/image0205.bmp
+[app3] sequenceB_261/FG4/image0206.bmp
+[app3] sequenceB_261/FG4/image0207.bmp
+[app3] sequenceB_261/FG4/image0208.bmp
+[app3] sequenceB_261/FG4/image0209.bmp
+[app3] sequenceB_261/FG4/image0210.bmp
+[app3] sequenceB_261/FG4/image0211.bmp
+[app3] sequenceB_261/FG4/image0212.bmp
+[app3] sequenceB_261/FG4/image0213.bmp
+[app3] sequenceB_261/FG4/image0214.bmp
+[app3] sequenceB_261/FG4/image0215.bmp
+[app3] sequenceB_261/FG4/image0216.bmp
+[app3] sequenceB_261/FG4/image0217.bmp
+[app3] sequenceB_261/FG4/image0218.bmp
+[app3] sequenceB_261/FG4/image0219.bmp
+[app3] sequenceB_261/FG4/image0220.bmp
+[app3] sequenceB_261/FG4/image0221.bmp
+[app3] sequenceB_261/FG4/image0222.bmp
+[app3] sequenceB_261/FG4/image0223.bmp
+[app3] sequenceB_261/FG4/image0224.bmp
+[app3] sequenceB_261/FG4/image0225.bmp
+[app3] sequenceB_261/FG4/image0226.bmp
+[app3] sequenceB_261/FG4/image0227.bmp
+[app3] sequenceB_261/FG4/image0228.bmp
+[app3] sequenceB_261/FG4/image0229.bmp
+[app3] sequenceB_261/FG4/image0230.bmp
+[app3] sequenceB_261/FG4/image0231.bmp
+[app3] sequenceB_261/FG4/image0232.bmp
+[app3] sequenceB_261/FG4/image0233.bmp
+[app3] sequenceB_261/FG4/image0234.bmp
+[app3] sequenceB_261/FG4/image0235.bmp
+[app3] sequenceB_261/FG4/image0236.bmp
+[app3] sequenceB_261/FG4/image0237.bmp
+[app3] sequenceB_261/FG4/image0238.bmp
+[app3] sequenceB_261/FG4/image0239.bmp
+[app3] sequenceB_261/FG4/image0240.bmp
+[app3] sequenceB_261/FG4/image0241.bmp
+[app3] sequenceB_261/FG4/image0242.bmp
+[app3] sequenceB_261/FG4/image0243.bmp
+[app3] sequenceB_261/FG4/image0244.bmp
+[app3] sequenceB_261/FG4/image0245.bmp
+[app3] sequenceB_261/FG4/image0246.bmp
+[app3] sequenceB_261/FG4/image0247.bmp
+[app3] sequenceB_261/FG4/image0248.bmp
+[app3] sequenceB_261/FG4/image0249.bmp
+[app3] sequenceB_261/FG4/image0250.bmp
+[app3] sequenceB_261/FG4/image0251.bmp
+[app3] sequenceB_261/FG4/image0252.bmp
+[app3] sequenceB_261/FG4/image0253.bmp
+[app3] sequenceB_261/FG4/image0254.bmp
+[app3] sequenceB_261/FG4/image0255.bmp
+[app3] sequenceB_261/FG4/image0256.bmp
+[app3] sequenceB_261/FG4/image0257.bmp
+[app3] sequenceB_261/FG4/image0258.bmp
+[app3] sequenceB_261/FG4/image0259.bmp
+[app3] sequenceB_261/FG4/image0260.bmp
+[app3] sequenceB_261/InitialPose.txt
+[app3] sequenceB_261/PoseParameters.txt
+[app3] [PARSEC] Running '/homes/grads/dek61/SNIPER/sniper/record-trace --routine-tracing -o /tmp/tmp1r6AX3/run_benchmarks -e 1 -r 1 -s 3 --roi -- /homes/grads/dek61/SNIPER/benchmarks/parsec/parsec-2.1/pkgs/apps/bodytrack/inst/amd64-linux.gcc-sniper/bin/bodytrack sequenceB_261 4 261 4000 5 0 4':
+[app3] [PARSEC] [---------- Beginning of output ----------]
+[app2] PARSEC Benchmark Suite Version 2.1
+[app2] [HOOKS] PARSEC Hooks Version 1.2
+[app1] PARSEC Benchmark Suite Version 2.1
+[app1] [HOOKS] PARSEC Hooks Version 1.2
+[app2] [HOOKS] Entering ROI
+[app3] PARSEC Benchmark Suite Version 2.1
+[app3] [HOOKS] PARSEC Hooks Version 1.2
+[app1] Loading file "in_500K.fluid"...
+[app1] Number of cells: 229900
+[app3] Threading with Posix Threads
+[app3] Number of threads : 4
+[app0] PARSEC Benchmark Suite Version 2.1
+[app0] [HOOKS] PARSEC Hooks Version 1.2
+[app0] initializing LRT ray tracer ...
+[app0] default BVH builder : binnedalldimssavespace
+[app0] Options: automove = 1;
+[app0] files = thai_statue.obj;
+[app0] frames = 200;
+[app0] nodisplay = 1;
+[app0] nthreads = 4;
+[app0] res = [1920, 1080];
+[app0] 
+[app0] Using memory framebuffer...
+[app0] Adding obj file: thai_statue.obj
+Reached Global Checkpoint
+Instructions: 51050009, cycles: 20203012
+Reached Global Checkpoint
+Instructions: 91880002, cycles: 35394306
+Reached Global Checkpoint
+Instructions: 52650001, cycles: 37022496
+Reached Global Checkpoint
+Instructions: 49890001, cycles: 38835290
+Reached Global Checkpoint
+Instructions: 137260001, cycles: 51643219
+Reached Global Checkpoint
+Instructions: 184790006, cycles: 69052160
+Reached Global Checkpoint
+Instructions: 111660001, cycles: 77399525
+Reached Global Checkpoint
+Instructions: 101700003, cycles: 80412514
+Reached Global Checkpoint
+Instructions: 238070002, cycles: 86598358
+Reached Global Checkpoint
+Instructions: 291220013, cycles: 103745554
+Reached Global Checkpoint
+Instructions: 161470003, cycles: 113032433
+Reached Global Checkpoint
+Instructions: 340360004, cycles: 119243015
+Reached Global Checkpoint
+Instructions: 148670002, cycles: 120929193
+Reached Global Checkpoint
+Instructions: 388710001, cycles: 134252099
+Reached Global Checkpoint
+Instructions: 210490001, cycles: 146543189
+Reached Global Checkpoint
+Instructions: 444200010, cycles: 151745895
+Reached Global Checkpoint
+Instructions: 195760001, cycles: 158618818
+Reached Global Checkpoint
+Instructions: 492540002, cycles: 166730773
+Reached Global Checkpoint
+Instructions: 545650002, cycles: 183212702
+Reached Global Checkpoint
+Instructions: 228370001, cycles: 184827858
+Reached Global Checkpoint
+Instructions: 276470002, cycles: 192035676
+Reached Global Checkpoint
+Instructions: 601120003, cycles: 200787096
+Reached Global Checkpoint
+Instructions: 651950003, cycles: 216837838
+Reached Global Checkpoint
+Instructions: 275920004, cycles: 222909036
+Reached Global Checkpoint
+Instructions: 321400006, cycles: 223074488
+Reached Global Checkpoint
+Instructions: 705260011, cycles: 233398503
+Reached Global Checkpoint
+Instructions: 758090002, cycles: 249812603
+Reached Global Checkpoint
+Instructions: 366590002, cycles: 254042544
+Reached Global Checkpoint
+Instructions: 319590001, cycles: 258447514
+Reached Global Checkpoint
+Instructions: 813530007, cycles: 267045186
+Reached Global Checkpoint
+Instructions: 872130006, cycles: 285239361
+Reached Global Checkpoint
+Instructions: 417560001, cycles: 288586978
+Reached Global Checkpoint
+Instructions: 358190002, cycles: 289425678
+Reached Global Checkpoint
+Instructions: 922070004, cycles: 300740546
+Reached Global Checkpoint
+Instructions: 977820005, cycles: 318378780
+Reached Global Checkpoint
+Instructions: 465570002, cycles: 319897111
+Reached Global Checkpoint
+Instructions: 406820004, cycles: 328132224
+Reached Global Checkpoint
+Instructions: 1028280006, cycles: 334041161
+[app1] Number of particles: 501642 (0 skipped)
+[app1] [HOOKS] Entering ROI
+Reached Global Checkpoint
+Instructions: 518690009, cycles: 375422608
+Reached Global Checkpoint
+Instructions: 456030005, cycles: 393739676
+Reached Global Checkpoint
+Instructions: 1072300001, cycles: 401760126
+Reached Global Checkpoint
+Instructions: 48410010, cycles: 419867319
+Reached Global Checkpoint
+Instructions: 568820009, cycles: 425487114
+Reached Global Checkpoint
+Instructions: 501110004, cycles: 441096561
+Reached Global Checkpoint
+Instructions: 613130001, cycles: 466163128
+Reached Global Checkpoint
+Instructions: 1136940004, cycles: 473175967
+Reached Global Checkpoint
+Instructions: 103370011, cycles: 479976805
+Reached Global Checkpoint
+Instructions: 545200001, cycles: 486183131
+Reached Global Checkpoint
+Instructions: 662330014, cycles: 509134993
+Reached Global Checkpoint
+Instructions: 1188420004, cycles: 527508718
+Reached Global Checkpoint
+Instructions: 153060003, cycles: 531888152
+Reached Global Checkpoint
+Instructions: 593210002, cycles: 537530823
+Reached Global Checkpoint
+Instructions: 715250004, cycles: 556917213
+Reached Global Checkpoint
+Instructions: 1232040002, cycles: 574816393
+Reached Global Checkpoint
+Instructions: 204720003, cycles: 587619268
+Reached Global Checkpoint
+Instructions: 647620010, cycles: 596023291
+Reached Global Checkpoint
+Instructions: 760560002, cycles: 598359840
+Reached Global Checkpoint
+Instructions: 247630013, cycles: 633977587
+Reached Global Checkpoint
+Instructions: 1288340005, cycles: 636285408
+Reached Global Checkpoint
+Instructions: 812520003, cycles: 646080082
+Reached Global Checkpoint
+Instructions: 707110009, cycles: 660105762
+Reached Global Checkpoint
+Instructions: 1330380002, cycles: 682324260
+Reached Global Checkpoint
+Instructions: 854840005, cycles: 684370071
+Reached Global Checkpoint
+Instructions: 296930007, cycles: 687052155
+Reached Global Checkpoint
+Instructions: 767040001, cycles: 721976704
+Reached Global Checkpoint
+Instructions: 1369690002, cycles: 724090344
+Reached Global Checkpoint
+Instructions: 904040006, cycles: 730174310
+Reached Global Checkpoint
+Instructions: 368320004, cycles: 762163808
+Reached Global Checkpoint
+Instructions: 948830007, cycles: 771002476
+Reached Global Checkpoint
+Instructions: 815670014, cycles: 773462982
+Reached Global Checkpoint
+Instructions: 1417730008, cycles: 775775857
+Reached Global Checkpoint
+Instructions: 993130001, cycles: 809893094
+Reached Global Checkpoint
+Instructions: 863670011, cycles: 823952290
+Reached Global Checkpoint
+Instructions: 1050240012, cycles: 858790655
+Reached Global Checkpoint
+Instructions: 910310002, cycles: 863055975
+Reached Global Checkpoint
+Instructions: 953900002, cycles: 898140922
+Reached Global Checkpoint
+Instructions: 1106530003, cycles: 910069453
+Reached Global Checkpoint
+Instructions: 1005140001, cycles: 938759746
+Reached Global Checkpoint
+Instructions: 1156090014, cycles: 955094577
+Reached Global Checkpoint
+Instructions: 1057660004, cycles: 980134809
+Reached Global Checkpoint
+Instructions: 1203510001, cycles: 997905511
+Reached Global Checkpoint
+Instructions: 418910011, cycles: 1017317703
+Reached Global Checkpoint
+Instructions: 1460920002, cycles: 1024582446
+Reached Global Checkpoint
+Instructions: 1107340004, cycles: 1027079127
+Reached Global Checkpoint
+Instructions: 1253330008, cycles: 1044556431
+Reached Global Checkpoint
+Instructions: 1503410002, cycles: 1070357691
+Reached Global Checkpoint
+Instructions: 1153750020, cycles: 1075212202
+Reached Global Checkpoint
+Instructions: 485510010, cycles: 1088846595
+Reached Global Checkpoint
+Instructions: 1303300002, cycles: 1089563732
+Reached Global Checkpoint
+Instructions: 1551670005, cycles: 1122070070
+Reached Global Checkpoint
+Instructions: 1204100004, cycles: 1125483124
+Reached Global Checkpoint
+Instructions: 1354720002, cycles: 1136806769
+Reached Global Checkpoint
+Instructions: 534870001, cycles: 1141529610
+Reached Global Checkpoint
+Instructions: 1595950005, cycles: 1169493987
+Reached Global Checkpoint
+Instructions: 1251200006, cycles: 1174845387
+Reached Global Checkpoint
+Instructions: 578090021, cycles: 1186913834
+Reached Global Checkpoint
+Instructions: 1415730002, cycles: 1189479144
+Reached Global Checkpoint
+Instructions: 1654000003, cycles: 1227966239
+Reached Global Checkpoint
+Instructions: 620280001, cycles: 1229465685
+Reached Global Checkpoint
+Instructions: 1462720003, cycles: 1232588000
+Reached Global Checkpoint
+Instructions: 1308980011, cycles: 1235759525
+Reached Global Checkpoint
+Instructions: 1511710002, cycles: 1277047340
+Reached Global Checkpoint
+Instructions: 1703350001, cycles: 1280576636
+Reached Global Checkpoint
+Instructions: 1359530004, cycles: 1288831965
+Reached Global Checkpoint
+Instructions: 679600011, cycles: 1292993810
+Reached Global Checkpoint
+Instructions: 1557170002, cycles: 1318706492
+Reached Global Checkpoint
+Instructions: 1748440009, cycles: 1328959751
+Reached Global Checkpoint
+Instructions: 1409160006, cycles: 1340801566
+Reached Global Checkpoint
+Instructions: 727570005, cycles: 1344138810
+Reached Global Checkpoint
+Instructions: 1618600002, cycles: 1373888849
+Reached Global Checkpoint
+Instructions: 1792420005, cycles: 1376173262
+Reached Global Checkpoint
+Instructions: 1467030005, cycles: 1399319038
+Reached Global Checkpoint
+Instructions: 1652340003, cycles: 1404917287
+Reached Global Checkpoint
+Instructions: 787320002, cycles: 1408230325
+Reached Global Checkpoint
+Instructions: 1840960004, cycles: 1428187286
+Reached Global Checkpoint
+Instructions: 1510100008, cycles: 1443879459
+Reached Global Checkpoint
+Instructions: 1702630017, cycles: 1450235278
+Reached Global Checkpoint
+Instructions: 848840002, cycles: 1470708546
+Reached Global Checkpoint
+Instructions: 1888710008, cycles: 1475456125
+Reached Global Checkpoint
+Instructions: 1557100010, cycles: 1493219379
+Reached Global Checkpoint
+Instructions: 1755740003, cycles: 1495511240
+Reached Global Checkpoint
+Instructions: 1931970003, cycles: 1521953828
+Reached Global Checkpoint
+Instructions: 901600003, cycles: 1527520156
+Reached Global Checkpoint
+Instructions: 1801250007, cycles: 1538388143
+Reached Global Checkpoint
+Instructions: 1615010005, cycles: 1554489425
+Reached Global Checkpoint
+Instructions: 1847330002, cycles: 1577888168
+Reached Global Checkpoint
+Instructions: 1665930004, cycles: 1602614520
+Reached Global Checkpoint
+Instructions: 1900820004, cycles: 1626366246
+Reached Global Checkpoint
+Instructions: 1720070004, cycles: 1645497009
+Reached Global Checkpoint
+Instructions: 1955600005, cycles: 1675695791
+Reached Global Checkpoint
+Instructions: 1760720003, cycles: 1677742666
+Reached Global Checkpoint
+Instructions: 2000770009, cycles: 1716669726
+Reached Global Checkpoint
+Instructions: 1816400004, cycles: 1721678783
+Reached Global Checkpoint
+Instructions: 2047030004, cycles: 1758501778
+Reached Global Checkpoint
+Instructions: 1873800001, cycles: 1767257986
+Reached Global Checkpoint
+Instructions: 1976830035, cycles: 1794636896
+Reached Global Checkpoint
+Instructions: 2096520015, cycles: 1795678820
+Reached Global Checkpoint
+Instructions: 951720014, cycles: 1795954397
+Reached Global Checkpoint
+Instructions: 1921440004, cycles: 1796412982
+Reached Global Checkpoint
+Instructions: 2145710009, cycles: 1828648265
+Reached Global Checkpoint
+Instructions: 1979510007, cycles: 1838392399
+Reached Global Checkpoint
+Instructions: 2018070001, cycles: 1850144039
+Reached Global Checkpoint
+Instructions: 1002600003, cycles: 1866761629
+Reached Global Checkpoint
+Instructions: 2199270054, cycles: 1877691328
+Reached Global Checkpoint
+Instructions: 2051870006, cycles: 1889138929
+Reached Global Checkpoint
+Instructions: 2047030016, cycles: 1908950388
+Reached Global Checkpoint
+Instructions: 2248600006, cycles: 1928137278
+Reached Global Checkpoint
+Instructions: 1057410001, cycles: 1937294880
+Reached Global Checkpoint
+Instructions: 2084810005, cycles: 1950066101
+Reached Global Checkpoint
+Instructions: 2105030003, cycles: 1966062845
+Reached Global Checkpoint
+Instructions: 2302430002, cycles: 1978558224
+Reached Global Checkpoint
+Instructions: 2129660001, cycles: 1997915885
+Reached Global Checkpoint
+Instructions: 1109270003, cycles: 1999318506
+Reached Global Checkpoint
+Instructions: 2150910357, cycles: 2012797821
+Reached Global Checkpoint
+Instructions: 2361460004, cycles: 2028341566
+Reached Global Checkpoint
+Instructions: 2176800002, cycles: 2035227524
+Reached Global Checkpoint
+Instructions: 1168050001, cycles: 2047359279
+Reached Global Checkpoint
+Instructions: 2195600027, cycles: 2048240273
+Reached Global Checkpoint
+Instructions: 2409950004, cycles: 2064853075
+Reached Global Checkpoint
+Instructions: 2220840116, cycles: 2068872078
+Reached Global Checkpoint
+Instructions: 2238220119, cycles: 2081155453
+Reached Global Checkpoint
+Instructions: 1221920006, cycles: 2089414506
+Reached Global Checkpoint
+Instructions: 2454860004, cycles: 2097781023
+Reached Global Checkpoint
+Instructions: 2274760019, cycles: 2111487236
+Reached Global Checkpoint
+Instructions: 2293560002, cycles: 2124273087
+Reached Global Checkpoint
+Instructions: 1274170023, cycles: 2129767329
+Reached Global Checkpoint
+Instructions: 2507720002, cycles: 2137955094
+Reached Global Checkpoint
+Instructions: 2318710001, cycles: 2145815944
+Reached Global Checkpoint
+Instructions: 2347850008, cycles: 2165065343
+Reached Global Checkpoint
+Instructions: 1324150011, cycles: 2168905594
+Reached Global Checkpoint
+Instructions: 2555280022, cycles: 2174148998
+Reached Global Checkpoint
+Instructions: 2371790005, cycles: 2191013436
+[app3] Using dataset : sequenceB_261/
+[app3] 4000 particles with 5 annealing layers
+[app3] 
+[app3] [HOOKS] Entering ROI
+[app3] Processing frame 0
+Reached Global Checkpoint
+Instructions: 2601440002, cycles: 2213322108
+Reached Global Checkpoint
+Instructions: 1376380005, cycles: 2214184748
+Reached Global Checkpoint
+Instructions: 2402100001, cycles: 2220020269
+Reached Global Checkpoint
+Instructions: 2425370468, cycles: 2243727573
+Reached Global Checkpoint
+Instructions: 2645130003, cycles: 2249876975
+Reached Global Checkpoint
+Instructions: 1427910003, cycles: 2258414530
+Reached Global Checkpoint
+Instructions: 2452320234, cycles: 2261625955
+Reached Global Checkpoint
+Instructions: 2692860006, cycles: 2285496051
+Reached Global Checkpoint
+Instructions: 2477690052, cycles: 2285691296
+Reached Global Checkpoint
+Instructions: 1477380006, cycles: 2297727823
+Reached Global Checkpoint
+Instructions: 2501470167, cycles: 2299842528
+Reached Global Checkpoint
+Instructions: 2733570149, cycles: 2316509859
+Reached Global Checkpoint
+Instructions: 2533670012, cycles: 2329089560
+Reached Global Checkpoint
+Instructions: 1534730016, cycles: 2341778320
+Reached Global Checkpoint
+Instructions: 2557710009, cycles: 2342876105
+Reached Global Checkpoint
+Instructions: 2778880183, cycles: 2350249110
+Reached Global Checkpoint
+Instructions: 2574610010, cycles: 2360661171
+Reached Global Checkpoint
+Instructions: 1582210007, cycles: 2378819702
+Reached Global Checkpoint
+Instructions: 2824570018, cycles: 2384444551
+Reached Global Checkpoint
+Instructions: 2617000002, cycles: 2389553890
+Reached Global Checkpoint
+Instructions: 2624280002, cycles: 2399029896
+Reached Global Checkpoint
+Instructions: 1634570005, cycles: 2418830449
+Reached Global Checkpoint
+Instructions: 2871080003, cycles: 2423291545
+Reached Global Checkpoint
+Instructions: 2673730006, cycles: 2447450783
+Reached Global Checkpoint
+Instructions: 2676260015, cycles: 2451744299
+Reached Global Checkpoint
+Instructions: 2918080001, cycles: 2466271390
+Reached Global Checkpoint
+Instructions: 1684050010, cycles: 2467487013
+[STOPBYICOUNT] Ending ROI after 10000000039 instructions (10000000000 requested)
+[SNIPER] Disabling performance models
+[SNIPER] Leaving ROI after 10973.98 seconds
+[SNIPER] Simulated 10000.0M instructions, 2467.5M cycles, 4.05 IPC
+[SNIPER] Simulation speed 911.2 KIPS (227.8 KIPS / target core - 4389.6ns/instr)
+[SNIPER] Setting instrumentation mode to FAST_FORWARD
+[app0] [SIFT_RECORDER] sift_writer.cc:550: Sift::Mode Sift::Writer::Sync(): Assertion `!response->fail()' failed.
+[app1] [SIFT_RECORDER] sift_writer.cc:465: uint64_t Sift::Writer::Syscall(uint16_t, const char*, uint32_t): Assertion `!response->fail()' failed.
+[app2] [SIFT_RECORDER] sift_writer.cc:550: Sift::Mode Sift::Writer::Sync(): Assertion `!response->fail()' failed.
+[app3] [SIFT_RECORDER] sift_writer.cc:465: uint64_t Sift::Writer::Syscall(uint16_t, const char*, uint32_t): Assertion `!response->fail()' failed.
+==== Channel [0] ====
+ =======================================================
+ ============== Printing Statistics [id:0]==============
+   Total Return Transactions : 11940560 (764195840 bytes) aggregate average bandwidth 0.511544GB/s
+      -Rank   0 : 
+        -Reads  : 7560565 (483876160 bytes)
+        -Writes : 4379995 (280319680 bytes)
+        -Bandwidth / Latency  (Bank 0): 0.0639097 GB/s		143.818 ns
+        -Bandwidth / Latency  (Bank 1): 0.0638455 GB/s		143.048 ns
+        -Bandwidth / Latency  (Bank 2): 0.0638206 GB/s		143.839 ns
+        -Bandwidth / Latency  (Bank 3): 0.0639399 GB/s		143.604 ns
+        -Bandwidth / Latency  (Bank 4): 0.0641359 GB/s		143.374 ns
+        -Bandwidth / Latency  (Bank 5): 0.0640192 GB/s		143.455 ns
+        -Bandwidth / Latency  (Bank 6): 0.0639417 GB/s		143.532 ns
+        -Bandwidth / Latency  (Bank 7): 0.0639316 GB/s		143.581 ns
+ == Power Data for Rank        0
+   Average Power (watts)     : 0.734514
+     -Background (watts)     : 0.342395
+     -Act/Pre    (watts)     : 0.226874
+     -Burst      (watts)     : 0.112157
+     -Refresh    (watts)     : 0.0530884
+ ---  Latency list (85)
+       [lat] : #
+       [10-19] : 5365
+       [20-29] : 2282720
+       [30-39] : 598513
+       [40-49] : 909719
+       [50-59] : 632035
+       [60-69] : 290341
+       [70-79] : 272847
+       [80-89] : 152471
+       [90-99] : 137638
+       [100-109] : 141488
+       [110-119] : 144611
+       [120-129] : 146242
+       [130-139] : 121160
+       [140-149] : 101305
+       [150-159] : 86960
+       [160-169] : 74260
+       [170-179] : 70550
+       [180-189] : 74924
+       [190-199] : 85272
+       [200-209] : 90544
+       [210-219] : 94678
+       [220-229] : 99534
+       [230-239] : 103667
+       [240-249] : 98011
+       [250-259] : 89294
+       [260-269] : 79767
+       [270-279] : 72737
+       [280-289] : 65092
+       [290-299] : 57109
+       [300-309] : 49852
+       [310-319] : 43147
+       [320-329] : 37496
+       [330-339] : 32262
+       [340-349] : 28347
+       [350-359] : 24298
+       [360-369] : 21050
+       [370-379] : 18409
+       [380-389] : 15908
+       [390-399] : 13959
+       [400-409] : 12541
+       [410-419] : 11048
+       [420-429] : 9929
+       [430-439] : 8769
+       [440-449] : 7779
+       [450-459] : 6913
+       [460-469] : 5925
+       [470-479] : 5282
+       [480-489] : 4605
+       [490-499] : 3943
+       [500-509] : 3452
+       [510-519] : 2969
+       [520-529] : 2438
+       [530-539] : 2068
+       [540-549] : 1668
+       [550-559] : 1409
+       [560-569] : 1196
+       [570-579] : 957
+       [580-589] : 837
+       [590-599] : 647
+       [600-609] : 542
+       [610-619] : 413
+       [620-629] : 347
+       [630-639] : 279
+       [640-649] : 201
+       [650-659] : 199
+       [660-669] : 144
+       [670-679] : 95
+       [680-689] : 92
+       [690-699] : 71
+       [700-709] : 55
+       [710-719] : 35
+       [720-729] : 38
+       [730-739] : 21
+       [740-749] : 16
+       [750-759] : 13
+       [760-769] : 12
+       [770-779] : 9
+       [780-789] : 9
+       [790-799] : 4
+       [800-809] : 6
+       [810-819] : 1
+       [820-829] : 2
+       [840-849] : 1
+       [850-859] : 2
+       [880-889] : 1
+
+ == Pending Transactions : 0 (927535243)==
+//// Channel [0] ////
+[SNIPER] End
+[SNIPER] Elapsed time: 10978.01 seconds
+Changing default defaultdict(<sniper_config.DefaultValue instance at 0x1552128>, {}) defaultdict(<sniper_config.DefaultValue instance at 0x1552758>, {})
+Changing default defaultdict(<sniper_config.DefaultValue instance at 0x15cb248>, {}) defaultdict(<sniper_config.DefaultValue instance at 0x15cb290>, {})
+Changing default defaultdict(<sniper_config.DefaultValue instance at 0x154a488>, {}) defaultdict(<sniper_config.DefaultValue instance at 0x154af80>, {})

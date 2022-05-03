@@ -1,0 +1,640 @@
+[SNIPER] Start
+[app2] [PARSEC] Benchmarks to run: blackscholes
+[app3] [PARSEC] Benchmarks to run: vips
+[app2] 
+[app0] [PARSEC] Benchmarks to run: canneal
+[app3] 
+[app2] [PARSEC] [========== Running benchmark blackscholes ==========]
+[app1] [PARSEC] Benchmarks to run: x264
+[app0] 
+[app3] [PARSEC] [========== Running benchmark vips ==========]
+[app0] [PARSEC] [========== Running benchmark canneal ==========]
+[app1] 
+[app2] [PARSEC] Setting up run directory.
+[app3] [PARSEC] Setting up run directory.
+[app1] [PARSEC] [========== Running benchmark x264 ==========]
+[app0] [PARSEC] Setting up run directory.
+[app2] [PARSEC] Unpacking benchmark input 'native'.
+[app3] [PARSEC] Unpacking benchmark input 'native'.
+[app0] [PARSEC] Unpacking benchmark input 'native'.
+[app1] [PARSEC] Setting up run directory.
+[app3] orion_18000x18000.v
+[app0] 2500000.nets
+[app2] in_10M.txt
+[app1] [PARSEC] Unpacking benchmark input 'native'.
+[app1] eledream_1920x1080_512.y4m
+WARNING: Cannot create memory system with 2048MB, defaulting to minimum size of 4096MB
+[app0] [PARSEC] Running '/homes/grads/dek61/SNIPER/sniper/record-trace --routine-tracing -o /tmp/tmpO3JlWG/run_benchmarks -e 1 -r 1 -s 0 --roi -- /homes/grads/dek61/SNIPER/benchmarks/parsec/parsec-2.1/pkgs/kernels/canneal/inst/amd64-linux.gcc-sniper/bin/canneal 4 15000 2000 2500000.nets 6000':
+[app0] [PARSEC] [---------- Beginning of output ----------]
+Executing Python script /scratch/nbp3/PARSEC_MUTLIPROGRAM_SHELL/4core/45/1/canneal_x264_blackscholes_vips/sim.scripts.py
+[STOPBYICOUNT] Starting in ROI (detail)
+[STOPBYICOUNT] Then stopping after simulating at least 10000000000 instructions in detail
+[SNIPER] --------------------------------------------------------------------------------
+[SNIPER] Sniper using SIFT/trace-driven frontend
+[SNIPER] Running full application in DETAILED mode
+[SNIPER] --------------------------------------------------------------------------------
+[SNIPER] Enabling performance models
+[SNIPER] Setting instrumentation mode to DETAILED
+[app2] [PARSEC] Running '/homes/grads/dek61/SNIPER/sniper/record-trace --routine-tracing -o /tmp/tmpO3JlWG/run_benchmarks -e 1 -r 1 -s 2 --roi -- /homes/grads/dek61/SNIPER/benchmarks/parsec/parsec-2.1/pkgs/apps/blackscholes/inst/amd64-linux.gcc-sniper/bin/blackscholes 4 in_10M.txt prices.txt':
+[app2] [PARSEC] [---------- Beginning of output ----------]
+[app3] [PARSEC] Running '/homes/grads/dek61/SNIPER/sniper/record-trace --routine-tracing -o /tmp/tmpO3JlWG/run_benchmarks -e 1 -r 1 -s 3 --roi -- /homes/grads/dek61/SNIPER/benchmarks/parsec/parsec-2.1/pkgs/apps/vips/inst/amd64-linux.gcc-sniper/bin/vips im_benchmark orion_18000x18000.v output.v':
+[app3] [PARSEC] [---------- Beginning of output ----------]
+[app1] [PARSEC] Running '/homes/grads/dek61/SNIPER/sniper/record-trace --routine-tracing -o /tmp/tmpO3JlWG/run_benchmarks -e 1 -r 1 -s 1 --roi -- /homes/grads/dek61/SNIPER/benchmarks/parsec/parsec-2.1/pkgs/apps/x264/inst/amd64-linux.gcc-sniper/bin/x264 --quiet --qp 20 --partitions b8x8,i4x4 --ref 5 --direct auto --b-pyramid --weightb --mixed-refs --no-fast-pskip --me umh --subme 7 --analyse b8x8,i4x4 --threads 4 -o eledream.264 eledream_1920x1080_512.y4m':
+[app1] [PARSEC] [---------- Beginning of output ----------]
+[app2] PARSEC Benchmark Suite Version 2.1
+[app2] [HOOKS] PARSEC Hooks Version 1.2
+[app1] PARSEC Benchmark Suite Version 2.1
+[app1] [HOOKS] PARSEC Hooks Version 1.2
+[app3] PARSEC Benchmark Suite Version 2.1
+[app3] [HOOKS] PARSEC Hooks Version 1.2
+[app1] yuv4mpeg: 1920x1080@25/1fps, 0:0
+[app1] [HOOKS] Entering ROI
+[app3] [HOOKS] Entering ROI
+[app0] PARSEC Benchmark Suite Version 2.1
+[app0] [HOOKS] PARSEC Hooks Version 1.2
+[app0] Threadcount: 4
+[app0] 15000 swaps per temperature step
+[app0] start temperature: 2000
+[app0] netlist filename: 2500000.nets
+[app0] number of temperature steps: 6000
+[TRACE:4] -- DONE --
+[TRACE:6] -- DONE --
+Reached Global Checkpoint
+Instructions: 44390003, cycles: 33173467
+Reached Global Checkpoint
+Instructions: 64610022, cycles: 58132835
+Reached Global Checkpoint
+Instructions: 51180014, cycles: 58665635
+Reached Global Checkpoint
+Instructions: 87870005, cycles: 60200458
+Reached Global Checkpoint
+Instructions: 46290003, cycles: 79320847
+Reached Global Checkpoint
+Instructions: 107410004, cycles: 82617393
+Reached Global Checkpoint
+Instructions: 141600003, cycles: 88091153
+Reached Global Checkpoint
+Instructions: 111770050, cycles: 91919966
+[TRACE:14] -- DONE --
+Reached Global Checkpoint
+Instructions: 183110018, cycles: 111536712
+Reached Global Checkpoint
+Instructions: 158410006, cycles: 114959342
+Reached Global Checkpoint
+Instructions: 158870015, cycles: 128100304
+Reached Global Checkpoint
+Instructions: 99510009, cycles: 133530174
+Reached Global Checkpoint
+Instructions: 233020004, cycles: 138067612
+Reached Global Checkpoint
+Instructions: 212630005, cycles: 145897340
+Reached Global Checkpoint
+Instructions: 206420028, cycles: 153961680
+Reached Global Checkpoint
+Instructions: 279670007, cycles: 161549613
+Reached Global Checkpoint
+Instructions: 259770003, cycles: 172261723
+Reached Global Checkpoint
+Instructions: 146300003, cycles: 173621252
+Reached Global Checkpoint
+Instructions: 254740001, cycles: 186942828
+Reached Global Checkpoint
+Instructions: 339730025, cycles: 194687436
+Reached Global Checkpoint
+Instructions: 305150005, cycles: 201871846
+[TRACE:16] -- DONE --
+Reached Global Checkpoint
+Instructions: 303950017, cycles: 219483480
+Reached Global Checkpoint
+Instructions: 194970001, cycles: 221052086
+Reached Global Checkpoint
+Instructions: 397360084, cycles: 224457425
+Reached Global Checkpoint
+Instructions: 352420001, cycles: 228688165
+Reached Global Checkpoint
+Instructions: 440260020, cycles: 246026616
+Reached Global Checkpoint
+Instructions: 361560019, cycles: 253130162
+Reached Global Checkpoint
+Instructions: 406970002, cycles: 259431184
+Reached Global Checkpoint
+Instructions: 243160023, cycles: 264264681
+Reached Global Checkpoint
+Instructions: 485260007, cycles: 268834040
+Reached Global Checkpoint
+Instructions: 410090127, cycles: 284645381
+Reached Global Checkpoint
+Instructions: 452620003, cycles: 285446575
+Reached Global Checkpoint
+Instructions: 533060018, cycles: 293049670
+Reached Global Checkpoint
+Instructions: 571130009, cycles: 312559750
+Reached Global Checkpoint
+Instructions: 301780001, cycles: 314722867
+Reached Global Checkpoint
+Instructions: 506710017, cycles: 315955780
+Reached Global Checkpoint
+Instructions: 469690006, cycles: 323855998
+Reached Global Checkpoint
+Instructions: 614850086, cycles: 334943435
+Reached Global Checkpoint
+Instructions: 560510001, cycles: 346477487
+Reached Global Checkpoint
+Instructions: 350830001, cycles: 357369680
+Reached Global Checkpoint
+Instructions: 665090008, cycles: 360432943
+Reached Global Checkpoint
+Instructions: 525270009, cycles: 360555303
+Reached Global Checkpoint
+Instructions: 608290004, cycles: 373702915
+Reached Global Checkpoint
+Instructions: 567010010, cycles: 387312569
+Reached Global Checkpoint
+Instructions: 718090026, cycles: 387677256
+Reached Global Checkpoint
+Instructions: 659090017, cycles: 402413423
+Reached Global Checkpoint
+Instructions: 406750006, cycles: 407805256
+Reached Global Checkpoint
+Instructions: 763540028, cycles: 414460857
+Reached Global Checkpoint
+Instructions: 619340096, cycles: 421377404
+Reached Global Checkpoint
+Instructions: 712280003, cycles: 433420316
+Reached Global Checkpoint
+Instructions: 660280001, cycles: 447040876
+Reached Global Checkpoint
+Instructions: 451240010, cycles: 448010183
+Reached Global Checkpoint
+Instructions: 822720001, cycles: 448203831
+Reached Global Checkpoint
+Instructions: 759700022, cycles: 460463799
+Reached Global Checkpoint
+Instructions: 705160004, cycles: 476654457
+Reached Global Checkpoint
+Instructions: 873150004, cycles: 477376383
+Reached Global Checkpoint
+Instructions: 816840009, cycles: 494618276
+Reached Global Checkpoint
+Instructions: 742830068, cycles: 500817686
+Reached Global Checkpoint
+Instructions: 511330005, cycles: 503734914
+Reached Global Checkpoint
+Instructions: 934670011, cycles: 512864587
+Reached Global Checkpoint
+Instructions: 859450016, cycles: 520544556
+Reached Global Checkpoint
+Instructions: 792640097, cycles: 533721694
+Reached Global Checkpoint
+Instructions: 978410002, cycles: 537691753
+Reached Global Checkpoint
+Instructions: 906550008, cycles: 547977730
+Reached Global Checkpoint
+Instructions: 563880001, cycles: 551346894
+Reached Global Checkpoint
+Instructions: 835860034, cycles: 562564937
+Reached Global Checkpoint
+Instructions: 1037020011, cycles: 570019870
+Reached Global Checkpoint
+Instructions: 963070002, cycles: 580924299
+Reached Global Checkpoint
+Instructions: 878260056, cycles: 591486917
+Reached Global Checkpoint
+Instructions: 1090950071, cycles: 600263341
+Reached Global Checkpoint
+Instructions: 618120004, cycles: 601927972
+Reached Global Checkpoint
+Instructions: 1014100002, cycles: 611262199
+Reached Global Checkpoint
+Instructions: 924440010, cycles: 622496203
+Reached Global Checkpoint
+Instructions: 1133350009, cycles: 624332671
+Reached Global Checkpoint
+Instructions: 1058600012, cycles: 637932484
+Reached Global Checkpoint
+Instructions: 668840001, cycles: 647985976
+Reached Global Checkpoint
+Instructions: 1193160001, cycles: 658736923
+Reached Global Checkpoint
+Instructions: 978020025, cycles: 659333562
+Reached Global Checkpoint
+Instructions: 1113290039, cycles: 670221499
+Reached Global Checkpoint
+Instructions: 1227980011, cycles: 678021434
+Reached Global Checkpoint
+Instructions: 1021380003, cycles: 687517922
+Reached Global Checkpoint
+Instructions: 728540101, cycles: 700674844
+Reached Global Checkpoint
+Instructions: 1168870009, cycles: 702423797
+Reached Global Checkpoint
+Instructions: 1278050010, cycles: 704901061
+Reached Global Checkpoint
+Instructions: 1074190014, cycles: 722864082
+Reached Global Checkpoint
+Instructions: 1216190001, cycles: 730236820
+Reached Global Checkpoint
+Instructions: 1329030002, cycles: 734223637
+Reached Global Checkpoint
+Instructions: 776130027, cycles: 747723966
+Reached Global Checkpoint
+Instructions: 1124380037, cycles: 756611578
+Reached Global Checkpoint
+Instructions: 1267940012, cycles: 761293455
+Reached Global Checkpoint
+Instructions: 1379520025, cycles: 763293779
+Reached Global Checkpoint
+Instructions: 818490006, cycles: 785742900
+Reached Global Checkpoint
+Instructions: 1430930038, cycles: 792081694
+Reached Global Checkpoint
+Instructions: 1179070082, cycles: 792737652
+Reached Global Checkpoint
+Instructions: 1324230015, cycles: 794414253
+Reached Global Checkpoint
+Instructions: 1481920053, cycles: 819636164
+Reached Global Checkpoint
+Instructions: 1222200069, cycles: 821758051
+Reached Global Checkpoint
+Instructions: 863650003, cycles: 827851593
+Reached Global Checkpoint
+Instructions: 1381930024, cycles: 828034069
+Reached Global Checkpoint
+Instructions: 1539070014, cycles: 852527405
+Reached Global Checkpoint
+Instructions: 1269320008, cycles: 853272206
+Reached Global Checkpoint
+Instructions: 1430570014, cycles: 855913592
+Reached Global Checkpoint
+Instructions: 904010002, cycles: 862971652
+Reached Global Checkpoint
+Instructions: 1480010001, cycles: 884755506
+Reached Global Checkpoint
+Instructions: 1597790007, cycles: 885290167
+Reached Global Checkpoint
+Instructions: 1322320026, cycles: 889034391
+Reached Global Checkpoint
+Instructions: 949620005, cycles: 904673631
+Reached Global Checkpoint
+Instructions: 1522530002, cycles: 909573096
+Reached Global Checkpoint
+Instructions: 1646150003, cycles: 911829845
+Reached Global Checkpoint
+Instructions: 1375480075, cycles: 924947664
+Reached Global Checkpoint
+Instructions: 1687050005, cycles: 934496820
+Reached Global Checkpoint
+Instructions: 1580070018, cycles: 943432844
+Reached Global Checkpoint
+Instructions: 1731130010, cycles: 958695161
+Reached Global Checkpoint
+Instructions: 1011000008, cycles: 960049902
+Reached Global Checkpoint
+Instructions: 1428790019, cycles: 960562751
+Reached Global Checkpoint
+Instructions: 1625890142, cycles: 970199421
+Reached Global Checkpoint
+Instructions: 1473880074, cycles: 991165854
+Reached Global Checkpoint
+Instructions: 1789900008, cycles: 991661945
+Reached Global Checkpoint
+Instructions: 1672310007, cycles: 997604665
+Reached Global Checkpoint
+Instructions: 1057940010, cycles: 1002877329
+Reached Global Checkpoint
+Instructions: 1840050005, cycles: 1019442516
+Reached Global Checkpoint
+Instructions: 1516930001, cycles: 1019595732
+Reached Global Checkpoint
+Instructions: 1729780013, cycles: 1030584749
+Reached Global Checkpoint
+Instructions: 1890720048, cycles: 1047778230
+Reached Global Checkpoint
+Instructions: 1562600037, cycles: 1050214263
+Reached Global Checkpoint
+Instructions: 1112470001, cycles: 1055769686
+Reached Global Checkpoint
+Instructions: 1785150024, cycles: 1063231269
+Reached Global Checkpoint
+Instructions: 1947410005, cycles: 1080093047
+Reached Global Checkpoint
+Instructions: 1606950006, cycles: 1080567858
+Reached Global Checkpoint
+Instructions: 1827850002, cycles: 1088547876
+Reached Global Checkpoint
+Instructions: 1997930006, cycles: 1108272619
+Reached Global Checkpoint
+Instructions: 1167650015, cycles: 1110739774
+Reached Global Checkpoint
+Instructions: 1654750008, cycles: 1112511072
+Reached Global Checkpoint
+Instructions: 1873110015, cycles: 1115127720
+Reached Global Checkpoint
+Instructions: 2052800023, cycles: 1139254773
+Reached Global Checkpoint
+Instructions: 1701010002, cycles: 1143325912
+Reached Global Checkpoint
+Instructions: 1925980002, cycles: 1146157488
+Reached Global Checkpoint
+Instructions: 1217810007, cycles: 1158893863
+Reached Global Checkpoint
+Instructions: 2109470008, cycles: 1171125103
+Reached Global Checkpoint
+Instructions: 1746530001, cycles: 1174180120
+Reached Global Checkpoint
+Instructions: 1974080009, cycles: 1174397974
+Reached Global Checkpoint
+Instructions: 2160410015, cycles: 1199747299
+Reached Global Checkpoint
+Instructions: 2021820002, cycles: 1204094015
+Reached Global Checkpoint
+Instructions: 1268400026, cycles: 1207395615
+Reached Global Checkpoint
+Instructions: 1800130007, cycles: 1210717962
+Reached Global Checkpoint
+Instructions: 2206310009, cycles: 1225623838
+Reached Global Checkpoint
+Instructions: 2078820009, cycles: 1237536941
+Reached Global Checkpoint
+Instructions: 2246380026, cycles: 1248051945
+Reached Global Checkpoint
+Instructions: 1855100002, cycles: 1248397479
+Reached Global Checkpoint
+Instructions: 1322090013, cycles: 1256046593
+Reached Global Checkpoint
+Instructions: 2126890003, cycles: 1265963095
+Reached Global Checkpoint
+Instructions: 2293930086, cycles: 1274932635
+Reached Global Checkpoint
+Instructions: 1906420083, cycles: 1284168708
+Reached Global Checkpoint
+Instructions: 2169800002, cycles: 1291443825
+Reached Global Checkpoint
+Instructions: 2347240002, cycles: 1304689591
+Reached Global Checkpoint
+Instructions: 1376740020, cycles: 1304996555
+Reached Global Checkpoint
+Instructions: 1951720029, cycles: 1314726059
+[TRACE:5] -- DONE --
+Reached Global Checkpoint
+Instructions: 2223480003, cycles: 1323394221
+Reached Global Checkpoint
+Instructions: 2391710008, cycles: 1328999652
+[TRACE:18] -- DONE --
+[app0] locs created
+Reached Global Checkpoint
+Instructions: 1424180002, cycles: 1355668340
+Reached Global Checkpoint
+Instructions: 2434260005, cycles: 1367543139
+Reached Global Checkpoint
+Instructions: 2278940001, cycles: 1368433177
+Reached Global Checkpoint
+Instructions: 2016680248, cycles: 1374674349
+Reached Global Checkpoint
+Instructions: 2316180003, cycles: 1389898095
+Reached Global Checkpoint
+Instructions: 2490090005, cycles: 1399472521
+Reached Global Checkpoint
+Instructions: 1468700003, cycles: 1406301554
+Reached Global Checkpoint
+Instructions: 2070210139, cycles: 1406550531
+Reached Global Checkpoint
+Instructions: 2367060006, cycles: 1420711339
+Reached Global Checkpoint
+Instructions: 2541900041, cycles: 1430733709
+Reached Global Checkpoint
+Instructions: 2118300064, cycles: 1436434900
+[TRACE:13] -- DONE --
+Reached Global Checkpoint
+Instructions: 2425420013, cycles: 1460735119
+Reached Global Checkpoint
+Instructions: 1517890001, cycles: 1464137001
+Reached Global Checkpoint
+Instructions: 2157530006, cycles: 1468757963
+Reached Global Checkpoint
+Instructions: 2595320024, cycles: 1471254645
+[TRACE:20] -- DONE --
+Reached Global Checkpoint
+Instructions: 2467380007, cycles: 1485874836
+Reached Global Checkpoint
+Instructions: 2215650009, cycles: 1500198968
+Reached Global Checkpoint
+Instructions: 2507830004, cycles: 1509615922
+Reached Global Checkpoint
+Instructions: 2653750023, cycles: 1510579376
+Reached Global Checkpoint
+Instructions: 2257680049, cycles: 1526385930
+Reached Global Checkpoint
+Instructions: 1571290002, cycles: 1537906948
+Reached Global Checkpoint
+Instructions: 2697490014, cycles: 1539794488
+Reached Global Checkpoint
+Instructions: 2565310002, cycles: 1543191050
+[TRACE:15] -- DONE --
+[TRACE:22] -- DONE --
+Reached Global Checkpoint
+Instructions: 2319790007, cycles: 1567996404
+Reached Global Checkpoint
+Instructions: 2747160020, cycles: 1574804157
+Reached Global Checkpoint
+Instructions: 2614000007, cycles: 1575941044
+Reached Global Checkpoint
+Instructions: 1616860001, cycles: 1599774963
+Reached Global Checkpoint
+Instructions: 2655300001, cycles: 1603834133
+Reached Global Checkpoint
+Instructions: 2368040106, cycles: 1605060129
+Reached Global Checkpoint
+Instructions: 2807810004, cycles: 1614719409
+Reached Global Checkpoint
+Instructions: 2421290007, cycles: 1639465445
+Reached Global Checkpoint
+Instructions: 1655210002, cycles: 1642101511
+Reached Global Checkpoint
+Instructions: 2852070193, cycles: 1642797901
+Reached Global Checkpoint
+Instructions: 2719420002, cycles: 1643266328
+Reached Global Checkpoint
+Instructions: 2468350032, cycles: 1669620337
+Reached Global Checkpoint
+Instructions: 2765870077, cycles: 1672410418
+Reached Global Checkpoint
+Instructions: 2912050004, cycles: 1680984681
+Reached Global Checkpoint
+Instructions: 1695550003, cycles: 1688175475
+Reached Global Checkpoint
+Instructions: 2519770007, cycles: 1702754968
+[STOPBYICOUNT] Ending ROI after 10000000241 instructions (10000000000 requested)
+[SNIPER] Disabling performance models
+[SNIPER] Leaving ROI after 9663.92 seconds
+[SNIPER] Simulated 10000.0M instructions, 1705.2M cycles, 5.86 IPC
+[SNIPER] Simulation speed 1034.8 KIPS (258.7 KIPS / target core - 3865.6ns/instr)
+[SNIPER] Setting instrumentation mode to FAST_FORWARD
+[app0] [SIFT_RECORDER] sift_writer.cc:550: Sift::Mode Sift::Writer::Sync(): Assertion `!response->fail()' failed.
+[app1] [SIFT_RECORDER] sift_writer.cc:465: uint64_t Sift::Writer::Syscall(uint16_t, const char*, uint32_t): Assertion `!response->fail()' failed.
+[app2] [SIFT_RECORDER] sift_writer.cc:550: Sift::Mode Sift::Writer::Sync(): Assertion `!response->fail()' failed.
+[app3] [SIFT_RECORDER] sift_writer.cc:465: uint64_t Sift::Writer::Syscall(uint16_t, const char*, uint32_t): Assertion `!response->fail()' failed.
+==== Channel [0] ====
+ =======================================================
+ ============== Printing Statistics [id:0]==============
+   Total Return Transactions : 40230075 (2574724800 bytes) aggregate average bandwidth 2.49417GB/s
+      -Rank   0 : 
+        -Reads  : 23125675 (1480043200 bytes)
+        -Writes : 17104400 (1094681600 bytes)
+        -Bandwidth / Latency  (Bank 0): 0.313244 GB/s		147.358 ns
+        -Bandwidth / Latency  (Bank 1): 0.311203 GB/s		146.623 ns
+        -Bandwidth / Latency  (Bank 2): 0.311833 GB/s		147.268 ns
+        -Bandwidth / Latency  (Bank 3): 0.310806 GB/s		146.544 ns
+        -Bandwidth / Latency  (Bank 4): 0.311499 GB/s		146.163 ns
+        -Bandwidth / Latency  (Bank 5): 0.3116 GB/s		146.678 ns
+        -Bandwidth / Latency  (Bank 6): 0.311044 GB/s		146.883 ns
+        -Bandwidth / Latency  (Bank 7): 0.312943 GB/s		148.046 ns
+ == Power Data for Rank        0
+   Average Power (watts)     : 2.6268
+     -Background (watts)     : 0.907363
+     -Act/Pre    (watts)     : 1.11159
+     -Burst      (watts)     : 0.554765
+     -Refresh    (watts)     : 0.0530883
+ ---  Latency list (133)
+       [lat] : #
+       [10-19] : 5739
+       [20-29] : 3291684
+       [30-39] : 2158345
+       [40-49] : 4238168
+       [50-59] : 3095699
+       [60-69] : 1327434
+       [70-79] : 1156433
+       [80-89] : 610783
+       [90-99] : 589023
+       [100-109] : 539184
+       [110-119] : 599900
+       [120-129] : 576092
+       [130-139] : 435199
+       [140-149] : 339554
+       [150-159] : 284414
+       [160-169] : 223891
+       [170-179] : 209430
+       [180-189] : 213535
+       [190-199] : 237338
+       [200-209] : 244896
+       [210-219] : 237050
+       [220-229] : 215468
+       [230-239] : 210608
+       [240-249] : 193932
+       [250-259] : 183461
+       [260-269] : 164925
+       [270-279] : 147138
+       [280-289] : 130772
+       [290-299] : 113321
+       [300-309] : 97914
+       [310-319] : 87152
+       [320-329] : 77655
+       [330-339] : 69130
+       [340-349] : 60971
+       [350-359] : 54859
+       [360-369] : 48451
+       [370-379] : 43475
+       [380-389] : 39279
+       [390-399] : 35667
+       [400-409] : 32825
+       [410-419] : 30277
+       [420-429] : 28558
+       [430-439] : 26446
+       [440-449] : 24987
+       [450-459] : 22930
+       [460-469] : 21433
+       [470-479] : 19752
+       [480-489] : 18647
+       [490-499] : 16815
+       [500-509] : 15625
+       [510-519] : 14707
+       [520-529] : 13559
+       [530-539] : 12606
+       [540-549] : 11841
+       [550-559] : 11246
+       [560-569] : 10449
+       [570-579] : 10216
+       [580-589] : 9615
+       [590-599] : 9128
+       [600-609] : 8957
+       [610-619] : 8601
+       [620-629] : 8428
+       [630-639] : 8132
+       [640-649] : 7837
+       [650-659] : 7536
+       [660-669] : 7439
+       [670-679] : 7242
+       [680-689] : 6885
+       [690-699] : 7011
+       [700-709] : 6653
+       [710-719] : 6488
+       [720-729] : 6217
+       [730-739] : 5979
+       [740-749] : 5687
+       [750-759] : 5407
+       [760-769] : 5205
+       [770-779] : 4962
+       [780-789] : 4652
+       [790-799] : 4368
+       [800-809] : 4110
+       [810-819] : 3911
+       [820-829] : 3585
+       [830-839] : 3295
+       [840-849] : 3032
+       [850-859] : 2790
+       [860-869] : 2523
+       [870-879] : 2375
+       [880-889] : 2155
+       [890-899] : 1857
+       [900-909] : 1689
+       [910-919] : 1559
+       [920-929] : 1365
+       [930-939] : 1158
+       [940-949] : 990
+       [950-959] : 897
+       [960-969] : 778
+       [970-979] : 681
+       [980-989] : 591
+       [990-999] : 480
+       [1000-1009] : 442
+       [1010-1019] : 363
+       [1020-1029] : 322
+       [1030-1039] : 246
+       [1040-1049] : 222
+       [1050-1059] : 177
+       [1060-1069] : 155
+       [1070-1079] : 126
+       [1080-1089] : 95
+       [1090-1099] : 89
+       [1100-1109] : 61
+       [1110-1119] : 47
+       [1120-1129] : 32
+       [1130-1139] : 28
+       [1140-1149] : 38
+       [1150-1159] : 19
+       [1160-1169] : 17
+       [1170-1179] : 13
+       [1180-1189] : 7
+       [1190-1199] : 3
+       [1200-1209] : 5
+       [1210-1219] : 7
+       [1220-1229] : 2
+       [1230-1239] : 5
+       [1240-1249] : 1
+       [1250-1259] : 2
+       [1260-1269] : 2
+       [1270-1279] : 1
+       [1280-1289] : 3
+       [1290-1299] : 2
+       [1330-1339] : 2
+       [1380-1389] : 1
+       [1390-1399] : 1
+       [1400-1409] : 1
+
+ == Pending Transactions : 1 (640933723)==
+//// Channel [0] ////
+[SNIPER] End
+[SNIPER] Elapsed time: 9666.98 seconds
+Changing default defaultdict(<sniper_config.DefaultValue instance at 0xf6def0>, {}) defaultdict(<sniper_config.DefaultValue instance at 0xf6d440>, {})
+Changing default defaultdict(<sniper_config.DefaultValue instance at 0xfc8f80>, {}) defaultdict(<sniper_config.DefaultValue instance at 0xfc8fc8>, {})
+Changing default defaultdict(<sniper_config.DefaultValue instance at 0xf577e8>, {}) defaultdict(<sniper_config.DefaultValue instance at 0xf57d88>, {})
