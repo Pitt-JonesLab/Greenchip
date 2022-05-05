@@ -1,10 +1,11 @@
 import os
 from plugins.loaders import *
-from tkinter import *
+import tkinter
 from tkinter import ttk
 import plugins.shared.Config as settingsConfig
 from plugins.shared.GreenChip import *
 from tkinter import messagebox
+from tkinter import colorchooser
 from tkinter import simpledialog
 import subprocess
 import math
@@ -16,6 +17,7 @@ if settingsConfig.nativePlotting:
     from matplotlib import pyplot as plt
     import numpy as np
     from matplotlib.colors import LinearSegmentedColormap
+    from matplotlib.widgets import Button
 
 
 
@@ -271,7 +273,7 @@ class utils(object):
                     hpc_file.write(label + "," + str(hpc_value) + "\n")
                 with open(path_to_output_directory + "Snapshots/"+snapshot_label+"_Mobile_" + filename + ".csv", "a") as mobile_file:
                     mobile_value = arr[90][92]
-                    mobile_file.write(label + "," + str(mobile_value) + "\n")
+                    mobile_file.write(label + "," + str(mobile_value) + "\n") 
 
             # want a more natural, table-like display
             ax.invert_yaxis()
@@ -367,9 +369,131 @@ class utils(object):
                 for b in a[0]:
                     out_file.write(str(a)+","+str(b)+","+","+str(arr[a][b])+"\n")
 
+    def average_gradient(Radius, Sleep, Activity, Orig, Mod):
+        numofpoints = 0
+        totaldifference = 0
+        for x in range(Sleep - Radius, Sleep + Radius + 1):
+            for y in range(Activity - Radius, Activity + Radius + 1):
+                if ((x + y)<=Radius + Activity + Sleep and (x + y)>=Radius + Activity + Sleep ):
+                    numofpoints = numofpoints + 1
+                    totaldifference = totaldifference + Orig[x][y] - Mod[x][y]
+        averagedifference = totaldifference/numofpoints           
+        return averagedifference
+
+
+    
+    def partial_average(Radius, Sleep, Activity, Orig):
+        numofpoints = 0
+        total = 0
+        for x in range(Sleep - Radius, Sleep + Radius + 1):
+            for y in range(Activity - Radius, Activity + Radius + 1):
+                if ((x + y)<=Radius + Activity + Sleep and (x + y)>=Radius + Activity + Sleep ):
+                    numofpoints = numofpoints + 1
+                    total = total + Orig[x][y]
+        average = total/numofpoints           
+        return average      
+
+    def average_analysis(self, config1, config2, Sleep, Activity, Radius):
+        config_dicts = []
+        config_dicts.append(config1)
+        config_dicts.append(config2) 
+        if ((Radius > Sleep) or (Radius > Activity) or (Radius + Activity >= 100) or (Radius + Sleep >= 100)):
+            messagebox.showinfo("Error", "Radius results in out of bounds points.")
+            return
+        difference = [0,0,0,0,0]
+        original = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        old = config2['chipArea']
+        config2['chipArea'] = config2['chipArea'] - (.01 * config2['chipArea'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[0] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['chipArea'] = old
+
+        old = config2['dynamicPower']
+        config2['dynamicPower'] = config2['dynamicPower'] - (.01 * config2['dynamicPower'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[1] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['dynamicPower'] = old
+
+        old = config2['staticPower']
+        config2['staticPower'] = config2['staticPower'] - (.01 * config2['staticPower'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[2] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['staticPower'] = old
+
+        old = config2['dynamicMemory']
+        config2['dynamicMemory'] = config2['dynamicMemory'] - (.01 * config2['dynamicMemory'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[3] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['dynamicMemory'] = old
+        
+        old = config2['staticMemory']
+        config2['staticMemory'] = config2['staticMemory'] - (.01 * config2['staticMemory'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[4] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['staticMemory'] = old
+        
+        total = difference[0] + difference[1] + difference[2] + difference[3] + difference[4]
+        difference[0] = 100 * difference[0]/total
+        difference[1] = 100 * difference[1]/total
+        difference[2] = 100 * difference[2]/total
+        difference[3] = 100 * difference[3]/total
+        difference[4] = 100 * difference[4]/total
+
+        messagebox.showinfo("Importance", "Current Average Number of Days to Breakeven: " + str(round(self.partial_average(Radius, Sleep, Activity, original),2))
+            + "\nChip Area: " + str(round(difference[0],2)) + "%\nDynamic Power(Processor + Cache): "
+            + str(round(difference[1],2)) + "%\nStatic Power(Processor + Cache): " + str(round(difference[2],2)) + "%\nDynamic Power(Memory): "
+            + str(round(difference[3],2)) + "%\nStatic Power(Memory): " + str(round(difference[4],2)) + "%")
+    
+
+    def single_point_analysis(config1, config2, Sleep, Activity):
+        config_dicts = []
+        config_dicts.append(config1)
+        config_dicts.append(config2) 
+        if (Sleep < 0 or Activity < 0 or Sleep>=100 or Activity>=100): # Checks to see if the point is in bounds
+            messagebox.showinfo("Error", "The values inputted are out of bounds")
+            return
+        difference = [0,0,0,0,0]
+        orig = chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity]
+        old = config2['chipArea']
+        config2['chipArea'] = config2['chipArea'] - (.01 * config2['chipArea'])
+        difference[0] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['chipArea'] = old
+
+        old = config2['dynamicPower']
+        config2['dynamicPower'] = config2['dynamicPower'] - (.01 * config2['dynamicPower'])
+        difference[1] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['dynamicPower'] = old
+
+        old = config2['staticPower']
+        config2['staticPower'] = config2['staticPower'] - (.01 * config2['staticPower'])
+        difference[2] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['staticPower'] = old
+
+        old = config2['dynamicMemory']
+        config2['dynamicMemory'] = config2['dynamicMemory'] - (.01 * config2['dynamicMemory'])
+        difference[3] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['dynamicMemory'] = old
+        
+        old = config2['staticMemory']
+        config2['staticMemory'] = config2['staticMemory'] - (.01 * config2['staticMemory'])
+        difference[4] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['staticMemory'] = old
+        
+        total = difference[0] + difference[1] + difference[2] + difference[3] + difference[4]   # Scales gradients to percentages
+        difference[0] = 100 * difference[0]/total
+        difference[1] = 100 * difference[1]/total
+        difference[2] = 100 * difference[2]/total
+        difference[3] = 100 * difference[3]/total
+        difference[4] = 100 * difference[4]/total
+
+        messagebox.showinfo("Importance", "Current Number of Days to Breakeven: " + str(round(orig,2)) + "\nChip Area: " + str(round(difference[0],2)) + "%\nDynamic Power(Processor + Cache): "
+            + str(round(difference[1],2)) + "%\nStatic Power(Processor + Cache): " + str(round(difference[2],2)) + "%\nDynamic Power(Memory): "
+            + str(round(difference[3],2)) + "%\nStatic Power(Memory): " + str(round(difference[4],2)) + "%") # Displays a message box showing the percentages    
+
     @staticmethod
-    def make_single_plot(first_entry, second_entry, title1, title2, res):
+    def make_single_plot(self, first_entry, second_entry, title1, title2, res):
         if settingsConfig.nativePlotting:
+
             matplotlib.rc('xtick', labelsize=16)
             matplotlib.rc('ytick', labelsize=16)
 
@@ -386,6 +510,12 @@ class utils(object):
 
             cdict1 = OurConstants.get_cdict1()
 
+            buttons_ax = [0,0,0,0,0,0,0,0,0]            
+
+            buttons = [0,0,0,0,0,0,0,0,0]            
+
+            button_number = 0
+
             customgray = LinearSegmentedColormap('customgray', cdict1)
             customspectrum = LinearSegmentedColormap('customspectrum', cdict2)
             c = (0, 0, 0, 0)
@@ -399,28 +529,44 @@ class utils(object):
             heatmap = ax.pcolormesh(arr, cmap=second_cmap, vmax=36000, vmin=4000)
             heatbar2 = heatmap
 
+            def format_coord(x, y):
+                col = int(x+0.5)
+                row = int(y+0.5)
+                if col>=0 and col<100 and row>=0 and row<100:
+                    z = arr[row,col]
+                    if (z<3500):
+                        return 'x=%1.4f, y=%1.4f, Days=%1.4f'%(x, y, z)
+                    else:
+                        return 'x=%1.4f, y=%1.4f, Years=%1.4f'%(x, y, z/365)  
+                else:
+                    return 'x=%1.4f, y=%1.4f'%(x, y)
+            
+            ax.format_coord = format_coord
+
+           # def Clicked(event, int sleep, int activity):
+            #    print(sleep)
 
             if settingsFile is None:
-                # seb comment here and 240 to get rid off pointers when printing
+
                 # Desktop
                 plt.plot([77], [17], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
                 plt.plot([77], [17], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
-                plt.annotate('Desktop',[77+5,17+5])
+                plt.annotate('Desktop',[77+5,17+5], bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
 
                 # Server
                 plt.plot([5], [30], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
                 plt.plot([5], [30], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
-                plt.annotate('Server',[5+5,30+5])
+                plt.annotate('Server',[5+5,30+5], bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
 
                 # HPC
                 plt.plot([5], [95], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
                 plt.plot([5], [95], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
-                plt.annotate('HPC',[5+5,95+5])
+                plt.annotate('HPC',[5+5,95+5], bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
 
                 # Cell Phone
                 plt.plot([92], [90], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
                 plt.plot([92], [90], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
-                plt.annotate('Cellular',[92+5,90+5])
+                plt.annotate('Cellular',[92+5,90+5], bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
 
             else:
 
@@ -463,6 +609,56 @@ class utils(object):
             ax.set_xlabel('Percent Sleep')
             ax.xaxis.set_label_position('top')
             plt.ylabel('Activity Ratio')
+
+            def PlaceNewMarker(event):
+                nonlocal button_number
+                Sleep = int(simpledialog.askstring("Sleep","Please enter the Marker's Sleep Ratio:")) # Prompts user for the sleep ratio at which the point is at
+                Activity = int(simpledialog.askstring("Activity","Please enter the Marker's Activity Ratio:")) # Prompts user for the activity ratio at which the point is at
+                Label = str(simpledialog.askstring("Label","Please enter the Marker's Label. The next window will ask for the label's color."))
+                my_color = colorchooser.askcolor() #Ask the user for a color
+                buttons_ax[button_number] = plt.axes([button_number, 0, 0.3, len(Label)])
+                ip = InsetPosition(ax, [.05 + Sleep/100, .93 - (Activity/100), .02 * len(Label) , .08]) 
+                buttons_ax[button_number].set_axes_locator(ip)
+                buttons[button_number] = Button(buttons_ax[button_number], Label)
+                buttons[button_number].on_clicked(lambda x: utils.single_point_analysis(first_entry, second_entry, Sleep, Activity))
+                buttons[button_number].label.set_color(my_color[1])
+                buttons[button_number].ax.patch.set_visible(False)
+                buttons[button_number].ax.axis('off')
+                button_number +=1
+                ax.plot([Sleep], [Activity], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
+                ax.plot([Sleep], [Activity], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+                if event.inaxes is not None:
+                    event.inaxes.figure.canvas.draw_idle()
+
+            def PlaceNewWideMarker(event):
+                nonlocal button_number
+                Sleep = int(simpledialog.askstring("Sleep","Please enter the Marker's Sleep Ratio:")) # Prompts user for the sleep ratio at which the point is at
+                Activity = int(simpledialog.askstring("Activity","Please enter the Marker's Activity Ratio:")) # Prompts user for the activity ratio at which the point is at
+                Radius = int(simpledialog.askstring("Radius","Please enter the Marker's Radius:"))
+                Label = str(simpledialog.askstring("Label","Please enter the Marker's Label. The next window will ask for the label's color."))
+                my_color = colorchooser.askcolor() #Ask the user for a color
+                buttons_ax[button_number] = plt.axes([button_number, 0, 0.3, len(Label)])
+                ip = InsetPosition(ax, [.02 + Sleep/100 + (Radius/math.sqrt(2))/100, .93 - (Activity/100) - (Radius/math.sqrt(2))/100, .02 * len(Label) , .08]) 
+                buttons_ax[button_number].set_axes_locator(ip)
+                buttons[button_number] = Button(buttons_ax[button_number], Label)
+                buttons[button_number].on_clicked(lambda x: utils.average_analysis(self, first_entry, second_entry, Sleep, Activity, Radius))
+                buttons[button_number].label.set_color(my_color[1])
+                buttons[button_number].ax.patch.set_visible(False)
+                buttons[button_number].ax.axis('off')
+                button_number +=1
+                ax.plot([Sleep], [Activity], 'k.', markersize=Radius*10 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
+                ax.plot([Sleep], [Activity], 'k.', markersize=Radius*10, markeredgecolor='white', mew=3, markerfacecolor="None")
+                if event.inaxes is not None:
+                    event.inaxes.figure.canvas.draw_idle()               
+
+            markerax = plt.axes([0.51, .01, 0.3, 0.075])
+            bmarker = Button(markerax, 'Place New Marker')
+            bmarker.on_clicked(PlaceNewMarker)
+
+            bigmarkerax = plt.axes([0.13, .01, 0.35, 0.075])
+            bigmarker = Button(bigmarkerax, 'Place New Wide Marker')
+            bigmarker.on_clicked(PlaceNewWideMarker)
+
             # plt.title(''.join([utils.rename(self.entry1, False), ' vs. ', utils.rename(self.entry2, False)]), y=1.08)
 
             #image_file_name = path_to_output_directory + title1 + "_vs_" + title2 + ".pdf"
@@ -488,6 +684,7 @@ class utils(object):
                 #print(sys.exc_info()[0])
         else:
             messagebox.showinfo("Library Missing!", "Missing matplotlib, cannot plot natively in python!")
+            
 
 class OurConstants(object):
 
