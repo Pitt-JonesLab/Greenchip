@@ -4,6 +4,7 @@ from plugins.shared.Utils import *
 from plugins.shared.GreenChip import *
 import plugins.shared.Config as settingsConfig
 #import SimVis
+from tkinter import *
 from tkinter import messagebox
 from tkinter import filedialog
 from tkinter import simpledialog
@@ -101,7 +102,7 @@ class config(object):
         config_dicts.append(config1)
         config_dicts.append(config2)
         res = chip_breakeven_IPC(config_dicts)['chipVsChipBreakevenInDays']
-        utils.make_single_plot(config1, config2, self.title1.get(), self.title2.get(), res)
+        utils.make_single_plot(self, config1, config2, self.title1.get(), self.title2.get(), res)
 
 
 
@@ -113,7 +114,7 @@ class config(object):
         config_dicts.append(config1)
         config_dicts.append(config2)
         res = chip_breakeven_IPC(config_dicts)['upgradeDays']
-        utils.make_single_plot(config1, config2, self.title1.get(), self.title2.get(), res)
+        utils.make_single_plot(self, config1, config2, self.title1.get(), self.title2.get(), res)
 
     def plot_mini(self, *args):
         config1, config2 = self.verify_input(*args)
@@ -666,11 +667,11 @@ class config(object):
         self.plotButton7 = ttk.Button(self.window, text="Find Importance (All Point Analysis)", command=self.total_analysis) # Creates button for all point analysis
         self.plotButton7.grid(column=2, row=15, sticky=(W))
 
-        self.plotButton7 = ttk.Button(self.window, text="Sniper to Configuration 1's Chip's Input Sliders", command=self.get_sniper_inputs1) # Creates button for all point analysis
-        self.plotButton7.grid(column=2, row=16, sticky=(W))
+        self.plotButton8 = ttk.Button(self.window, text="Sniper to Configuration 1's Chip's Input Sliders", command=self.get_sniper_inputs1) # Creates button for sniper to inputs
+        self.plotButton8.grid(column=2, row=16, sticky=(W))
 
-        self.plotButton7 = ttk.Button(self.window, text="Sniper to Configuration 2's Chip's Input Sliders", command=self.get_sniper_inputs2) # Creates button for all point analysis
-        self.plotButton7.grid(column=2, row=17, sticky=(W))
+        self.plotButton9 = ttk.Button(self.window, text="Sniper to Configuration 2's Chip's Input Sliders", command=self.get_sniper_inputs2) # Creates button for sniper to inputs
+        self.plotButton9.grid(column=2, row=17, sticky=(W))
 
         self.chipArea1.bind("<ButtonRelease-1>", self.plot_mini)
         self.chipArea2.bind("<ButtonRelease-1>", self.plot_mini)

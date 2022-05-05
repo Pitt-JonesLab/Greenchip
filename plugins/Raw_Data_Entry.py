@@ -4,6 +4,7 @@ from plugins.shared.Utils import *
 from plugins.shared.GreenChip import *
 import plugins.shared.Config as settingsConfig
 #import SimVis
+from tkinter import *
 from tkinter import messagebox
 from tkinter import filedialog
 
@@ -95,7 +96,7 @@ class config(object):
         config_dicts.append(config1)
         config_dicts.append(config2)
         res = chip_breakeven_IPC(config_dicts)['chipVsChipBreakevenInDays']
-        utils.make_single_plot(config1, config2, self.title1.get(), self.title2.get(), res)
+        utils.make_single_plot(self, config1, config2, self.title1.get(), self.title2.get(), res)
 
 
 
@@ -107,8 +108,18 @@ class config(object):
         config_dicts.append(config1)
         config_dicts.append(config2)
         res = chip_breakeven_IPC(config_dicts)['upgradeDays']
-        utils.make_single_plot(config1, config2, self.title1.get(), self.title2.get(), res)
+        utils.make_single_plot(self, config1, config2, self.title1.get(), self.title2.get(), res)
 
+    def plot_breakeven_colors(self, *args):
+        config1, config2 = self.verify_input(*args)
+        if config1 is None:
+            return
+        config_dicts = []
+        config_dicts.append(config1)
+        config_dicts.append(config2)
+        res = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        utils.make_single_plot_colors(self, config1, config2, self.title1.get(), self.title2.get(), res)
+        
     def export_indifference(self, *args):
 
         config1, config2 = self.verify_input()
@@ -182,6 +193,210 @@ class config(object):
             for a in range(0, len(arr)):
                 for b in range(0, len(arr[0])):
                     indiff_writer.write(str(a)+","+str(b)+","+str(arr[a][b])+"\n")
+                    
+
+    def average_gradient(self, Radius, Sleep, Activity, Orig, Mod):
+        numofpoints = 0
+        totaldifference = 0
+        for x in range(Sleep - Radius, Sleep + Radius + 1):
+            for y in range(Activity - Radius, Activity + Radius + 1):
+                if ((x + y)<=Radius + Activity + Sleep and (x + y)>=Radius + Activity + Sleep ):
+                    numofpoints = numofpoints + 1
+                    totaldifference = totaldifference + Orig[x][y] - Mod[x][y]
+        averagedifference = totaldifference/numofpoints           
+        return averagedifference       
+
+    def total_gradient(self, Orig, Mod):
+        numofpoints = 0
+        totaldifference = 0
+        for x in range(0,100):
+            for y in range(0,100):
+                if (Orig[x][y]>0):
+                    numofpoints = numofpoints + 1
+                    totaldifference = totaldifference + Orig[x][y] - Mod[x][y]
+        averagedifference = totaldifference/numofpoints           
+        return averagedifference      
+
+    def total_average(self, Orig):
+        numofpoints = 0
+        total = 0
+        for x in range(0,100):
+            for y in range(0,100):
+                if (Orig[x][y]>0):
+                    numofpoints = numofpoints + 1
+                    total = total + Orig[x][y]
+        average = total/numofpoints           
+        return average 
+
+    def partial_average(self, Radius, Sleep, Activity, Orig):
+        numofpoints = 0
+        total = 0
+        for x in range(Sleep - Radius, Sleep + Radius + 1):
+            for y in range(Activity - Radius, Activity + Radius + 1):
+                if ((x + y)<=Radius + Activity + Sleep and (x + y)>=Radius + Activity + Sleep ):
+                    numofpoints = numofpoints + 1
+                    total = total + Orig[x][y]
+        average = total/numofpoints           
+        return average    
+
+    def total_analysis(self, *args):
+        config1, config2 = self.verify_input(*args)
+        if config1 is None:
+            return
+        config_dicts = []
+        config_dicts.append(config1)
+        config_dicts.append(config2)
+
+        difference = [0,0,0,0,0]
+        original = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        old = config2['chipArea']
+        config2['chipArea'] = config2['chipArea'] - (.01 * config2['chipArea'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[0] = self.total_gradient(original, mod)
+        config2['chipArea'] = old
+
+        old = config2['dynamicPower']
+        config2['dynamicPower'] = config2['dynamicPower'] - (.01 * config2['dynamicPower'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[1] = self.total_gradient(original, mod)
+        config2['dynamicPower'] = old
+
+        old = config2['staticPower']
+        config2['staticPower'] = config2['staticPower'] - (.01 * config2['staticPower'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[2] = self.total_gradient(original, mod)
+        config2['staticPower'] = old
+
+        old = config2['dynamicMemory']
+        config2['dynamicMemory'] = config2['dynamicMemory'] - (.01 * config2['dynamicMemory'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[3] = self.total_gradient(original, mod)
+        config2['dynamicMemory'] = old
+        
+        old = config2['staticMemory']
+        config2['staticMemory'] = config2['staticMemory'] - (.01 * config2['staticMemory'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[4] = self.total_gradient(original, mod)
+        config2['staticMemory'] = old
+        
+        total = difference[0] + difference[1] + difference[2] + difference[3] + difference[4]
+        difference[0] = 100 * difference[0]/total
+        difference[1] = 100 * difference[1]/total
+        difference[2] = 100 * difference[2]/total
+        difference[3] = 100 * difference[3]/total
+        difference[4] = 100 * difference[4]/total
+
+        messagebox.showinfo("Importance", "Chip Area: " + str(round(difference[0],2)) + "%\nDynamic Power(Processor + Cache): "
+            + str(round(difference[1],2)) + "%\nStatic Power(Processor + Cache): " + str(round(difference[2],2)) + "%\nDynamic Power(Memory): "
+            + str(round(difference[3],2)) + "%\nStatic Power(Memory): " + str(round(difference[4],2)) + "%")         
+            
+
+    def average_analysis(self, *args):
+        config1, config2 = self.verify_input(*args)
+        if config1 is None:
+            return
+        config_dicts = []
+        config_dicts.append(config1)
+        config_dicts.append(config2)
+        Sleep = int(simpledialog.askstring("Sleep","Please enter the Center Sleep Ratio:"))
+        Activity = int(simpledialog.askstring("Activity","Please enter the Center Activity Ratio:"))
+        Radius = int(simpledialog.askstring("Radius","Please enter the Average Radius:"))
+        if ((Radius > Sleep) or (Radius > Activity) or (Radius + Activity >= 100) or (Radius + Sleep >= 100)):
+            messagebox.showinfo("Error", "Radius results in out of bounds points.")
+            return
+        difference = [0,0,0,0,0]
+        original = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        old = config2['chipArea']
+        config2['chipArea'] = config2['chipArea'] - (.01 * config2['chipArea'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[0] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['chipArea'] = old
+
+        old = config2['dynamicPower']
+        config2['dynamicPower'] = config2['dynamicPower'] - (.01 * config2['dynamicPower'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[1] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['dynamicPower'] = old
+
+        old = config2['staticPower']
+        config2['staticPower'] = config2['staticPower'] - (.01 * config2['staticPower'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[2] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['staticPower'] = old
+
+        old = config2['dynamicMemory']
+        config2['dynamicMemory'] = config2['dynamicMemory'] - (.01 * config2['dynamicMemory'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[3] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['dynamicMemory'] = old
+        
+        old = config2['staticMemory']
+        config2['staticMemory'] = config2['staticMemory'] - (.01 * config2['staticMemory'])
+        mod = chip_breakeven_IPC(config_dicts)['upgradeDays']
+        difference[4] = self.average_gradient(Radius, Sleep, Activity, original, mod)
+        config2['staticMemory'] = old
+        
+        total = difference[0] + difference[1] + difference[2] + difference[3] + difference[4]
+        difference[0] = 100 * difference[0]/total
+        difference[1] = 100 * difference[1]/total
+        difference[2] = 100 * difference[2]/total
+        difference[3] = 100 * difference[3]/total
+        difference[4] = 100 * difference[4]/total
+
+        messagebox.showinfo("Importance", "Current Average Number of Days to Breakeven: " + str(round(self.partial_average(Radius, Sleep, Activity, original),2))
+            + "\nChip Area: " + str(round(difference[0],2)) + "%\nDynamic Power(Processor + Cache): "
+            + str(round(difference[1],2)) + "%\nStatic Power(Processor + Cache): " + str(round(difference[2],2)) + "%\nDynamic Power(Memory): "
+            + str(round(difference[3],2)) + "%\nStatic Power(Memory): " + str(round(difference[4],2)) + "%")
+
+    def single_point_analysis(self, *args):
+        config1, config2 = self.verify_input(*args)
+        if config1 is None:
+            return
+        config_dicts = []
+        config_dicts.append(config1)
+        config_dicts.append(config2)
+        Sleep = int(simpledialog.askstring("Sleep","Please enter the Sleep Ratio:")) # Prompts user for the sleep ratio at which the point is at
+        Activity = int(simpledialog.askstring("Activity","Please enter the Activity Ratio:")) # Prompts user for the activity ratio at which the point is at
+        if (Sleep < 0 or Activity < 0 or Sleep>=100 or Activity>=100): # Checks to see if the point is in bounds
+            messagebox.showinfo("Error", "The values inputted are out of bounds")
+            return
+        difference = [0,0,0,0,0]
+        orig = chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity]
+        old = config2['chipArea']
+        config2['chipArea'] = config2['chipArea'] - (.01 * config2['chipArea'])
+        difference[0] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['chipArea'] = old
+
+        old = config2['dynamicPower']
+        config2['dynamicPower'] = config2['dynamicPower'] - (.01 * config2['dynamicPower'])
+        difference[1] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['dynamicPower'] = old
+
+        old = config2['staticPower']
+        config2['staticPower'] = config2['staticPower'] - (.01 * config2['staticPower'])
+        difference[2] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['staticPower'] = old
+
+        old = config2['dynamicMemory']
+        config2['dynamicMemory'] = config2['dynamicMemory'] - (.01 * config2['dynamicMemory'])
+        difference[3] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['dynamicMemory'] = old
+        
+        old = config2['staticMemory']
+        config2['staticMemory'] = config2['staticMemory'] - (.01 * config2['staticMemory'])
+        difference[4] = orig - chip_breakeven_IPC(config_dicts)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        config2['staticMemory'] = old
+        
+        total = difference[0] + difference[1] + difference[2] + difference[3] + difference[4]   # Scales gradients to percentages
+        difference[0] = 100 * difference[0]/total
+        difference[1] = 100 * difference[1]/total
+        difference[2] = 100 * difference[2]/total
+        difference[3] = 100 * difference[3]/total
+        difference[4] = 100 * difference[4]/total
+
+        messagebox.showinfo("Importance", "Current Number of Days to Breakeven: " + str(round(orig,2)) + "\nChip Area: " + str(round(difference[0],2)) + "%\nDynamic Power(Processor + Cache): "
+            + str(round(difference[1],2)) + "%\nStatic Power(Processor + Cache): " + str(round(difference[2],2)) + "%\nDynamic Power(Memory): "
+            + str(round(difference[3],2)) + "%\nStatic Power(Memory): " + str(round(difference[4],2)) + "%") # Displays a message box showing the percentages                     
 
     def launch_config(self):
 
@@ -273,3 +488,12 @@ class config(object):
 
         self.plotButton4 = ttk.Button(self.window, text="Export Breakeven to .csv", command=self.export_breakeven)
         self.plotButton4.grid(column=1, row=16, sticky=(W))
+        
+        self.plotButton5 = ttk.Button(self.window, text="Find Importance (Single Point Analysis)", command=self.single_point_analysis) # Creates button for single point analysis
+        self.plotButton5.grid(column=2, row=11, sticky=(W))
+
+        self.plotButton6 = ttk.Button(self.window, text="Find Importance (Average Analysis)", command=self.average_analysis) # Creates button for average point analysis
+        self.plotButton6.grid(column=2, row=13, sticky=(W))
+
+        self.plotButton7 = ttk.Button(self.window, text="Find Importance (All Point Analysis)", command=self.total_analysis) # Creates button for all point analysis
+        self.plotButton7.grid(column=2, row=15, sticky=(W))
