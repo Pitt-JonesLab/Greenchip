@@ -28,7 +28,7 @@ class config(object):
         config_dicts.append(first_entry)
         config_dicts.append(second_entry)
         res = chip_breakeven_IPC(config_dicts)['chipVsChipBreakevenInDays']
-        utils.make_single_plot(first_entry, second_entry, self.entry1.get(), self.entry2.get(), res)
+        utils.make_single_plot(self, first_entry, second_entry, self.entry1.get(), self.entry2.get(), res)
 
     def launch_config(self):
         self.entries = self.DB.list_entries()
