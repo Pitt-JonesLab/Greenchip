@@ -1,6 +1,6 @@
 import os
 from plugins.loaders import *
-import tkinter
+from tkinter import *
 from tkinter import ttk
 import plugins.shared.Config as settingsConfig
 from plugins.shared.GreenChip import *
