@@ -572,12 +572,74 @@ class utils(object):
 
                 with open(settingsFile, "r") as settingsObject:
                     for line in settingsObject:
-                        if "point" in line or "Point" in line:
-                            tmp = line.split(":")[1].strip()
-                            active = int(tmp.split(",")[0].strip())
-                            sleep = int(tmp.split(",")[1].strip())
-                            plt.plot([active], [sleep], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
-                            plt.plot([active], [sleep], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+                        linevars = line.split(" ");
+                        if (linevars[0].upper()=="M"):
+                            if len(linevars)==5:
+                                Sleep = int(linevars[1])
+                                if (Sleep<0 or Sleep>100):
+                                    messagebox.showerror("Error", "Sleep Ratio out of bounds!")
+                                    break
+                                Activity = int(linevars[2])
+                                if (Activity<0 or Activity>100):
+                                    messagebox.showerror("Error", "Activity Ratio out of bounds!")
+                                    break
+                                Label = linevars[3]
+                                Color = linevars[4].lower().strip();
+                                plt.plot([Sleep], [Activity], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep], [Activity], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                plt.annotate(Label,[Sleep+5,Activity+5], color = Color)
+                            else:
+                                Sleep = int(linevars[1])
+                                if (Sleep<0 or Sleep>100):
+                                    messagebox.showerror("Error", "Sleep Ratio out of bounds!")
+                                    break
+                                Activity = int(linevars[2])
+                                if (Activity<0 or Activity>100):
+                                    messagebox.showerror("Error", "Activity Ratio out of bounds!")
+                                    break
+                                Label = linevars[3].strip()
+                                plt.plot([Sleep], [Activity], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep], [Activity], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                plt.annotate(Label,[Sleep+5,Activity+5], bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                        elif (linevars[0].upper()=="WM"):
+                            if len(linevars)==6:
+                                Sleep = int(linevars[1])
+                                if (Sleep<0 or Sleep>100):
+                                    messagebox.showerror("Error", "Sleep Ratio out of bounds!")
+                                    break
+                                Activity = int(linevars[2])
+                                if (Activity<0 or Activity>100):
+                                    messagebox.showerror("Error", "Activity Ratio out of bounds!")
+                                    break
+                                Radius = int(linevars[3])
+                                Label = linevars[4]
+                                Color = linevars[5].lower().strip();
+                                plt.plot([Sleep], [Activity], 'k.', markersize=Radius*10 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep], [Activity], 'k.', markersize=Radius*10, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                plt.annotate(Label,[Sleep+Radius/math.sqrt(2)+4,Activity+Radius/math.sqrt(2)+4], color = Color)
+                            else:
+                                Sleep = int(linevars[1])
+                                if (Sleep<0 or Sleep>100):
+                                    messagebox.showerror("Error", "Sleep Ratio out of bounds!")
+                                    break
+                                Activity = int(linevars[2])
+                                if (Activity<0 or Activity>100):
+                                    messagebox.showerror("Error", "Activity Ratio out of bounds!")
+                                    break
+                                Radius = int(linevars[3])
+                                Label = linevars[4].strip()
+                                plt.plot([Sleep], [Activity], 'k.', markersize=Radius*10 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep], [Activity], 'k.', markersize=Radius*10, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                plt.annotate(Label,[Sleep+Radius/math.sqrt(2)+4,Activity+Radius/math.sqrt(2)+4], bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                        else:
+                            messagebox.showerror("Error", "Marker specifier incorrect!")
+                        
+                        #if "point" in line or "Point" in line:
+                        #    tmp = line.split(":")[1].strip()
+                        #    active = int(tmp.split(",")[0].strip())
+                        #    sleep = int(tmp.split(",")[1].strip())
+                        #    plt.plot([active], [sleep], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
+                        #    plt.plot([active], [sleep], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
 
             # want a more natural, table-like display
             ax.invert_yaxis()
