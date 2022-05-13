@@ -494,8 +494,8 @@ class utils(object):
     def make_single_plot(self, first_entry, second_entry, title1, title2, res):
         if settingsConfig.nativePlotting:
 
-            matplotlib.rc('xtick', labelsize=16)
-            matplotlib.rc('ytick', labelsize=16)
+            matplotlib.rc('xtick', labelsize=13)
+            matplotlib.rc('ytick', labelsize=13)
 
 
             if first_entry is None or second_entry is None:
@@ -711,18 +711,18 @@ class utils(object):
             # plt.colorbar(heatbar2)
             cbar = plt.colorbar(heatbar2, pad=0.05)
             cbar.ax.set_yticklabels(['11', '22', '33', '44', '55', '66', '77', '88', '99'])
-            cbar.ax.tick_params(labelsize=16)
-            cbar.set_label('years', rotation=360, size=20, labelpad=-30, y=1.08)
+            cbar.ax.tick_params(labelsize=13)
+            cbar.set_label('Years', rotation=360, size=16, labelpad=-30, y=1.08)
             # plt.colorbar(heatbar)
             cbar2 = plt.colorbar(heatbar)
-            cbar2.ax.tick_params(labelsize=16)
+            cbar2.ax.tick_params(labelsize=13)
             # cbar.ax.set_yticklabels(labelsize=10)
-            cbar2.set_label('days', rotation=360, size=20, labelpad=-37.5, y=1.08)
+            cbar2.set_label('Days', rotation=360, size=16, labelpad=-37.5, y=1.08)
             plt.xlabel('xlabel', fontsize=18)
             plt.ylabel('ylabel', fontsize=18)
-            # plt.xlabel('Percent Sleep')
             ax.set_xlabel('Percent Sleep')
             ax.xaxis.set_label_position('top')
+            ax.xaxis.labelpad = 18;
             plt.ylabel('Activity Ratio')
             
             widthScalingFactor = 2
