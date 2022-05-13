@@ -494,9 +494,11 @@ class utils(object):
     def make_single_plot(self, first_entry, second_entry, title1, title2, res):
         if settingsConfig.nativePlotting:
 
-            matplotlib.rc('xtick', labelsize=13)
-            matplotlib.rc('ytick', labelsize=13)
+            initialFontSize = 13;
+            initialAxisLabelSize = 16;
 
+            matplotlib.rc('xtick', labelsize=initialFontSize)
+            matplotlib.rc('ytick', labelsize=initialFontSize)
 
             if first_entry is None or second_entry is None:
                 return
@@ -711,18 +713,18 @@ class utils(object):
             # plt.colorbar(heatbar2)
             cbar = plt.colorbar(heatbar2, pad=0.05)
             cbar.ax.set_yticklabels(['11', '22', '33', '44', '55', '66', '77', '88', '99'])
-            cbar.ax.tick_params(labelsize=13)
-            cbar.set_label('Years', rotation=360, size=16, labelpad=-30, y=1.08)
+            cbar.ax.tick_params(labelsize=initialFontSize)
+            cbar.set_label('Years', rotation=360, size=initialAxisLabelSize, labelpad=-30, y=1.08)
             # plt.colorbar(heatbar)
             cbar2 = plt.colorbar(heatbar)
-            cbar2.ax.tick_params(labelsize=13)
+            cbar2.ax.tick_params(labelsize=initialFontSize)
             # cbar.ax.set_yticklabels(labelsize=10)
-            cbar2.set_label('Days', rotation=360, size=16, labelpad=-37.5, y=1.08)
-            plt.xlabel('xlabel', fontsize=18)
-            plt.ylabel('ylabel', fontsize=18)
+            cbar2.set_label('Days', rotation=360, size=initialAxisLabelSize, labelpad=-37.5, y=1.08)
+            plt.xlabel('xlabel', fontsize=initialAxisLabelSize)
+            plt.ylabel('ylabel', fontsize=initialAxisLabelSize)
             ax.set_xlabel('Percent Sleep')
             ax.xaxis.set_label_position('top')
-            ax.xaxis.labelpad = 18;
+            ax.xaxis.labelpad = 16;
             plt.ylabel('Activity Ratio')
             
             widthScalingFactor = 2
@@ -732,6 +734,7 @@ class utils(object):
             ax.set_aspect('equal', adjustable = None)
             
             def on_resize(event):
+                nonlocal bmarker
                 Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
                 for i in range(marker_number):
                     markers[i][0].set_markersize(markerSizes[i]*Size/initialSize)
@@ -742,6 +745,30 @@ class utils(object):
                     else:
                         annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1] + 25)/(10*math.sqrt(2)) + (0.5 + markerSizes[i*2 + 1]/90)/(Size/initialSize))
                         annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1] + 25)/(10*math.sqrt(2)) + (0.5 + markerSizes[i*2 + 1]/90)/(Size/initialSize))
+                if (Size<initialSize):
+                    ax.tick_params(axis = 'both', labelsize = initialFontSize*Size/initialSize)
+                    ax.xaxis.label.set_size(initialAxisLabelSize*Size/initialSize)
+                    ax.yaxis.label.set_size(initialAxisLabelSize*Size/initialSize)
+                    ax.xaxis.labelpad = 16*Size/initialSize;
+                    ax.yaxis.labelpad = 16*Size/initialSize - 8;
+                    cbar.ax.tick_params(labelsize=initialFontSize*(Size/initialSize)*math.sqrt(Size/initialSize))
+                    cbar2.ax.tick_params(labelsize=initialFontSize*Size/initialSize*math.sqrt(Size/initialSize))
+                    cbar.set_label('Years', rotation=360, size=initialAxisLabelSize*Size/initialSize, labelpad=-30*Size/initialSize, y=1.08)            
+                    cbar2.set_label('Days', rotation=360, size=initialAxisLabelSize*Size/initialSize, labelpad=-37.5*Size/initialSize, y=1.08)
+                else:
+                    ax.tick_params(axis = 'both', labelsize = initialFontSize)
+                    ax.xaxis.label.set_size(initialAxisLabelSize)
+                    ax.yaxis.label.set_size(initialAxisLabelSize)
+                    ax.xaxis.labelpad = 16;
+                    ax.yaxis.labelpad = 8;
+                    cbar.ax.tick_params(labelsize=initialFontSize)
+                    cbar2.ax.tick_params(labelsize=initialFontSize)
+                    cbar.set_label('Years', rotation=360, size=initialAxisLabelSize, labelpad=-30, y=1.08)            
+                    cbar2.set_label('Days', rotation=360, size=initialAxisLabelSize, labelpad=-37.5, y=1.08)
+                    
+                bmarker.label.set_fontsize(10*Size/initialSize)
+                bigmarker.label.set_fontsize(10*Size/initialSize)
+                    
             
             def PlaceNewMarker(event):
                 nonlocal button_number
