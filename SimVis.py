@@ -84,7 +84,7 @@ def About():
 
 
 def plot(*args):
-    if (str(pluginvar.get()) == "All_Indifference" or str(pluginvar.get()) == "All_Breakeven") and not config.nativePlotting:
+    if (str(pluginvar.get()) == "F - All_Indifference" or str(pluginvar.get()) == "E - All_Breakeven") and not config.nativePlotting:
         messagebox.showinfo("Feature is Disabled", "All_Indifference and All_Breakeven have been disabled on these computers, since matplotlib is not installed (and can't be installed) in Benedum 1223.");
         return
     sniper_text1 = " "
@@ -94,22 +94,22 @@ def plot(*args):
     sniper_text1 = sfolder_path_in1.get()
     sniper_text2 = sfolder_path_in2.get()
     settings_text = folder_path_settings.get()
-    if (str(pluginvar.get()) != "Raw_Data_Entry"  and str(pluginvar.get()) != "Raw_Data_Entry_Sliders") and (not os.path.isdir(entry_text)):
+    if (str(pluginvar.get()) != "A - Raw_Data_Entry"  and str(pluginvar.get()) != "B - Raw_Data_Entry_Sliders") and (not os.path.isdir(entry_text)):
         messagebox.showinfo("Warning: Illegal Argument", "Please specify a legal input path!")
         print('Please specify a legal input path!')
         return
 
-    if str(pluginvar.get()) == "All_Indifference" or str(pluginvar.get()) == "All_Breakeven" and not os.path.isdir(outy_text):
+    if str(pluginvar.get()) == "F - All_Indifference" or str(pluginvar.get()) == "E - All_Breakeven" and not os.path.isdir(outy_text):
         messagebox.showinfo("Warning: Illegal Argument", "Please specify a legal output path!")
         print('Please specify a legal output path!')
         return
 
 
     
-    if str(pluginvar.get()) != "Raw_Data_Entry" and str(pluginvar.get()) != "Raw_Data_Entry_Sliders":
+    if str(pluginvar.get()) != "A - Raw_Data_Entry" and str(pluginvar.get()) != "B - Raw_Data_Entry_Sliders":
         DB = flatfileDB(entry_text)
         plugin = globals()[pluginvar.get()].config(root, DB, outy_text+"/")
-    elif str(pluginvar.get()) == "Raw_Data_Entry_Sliders":
+    elif str(pluginvar.get()) == "B - Raw_Data_Entry_Sliders":
         plugin = globals()[pluginvar.get()].config(root, None, outy_text+"/",sniper_text1,sniper_text2)
     else:
         plugin = globals()[pluginvar.get()].config(root, None, outy_text+"/")
@@ -179,21 +179,21 @@ button2 = Button(mainframe, text="Browse", command=browse_button_input)
 button2.grid(row=2, column=2)
 
 sinpath1 = ttk.Label(mainframe, text='Configuration 1 Sniper Input Directory:')
-sinpath1.grid(column=0, row=3, sticky=(N, W, E, S))
 
 slbl1 = Label(mainframe, textvariable=folder_path_in)
-slbl1.grid(row=3, column=1)
 sbutton1 = Button(mainframe, text="Browse", command=browse_sniper_input1)
-sbutton1.grid(row=3, column=2)
 
 sinpath2 = ttk.Label(mainframe, text='Configuration 2 Sniper Input Directory:')
-sinpath2.grid(column=0, row=4, sticky=(N, W, E, S))
 
 slbl2 = Label(mainframe, textvariable=folder_path_in)
-slbl2.grid(row=4, column=1)
 sbutton2 = Button(mainframe, text="Browse", command=browse_sniper_input2)
-sbutton2.grid(row=4, column=2)
 
+sinpath1.grid(column=0, row=3, sticky=(N, W, E, S))
+slbl1.grid(row=3, column=1)
+sbutton1.grid(row=3, column=2)
+sinpath2.grid(column=0, row=4, sticky=(N, W, E, S))
+slbl2.grid(row=4, column=1)
+sbutton2.grid(row=4, column=2)
 
 #OUTPUT
 outpath = ttk.Label(mainframe, text='Output Directory (For All Breakeven/All Indifference):')
@@ -203,12 +203,33 @@ lbl2.grid(row=5, column=1)
 button3 = Button(mainframe, text="Browse", command=browse_button_output)
 button3.grid(row=5, column=2)
 
+def changeOptions(event):
+    option=event.widget.get()
+   # print(option) 
+    if option != "A - Raw_Data_Entry" and option != "B - Raw_Data_Entry_Sliders":
+      #  print("Adding slider options")
+        sinpath1.grid(column=0, row=3, sticky=(N, W, E, S))
+        slbl1.grid(row=3, column=1)
+        sbutton1.grid(row=3, column=2)
+        sinpath2.grid(column=0, row=4, sticky=(N, W, E, S))
+        slbl2.grid(row=4, column=1)
+        sbutton2.grid(row=4, column=2)
+    else:
+       # print("Removing slider options")
+        sinpath1.grid_remove()
+        slbl1.grid_remove()
+        sbutton1.grid_remove()
+        sinpath2.grid_remove()
+        slbl2.grid_remove()
+        sbutton2.grid_remove()
+        
+
 #Decision
 plugin_box = ttk.Combobox(mainframe, textvariable=pluginvar, values=plugins, state='readonly')
 plugin_box.current(0)
 plugin_box.grid(column=0, row=6, sticky=(N, W, E, S))
 ttk.Button(mainframe, text="Choose Analysis Mode", command=plot).grid(column=1, row=6, sticky=(N, W, E, S))
-
+plugin_box.bind("<<ComboboxSelected>>", changeOptions)
 
 menu = Menu(root)
 root.config(menu=menu)
@@ -225,7 +246,12 @@ helpmenu.add_command(label="About...", command=About)
 
 for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
 
+sinpath1.grid_remove()
+slbl1.grid_remove()
+sbutton1.grid_remove()
+sinpath2.grid_remove()
+slbl2.grid_remove()
+sbutton2.grid_remove()
+
 root.bind('<Return>', plot)
 root.mainloop()
-
-
