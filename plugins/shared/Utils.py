@@ -700,14 +700,14 @@ class utils(object):
             first_ipc = "{0:.2f}".format(first_entry['IPC'])
             second_ipc = "{0:.2f}".format(second_entry['IPC'])
 
-            fig.text(0.95, 0.01, 'IPC: ' + first_ipc + ',' + second_ipc,
+            ipc = fig.text(0.9, 0.13, 'IPC: ' + first_ipc + ',' + second_ipc,
                      verticalalignment='bottom', horizontalalignment='left',
-                     color='brown', fontsize=15)
+                     color='brown', fontsize=initialFontSize, rotation = -90)
 
             # ax.set_xticklabels(column_labels, minor=False)
             # ax.set_yticklabels(row_labels, minor=False)
             # plt.colorbar(heatbar2)
-            cbar = plt.colorbar(heatbar2, pad=0.05)
+            cbar = plt.colorbar(heatbar2, pad=0.05, ticks=[4015, 8030, 12045, 16060, 20075, 24090, 28105, 32120, 36000])
             cbar.ax.set_yticklabels(['11', '22', '33', '44', '55', '66', '77', '88', '99'])
             cbar.ax.tick_params(labelsize=initialFontSize)
             cbar.set_label('Years', rotation=360, size=initialAxisLabelSize, labelpad=-30, y=1.08)
@@ -764,6 +764,7 @@ class utils(object):
                     
                 bmarker.label.set_fontsize(10*Size/initialSize)
                 bigmarker.label.set_fontsize(10*Size/initialSize)
+                ipc.set_fontsize(initialFontSize*Size/initialSize)
                     
             
             def PlaceNewMarker(event):
