@@ -4,11 +4,11 @@ import json
 
 #NOTE NOTE: The 20 energy is for PCM. Higher energy for non-PCM
 
-high_process_energies = {45: {'energy': 800000, 'gwp': 0.055}, 28: {'energy': 3780000, 'gwp': 0.5},
-                         65: {'energy': 650000, 'gwp': 0.042}, 90: {'energy': 600000, 'gwp': 0.042},
-                         20: {'energy': 222453, 'gwp': 1.6}, 12: {'energy': 45142, 'gwp': 0.042},
-                          30: {'energy': 42397, 'gwp': 0.042},  55: {'energy': 979726, 'gwp': 0.042},
-                          32: {'energy': 1327401, 'gwp': 0.042},}
+high_process_energies = {12: {'energy': 45142, 'gwp': 0.042}, 20: {'energy': 222453, 'gwp': 1.6}, 
+                         28: {'energy': 3780000, 'gwp': 0.5}, 30: {'energy': 42397, 'gwp': 0.042}, 
+                         32: {'energy': 1327401, 'gwp': 0.042}, 45: {'energy': 800000, 'gwp': 0.055}, 
+                         55: {'energy': 979726, 'gwp': 0.042}, 65: {'energy': 650000, 'gwp': 0.042}, 90: {'energy': 600000, 'gwp': 0.042}
+                        }
 
 
 def get_workload_power(dynamic, static, active_percent, sleep_percent):
