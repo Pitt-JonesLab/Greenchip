@@ -732,6 +732,7 @@ class utils(object):
             def on_resize(event):
                 nonlocal bmarker
                 Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
+                print(fig.get_size_inches()[1]/ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted()).height)
                 for i in range(marker_number):
                     markers[i][0].set_markersize(markerSizes[i]*Size/initialSize)
                 for i in range(annotation_number):    
@@ -808,8 +809,8 @@ class utils(object):
                 xPosition[annotation_number] = Sleep;
                 yPosition[annotation_number] = Activity;
                 annotations[annotation_number] = ax.annotate(Label,[5,5], color = my_color[1])
-                annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[i*2 + 1]/200)/(Size/initialSize))
-                annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[i*2 + 1]/200)/(Size/initialSize))
+                annotations[annotation_number].set_x(xPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[annotation_number*2 + 1]/200)/(Size/initialSize))
+                annotations[annotation_number].set_y(yPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[annotation_number*2 + 1]/200)/(Size/initialSize))
                         
                 marker_number = marker_number + 2
                 annotation_number = annotation_number + 1
