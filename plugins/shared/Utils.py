@@ -510,11 +510,8 @@ class utils(object):
 
             cdict2 = OurConstants.get_cdict2()
 
-            cdict1 = OurConstants.get_cdict1()
+            cdict1 = OurConstants.get_cdict1()           
 
-            buttons_ax = [0,0,0,0,0,0,0,0,0]            
-
-            buttons = [0,0,0,0,0,0,0,0,0]
             markers = [None]*40
             markerSizes = [None]*40
             
@@ -523,7 +520,6 @@ class utils(object):
             yPosition = [None]*20
 
             marker_number = 0
-            button_number = 0
             annotation_number = 0
 
             customgray = LinearSegmentedColormap('customgray', cdict1)
@@ -655,10 +651,10 @@ class utils(object):
                                 Radius = int(linevars[3])
                                 Label = linevars[4]
                                 Color = linevars[5].lower().strip();
-                                markers[marker_number] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*10 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                markers[marker_number + 1] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*10, markeredgecolor='white', mew=3, markerfacecolor="None")
-                                markerSizes[marker_number] = Radius*10 + 5;
-                                markerSizes[marker_number + 1] = Radius*10;
+                                markers[marker_number] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                markers[marker_number + 1] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                markerSizes[marker_number] = Radius*8.5 + 5;
+                                markerSizes[marker_number + 1] = Radius*8.5;
                                 marker_number = marker_number + 2;
                                 annotations[annotation_number] = plt.annotate(Label,[Sleep+Radius/math.sqrt(2)+4,Activity+Radius/math.sqrt(2)+4], color = Color)
                                 xPosition[annotation_number] = Sleep;
@@ -675,10 +671,10 @@ class utils(object):
                                     break
                                 Radius = int(linevars[3])
                                 Label = linevars[4].strip()
-                                markers[marker_number] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*10 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                markers[marker_number + 1] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*10, markeredgecolor='white', mew=3, markerfacecolor="None")
-                                markerSizes[marker_number] = Radius*10 + 5;
-                                markerSizes[marker_number + 1] = Radius*10;
+                                markers[marker_number] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                markers[marker_number + 1] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                markerSizes[marker_number] = Radius*8.5 + 5;
+                                markerSizes[marker_number + 1] = Radius*8.5;
                                 marker_number = marker_number + 2;
                                 annotations[annotation_number] = plt.annotate(Label,[Sleep+Radius/math.sqrt(2)+4,Activity+Radius/math.sqrt(2)+4], bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 xPosition[annotation_number] = Sleep;
@@ -743,8 +739,8 @@ class utils(object):
                         annotations[i].set_x(xPosition[i] + 5/math.sqrt(2) + 1.25/(Size/initialSize))
                         annotations[i].set_y(yPosition[i] + 5/math.sqrt(2) + 1.25/(Size/initialSize))
                     else:
-                        annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1] + 25)/(10*math.sqrt(2)) + (0.5 + markerSizes[i*2 + 1]/90)/(Size/initialSize))
-                        annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1] + 25)/(10*math.sqrt(2)) + (0.5 + markerSizes[i*2 + 1]/90)/(Size/initialSize))
+                        annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[i*2 + 1]/200)/(Size/initialSize))
+                        annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[i*2 + 1]/200)/(Size/initialSize))
                 if (Size<initialSize):
                     ax.tick_params(axis = 'both', labelsize = initialFontSize*Size/initialSize)
                     ax.xaxis.label.set_size(initialAxisLabelSize*Size/initialSize)
@@ -771,57 +767,55 @@ class utils(object):
                     
             
             def PlaceNewMarker(event):
-                nonlocal button_number
+                nonlocal annotation_number
                 nonlocal marker_number
                 Sleep = int(simpledialog.askstring("Sleep","Please enter the Marker's Sleep Ratio:")) # Prompts user for the sleep ratio at which the point is at
                 Activity = int(simpledialog.askstring("Activity","Please enter the Marker's Activity Ratio:")) # Prompts user for the activity ratio at which the point is at
                 Label = str(simpledialog.askstring("Label","Please enter the Marker's Label. The next window will ask for the label's color."))
                 my_color = colorchooser.askcolor() #Ask the user for a color
-                buttons_ax[button_number] = plt.axes([button_number, 0, 0.3, len(Label)])
-                ip = InsetPosition(ax, [.05 + Sleep/100, .93 - (Activity/100), .02 * len(Label) , .08]) 
-                buttons_ax[button_number].set_axes_locator(ip)
-                buttons[button_number] = Button(buttons_ax[button_number], Label)
-                buttons[button_number].on_clicked(lambda x: utils.single_point_analysis(first_entry, second_entry, Sleep, Activity))
-                buttons[button_number].label.set_color(my_color[1])
-                buttons[button_number].ax.patch.set_visible(False)
-                buttons[button_number].ax.axis('off')
-                button_number +=1
-                bbox = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
-                Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
+                
+                Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)                
+                xPosition[annotation_number] = Sleep;
+                yPosition[annotation_number] = Activity;
+                annotations[annotation_number] = ax.annotate(Label,[xPosition[annotation_number] + 5/math.sqrt(2) + 1.25/(Size/initialSize),yPosition[annotation_number] + 5/math.sqrt(2) + 1.25/(Size/initialSize)], color = my_color[1])
+
+                
                 markerSizes[marker_number] = 35.0;
                 markerSizes[marker_number + 1] = 30.0;
                 markers[marker_number] = ax.plot([Sleep], [Activity], 'k.', markersize=35.0*Size/initialSize, markeredgecolor='black', mew=3, markerfacecolor="None")
                 markers[marker_number + 1] = ax.plot([Sleep], [Activity], 'k.', markersize=30.0*Size/initialSize, markeredgecolor='white', mew=3, markerfacecolor="None")
-                marker_number = marker_number + 2;
+                marker_number = marker_number + 2
+                annotation_number = annotation_number + 1
                 if event.inaxes is not None:
                     event.inaxes.figure.canvas.draw_idle()
 
             def PlaceNewWideMarker(event):
-                nonlocal button_number
-                nonlocal marker_number
+                nonlocal annotation_number
+                nonlocal marker_number                
                 Sleep = int(simpledialog.askstring("Sleep","Please enter the Marker's Sleep Ratio:")) # Prompts user for the sleep ratio at which the point is at
                 Activity = int(simpledialog.askstring("Activity","Please enter the Marker's Activity Ratio:")) # Prompts user for the activity ratio at which the point is at
                 Radius = int(simpledialog.askstring("Radius","Please enter the Marker's Radius:"))
                 Label = str(simpledialog.askstring("Label","Please enter the Marker's Label. The next window will ask for the label's color."))
                 my_color = colorchooser.askcolor() #Ask the user for a color
-                buttons_ax[button_number] = plt.axes([button_number, 0, 0.3, len(Label)])
-                ip = InsetPosition(ax, [.02 + Sleep/100 + (Radius/math.sqrt(2))/100, .93 - (Activity/100) - (Radius/math.sqrt(2))/100, .02 * len(Label) , .08]) 
-                buttons_ax[button_number].set_axes_locator(ip)
-                buttons[button_number] = Button(buttons_ax[button_number], Label)
-                buttons[button_number].on_clicked(lambda x: utils.average_analysis(self, first_entry, second_entry, Sleep, Activity, Radius))
-                buttons[button_number].label.set_color(my_color[1])
-                buttons[button_number].ax.patch.set_visible(False)
-                buttons[button_number].ax.axis('off')
-                button_number +=1
-                bbox = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+                
                 Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
-                markerSizes[marker_number] = Radius*10 + 5;
-                markerSizes[marker_number + 1] = Radius*10;
-                markers[marker_number] = ax.plot([Sleep], [Activity], 'k.', markersize=(Radius*10 + 5)*Size/initialSize, markeredgecolor='black', mew=3, markerfacecolor="None")
-                markers[marker_number + 1] = ax.plot([Sleep], [Activity], 'k.', markersize=Radius*10*Size/initialSize, markeredgecolor='white', mew=3, markerfacecolor="None")
-                marker_number = marker_number + 2;
+                markerSizes[marker_number] = Radius*8.5 + 5;
+                markerSizes[marker_number + 1] = Radius*8.5;
+                markers[marker_number] = ax.plot([Sleep], [Activity], 'k.', markersize=(Radius*8.5 + 5)*Size/initialSize, markeredgecolor='black', mew=3, markerfacecolor="None")
+                markers[marker_number + 1] = ax.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5*Size/initialSize, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                
+                xPosition[annotation_number] = Sleep;
+                yPosition[annotation_number] = Activity;
+                annotations[annotation_number] = ax.annotate(Label,[5,5], color = my_color[1])
+                annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[i*2 + 1]/200)/(Size/initialSize))
+                annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[i*2 + 1]/200)/(Size/initialSize))
+                        
+                marker_number = marker_number + 2
+                annotation_number = annotation_number + 1
                 if event.inaxes is not None:
                     event.inaxes.figure.canvas.draw_idle()               
+
+
 
             markerax = plt.axes([0.51, .01, 0.3, 0.075])
             bmarker = Button(markerax, 'Place New Marker')
