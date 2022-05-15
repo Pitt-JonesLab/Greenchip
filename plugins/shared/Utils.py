@@ -645,19 +645,18 @@ class utils(object):
                                 markerSizes[marker_number] = 35.0;
                                 markerSizes[marker_number + 1] = 30.0;
                                 marker_number = marker_number + 2;
-                                annotations[annotation_number] = plt.annotate(Label,[Sleep+5,Activity+5], bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 xPosition[annotation_number] = Sleep;
                                 yPosition[annotation_number] = Activity;
                                 if (Sleep>50):
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5,yPosition[annotation_number] + 4/math.sqrt(2) + 0.5, Label, verticalalignment = 'top', horizontalalignment = 'right')
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5,yPosition[annotation_number] + 4/math.sqrt(2) + 0.5, Label, verticalalignment = 'top', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                     else:
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5,yPosition[annotation_number] - 4/math.sqrt(2) - 0.5, Label, verticalalignment = 'bottom', horizontalalignment = 'right')
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5,yPosition[annotation_number] - 4/math.sqrt(2) - 0.5, Label, verticalalignment = 'bottom', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 else:
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5,yPosition[annotation_number] + 4/math.sqrt(2) + 0.5, Label, verticalalignment = 'bottom', horizontalalignment = 'left')
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5,yPosition[annotation_number] + 4/math.sqrt(2) + 0.5, Label, verticalalignment = 'bottom', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                     else:
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5,yPosition[annotation_number] - 4/math.sqrt(2) - 0.5, Label, verticalalignment = 'top', horizontalalignment = 'left')
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5,yPosition[annotation_number] - 4/math.sqrt(2) - 0.5, Label, verticalalignment = 'top', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 annotation_number = annotation_number+1;
                         elif (linevars[0].upper()=="WM"):
                             if len(linevars)==6:
@@ -677,7 +676,16 @@ class utils(object):
                                 markerSizes[marker_number] = Radius*8.5 + 5;
                                 markerSizes[marker_number + 1] = Radius*8.5;
                                 marker_number = marker_number + 2;
-                                annotations[annotation_number] = plt.annotate(Label,[Sleep+Radius/math.sqrt(2)+4,Activity+Radius/math.sqrt(2)+4], color = Color)
+                                if (Sleep>50):
+                                    if (Activity<50):                    
+                                        annotations[annotation_number] = ax.text(5, 5, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
+                                    else:
+                                        annotations[annotation_number] = ax.text(5, 5, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
+                                else:
+                                    if (Activity<50):                    
+                                        annotations[annotation_number] = ax.text(5, 5, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
+                                    else:
+                                        annotations[annotation_number] = ax.text(5, 5, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
                                 xPosition[annotation_number] = Sleep;
                                 yPosition[annotation_number] = Activity;
                                 annotation_number = annotation_number+1;
@@ -697,7 +705,16 @@ class utils(object):
                                 markerSizes[marker_number] = Radius*8.5 + 5;
                                 markerSizes[marker_number + 1] = Radius*8.5;
                                 marker_number = marker_number + 2;
-                                annotations[annotation_number] = plt.annotate(Label,[Sleep+Radius/math.sqrt(2)+4,Activity+Radius/math.sqrt(2)+4], bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                if (Sleep>50):
+                                    if (Activity<50):                    
+                                        annotations[annotation_number] = ax.text(5, 5, Label, verticalalignment = 'top', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                    else:
+                                        annotations[annotation_number] = ax.text(5, 5, Label, verticalalignment = 'bottom', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                else:
+                                    if (Activity<50):                    
+                                        annotations[annotation_number] = ax.text(5, 5, Label, verticalalignment = 'top', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                    else:
+                                        annotations[annotation_number] = ax.text(5, 5, Label, verticalalignment = 'bottom', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 xPosition[annotation_number] = Sleep;
                                 yPosition[annotation_number] = Activity;
                                 annotation_number = annotation_number+1;
@@ -757,7 +774,11 @@ class utils(object):
                 Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
                 for i in range(marker_number):
                     markers[i][0].set_markersize(markerSizes[i]*Size/initialSize)
-                for i in range(annotation_number):    
+                for i in range(annotation_number):
+                    if (Size/initialSize<1.5):
+                        annotations[i].set_fontsize(10*Size/initialSize)
+                    else:
+                        annotations[i].set_fontsize(15)
                     if markerSizes[i*2]==35.0:
                         if (xPosition[i]>50):
                             if (yPosition[i]<50):                    
@@ -776,18 +797,18 @@ class utils(object):
                     else:
                         if (xPosition[i]>50):
                             if (yPosition[i]<50):                    
-                                annotations[i].set_x(xPosition[i] - 4/math.sqrt(2) - 0.5/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] + 4/math.sqrt(2) + 0.5/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i] - (markerSizes[i*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
+                                annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
                             else:
-                                annotations[i].set_x(xPosition[i] - 4/math.sqrt(2) - 0.5/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] - 4/math.sqrt(2) - 0.5/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i] - (markerSizes[i*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
+                                annotations[i].set_y(yPosition[i] - (markerSizes[i*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
                         else:
-                            if (yPosition[i]<50):                    
-                                annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[i*2 + 1]/200)/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[i*2 + 1]/200)/(Size/initialSize))
+                            if (yPosition[i]<50):                                        
+                                annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
+                                annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
                             else:
-                                annotations[i].set_x(xPosition[i] + 4/math.sqrt(2) + 0.5/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] - 4/math.sqrt(2) - 0.5/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
+                                annotations[i].set_y(yPosition[i] - (markerSizes[i*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
 
                 if (Size<initialSize):
                     ax.tick_params(axis = 'both', labelsize = initialFontSize*Size/initialSize)
@@ -856,25 +877,32 @@ class utils(object):
                 my_color = colorchooser.askcolor() #Ask the user for a color
                 
                 Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
-                markerSizes[marker_number] = Radius*8.5 + 5;
-                markerSizes[marker_number + 1] = Radius*8.5;
+                markerSizes[marker_number] = Radius*8.5 + 5
+                markerSizes[marker_number + 1] = Radius*8.5
                 markers[marker_number] = ax.plot([Sleep], [Activity], 'k.', markersize=(Radius*8.5 + 5)*Size/initialSize, markeredgecolor='black', mew=3, markerfacecolor="None")
                 markers[marker_number + 1] = ax.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5*Size/initialSize, markeredgecolor='white', mew=3, markerfacecolor="None")
                                 
-                xPosition[annotation_number] = Sleep;
-                yPosition[annotation_number] = Activity;
+                xPosition[annotation_number] = Sleep
+                yPosition[annotation_number] = Activity
+
                 if (Sleep>50):
                     if (Activity<50):                    
                         annotations[annotation_number] = ax.text(5, 5, Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'right')
+                        annotations[annotation_number].set_x(xPosition[annotation_number] - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
+                        annotations[annotation_number].set_y(yPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
                     else:
                         annotations[annotation_number] = ax.text(5, 5, Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'right')
+                        annotations[annotation_number].set_x(xPosition[annotation_number] - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
+                        annotations[annotation_number].set_y(yPosition[annotation_number] - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
                 else:
                     if (Activity<50):                    
                         annotations[annotation_number] = ax.text(5, 5, Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'left')
-                        annotations[annotation_number].set_x(xPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[annotation_number*2 + 1]/200)/(Size/initialSize))
-                        annotations[annotation_number].set_y(yPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(8.5*math.sqrt(2)) + (2 - markerSizes[annotation_number*2 + 1]/200)/(Size/initialSize))
+                        annotations[annotation_number].set_x(xPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
+                        annotations[annotation_number].set_y(yPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
                     else:
                         annotations[annotation_number] = ax.text(5, 5, Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'left')
+                        annotations[annotation_number].set_x(xPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
+                        annotations[annotation_number].set_y(yPosition[annotation_number] - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
 
                         
                 marker_number = marker_number + 2
