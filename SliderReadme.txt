@@ -2,9 +2,9 @@ Each of the sliders that are used in Raw_Data_Entry_Sliders are customizable thr
 
 SliderName min max resolution
 
-min - Minimum value of the slider. Sldiers start at this value
+min - Value at the far left of the slider. Sliders start at this value
 
-max - Maximum value of the slider.
+max - Value at the far right of the slider.
 
 resolution - The minimum amount the slider can increment. Clicking the slider bar moves it by this amount.
     
@@ -12,7 +12,7 @@ min, max, and resolution can all be specified as doubles
     
 Slider Names: CHIPAREA1, CHIPAREA2, DYNAMICPOWER1, DYNAMICPOWER2, STATICPOWER1, STATICPOWER2,       DYNAMICMEMORYPOWER1, DYNAMICMEMORYPOWER2, STATICMEMORYPOWER1, STATICMEMORYPOWER2, IPC1, IPC2
 
-The names are case sensitive
+The names are NOT case sensitive
 
 Each new slider requires a new line and a new command call
 
