@@ -63,6 +63,21 @@ def browse_button_settings():
     else:
         config.advancedSettingsFile = None
 
+def browse_button_sliders():
+    # Allow user to select a directory and store it in global var
+    # called folder_path
+    global folder_path_in2
+    filename_sliders = filedialog.askopenfile()
+    if (filename_sliders is None):
+        folder_path_sliders.set("")
+    else:
+        folder_path_sliders.set(filename_sliders.name)
+
+    if (len(folder_path_sliders.get()) > 2):
+        config.slidersFile = folder_path_sliders.get()
+    else:
+        config.slidersFile = None
+
 def browse_button_output():
     # Allow user to select a directory and store it in global var
     # called folder_path
@@ -152,14 +167,24 @@ pluginvar = StringVar()
 
 folder_path_out = StringVar()
 folder_path_in = StringVar()
+folder_path_in2 = StringVar()
 sfolder_path_in1 = StringVar()
 sfolder_path_in2 = StringVar()
 folder_path_settings = StringVar()
+folder_path_sliders = StringVar()
 
+
+sliderspath = ttk.Label(mainframe, text='Slider Configuration File (Optional):')
+sliderspath.grid(column=0, row=0, sticky=(N, W, E, S))
+
+sliderslbl1 = Label(mainframe, textvariable=folder_path_sliders)
+sliderslbl1.grid(row=0, column=1)
+slidersbutton = Button(mainframe, text="Browse", command=browse_button_sliders)
+slidersbutton.grid(row=0, column=2)
 
 #Settings
 
-settingspath = ttk.Label(mainframe, text='Advanced Settings File (Optional):')
+settingspath = ttk.Label(mainframe, text='Marker Configuration File (Optional):')
 settingspath.grid(column=0, row=1, sticky=(N, W, E, S))
 
 settingslbl1 = Label(mainframe, textvariable=folder_path_settings)
