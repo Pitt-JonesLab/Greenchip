@@ -1,4 +1,4 @@
-The marker script operates on a line-by-line basis. Each line is read as a marker command, and should be structured in the following way
+The marker script operates on a line-by-line basis. Each lie is read as a marker command (unless it starts with #, in which case it is assumed to be a comment and thus ignored), and should be structured in the following way
 
 MarkerSpecifier Sleep Activity Radius Label Color
 
@@ -19,6 +19,5 @@ Some examples are given below:
 M 20 40 Phone2 red: This creates a marker with sleep ratio of 20, activity ratio of 40, and a red label of Phone2.
 
 WM 30 60 15 Tablet: This creates a wide marker with sleep ratio of 30, activity ratio of 60, a radius of 15, and a label of Tablet. It uses the default label color scheme of black with a white bounding box
-
 
 M 30 10 Laptop: This creates a marker with sleep ratio of 30, activity ratio of 10, and a label of Laptop. It again uses the default label color scheme.
