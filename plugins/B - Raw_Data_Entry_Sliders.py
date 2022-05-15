@@ -121,8 +121,7 @@ class config(object):
         if (config1['chipArea'] == 0 or config2['chipArea'] == 0 or config1['dynamicMemory'] == 0
          or config2['dynamicMemory'] == 0 or config1['staticMemory'] == 0 or config2['staticMemory'] == 0
          or config1['dynamicPower'] == 0 or config2['dynamicPower'] == 0 or config1['staticPower'] == 0 or config2['staticPower'] == 0
-         or (config1['processSize'] != 28 and config1['processSize'] != 65 and config1['processSize'] != 45 and config1['processSize'] != 20 and config1['processSize'] != 90)
-         or (config2['processSize'] != 28 and config2['processSize'] != 65 and config2['processSize'] != 45 and config2['processSize'] != 20 and config2['processSize'] != 90)):
+         or config1['IPC'] == 0 or config2['IPC'] == 0):
             return
         if config1 is None:
             return
@@ -346,7 +345,7 @@ class config(object):
             settingsFile = settingsConfig.advancedSettingsFile
             arr = utils.perform_greenchip_analysis(res)
 
-            fig = Figure(figsize=(2,2), dpi = 100)
+            fig = Figure(figsize=(2.75,2.75), dpi = 100)
             ax = fig.add_subplot(111)
 
            # fig, ax = plt.subplots()
@@ -570,6 +569,9 @@ class config(object):
                     indiff_writer.write(str(a)+","+str(b)+","+str(arr[a][b])+"\n")
 
     def launch_config(self):
+		
+        slidersFile = settingsConfig.slidersFile
+		
         self.window.geometry('1000x600')
         self.title1 = ttk.Entry(self.window, width=30)
         self.title2 = ttk.Entry(self.window, width=30)
@@ -583,17 +585,49 @@ class config(object):
         self.dynMemPower2 = Scale(self.window, from_=0, to=30, resolution=0.01, length = 250, width = 20, orient = HORIZONTAL)
         self.staticMemPower1 = Scale(self.window, from_=0, to=30, resolution=0.01, length = 250, width = 20, orient = HORIZONTAL)
         self.staticMemPower2 = Scale(self.window, from_=0, to=30, resolution=0.01, length = 250, width = 20, orient = HORIZONTAL)
-        self.ipc1 = Scale(self.window, from_=0, to=3, resolution=0.01, width = 20, length = 250, orient = HORIZONTAL)
-        self.ipc2 = Scale(self.window, from_=0, to=3, resolution=0.01, width = 20, length = 250, orient = HORIZONTAL)
+        self.ipc1 = Scale(self.window, from_=0, to=1000, resolution=1, width = 20, length = 250, orient = HORIZONTAL)
+        self.ipc2 = Scale(self.window, from_=0, to=1000, resolution=1, width = 20, length = 250, orient = HORIZONTAL)
         self.cycles1 = ttk.Entry(self.window, width=30)
         self.cycles2 = ttk.Entry(self.window, width=30)
         self.layers1 = ttk.Entry(self.window, width=30)
         self.layers2 = ttk.Entry(self.window, width=30)
 
-
-        self.techNode1 = Scale(self.window, from_=0, to=60, width = 20, length = 250, orient = HORIZONTAL)
-        self.techNode2 = Scale(self.window, from_=0, to=60, width = 20, length = 250, orient = HORIZONTAL)
-
+        if slidersFile is not None:
+            with open(slidersFile, "r") as settingsObject:
+                for line in settingsObject:
+                    linevars = line.split(" ")
+                    if (len(linevars)!=4):
+                         messagebox.showerror("Error", "Incorrect number of variables!")
+                    if (linevars[0].upper()=="CHIPAREA1"):
+                        self.chipArea1 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="CHIPAREA2"):
+                        self.chipArea2 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="DYNAMICPOWER1"):
+                        self.dynPower1 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="DYNAMICPOWER2"):
+                        self.dynPower2 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="STATICPOWER1"):
+                        self.staticPower1 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="STATICPOWER2"):
+                        self.staticPower2 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="DYNAMICMEMORYPOWER1"):
+                        self.dynMemPower1 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="DYNAMICMEMORYPOWER2"):
+                        self.dynMemPower2 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="STATICMEMORYPOWER1"):
+                        self.staticMemPower1 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="STATICMEMORYPOWER2"):
+                        self.staticMemPower1 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="IPC1"):
+                        self.ipc1 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                    if (linevars[0].upper()=="IPC2"):
+                        self.ipc2 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+        
+        self.techNode1 = ttk.Combobox(self.window, textvariable=StringVar(), values=list(high_process_energies.keys()))
+        self.techNode1.current(0)
+        self.techNode2 = ttk.Combobox(self.window, textvariable=StringVar(), values=list(high_process_energies.keys()))
+        self.techNode2.current(0)
+        
         #self.title_label = ttk.Label(self.window, text='Labels:')
         #self.title_label.grid(column=0, row=0, sticky=(N, W, E, S))
         #self.title1.grid(column=1, row=0, sticky=(N, W, E, S))
@@ -685,8 +719,8 @@ class config(object):
         self.staticMemPower2.bind("<ButtonRelease-1>", self.plot_mini)
         self.ipc1.bind("<ButtonRelease-1>", self.plot_mini)
         self.ipc2.bind("<ButtonRelease-1>", self.plot_mini)
-        self.techNode1.bind("<ButtonRelease-1>", self.plot_mini)
-        self.techNode2.bind("<ButtonRelease-1>", self.plot_mini)
+        self.techNode1.bind("<<ComboboxSelected>>", self.plot_mini)
+        self.techNode2.bind("<<ComboboxSelected>>", self.plot_mini)
 
         
 
