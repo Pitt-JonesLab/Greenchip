@@ -248,6 +248,16 @@ def changeOptions(event):
         slbl2.grid_remove()
         sbutton2.grid_remove()
         
+    if option == "B - Raw_Data_Entry_Sliders":
+        sliderspath.grid(column=0, row=0, sticky=(N, W, E, S))
+        sliderslbl1.grid(row=0, column=1)
+        slidersbutton.grid(row=0, column=2)
+    else:
+        sliderspath.grid_remove()
+        sliderslbl1.grid_remove()
+        slidersbutton.grid_remove()
+
+        
 
 #Decision
 plugin_box = ttk.Combobox(mainframe, textvariable=pluginvar, values=plugins, state='readonly')
@@ -277,6 +287,10 @@ sbutton1.grid_remove()
 sinpath2.grid_remove()
 slbl2.grid_remove()
 sbutton2.grid_remove()
+
+sliderspath.grid_remove()
+sliderslbl1.grid_remove()
+slidersbutton.grid_remove()
 
 root.bind('<Return>', plot)
 root.mainloop()
