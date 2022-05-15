@@ -1,0 +1,4 @@
+chipArea1 0 5000.5 0.05
+dynamicPower2 0 67 2
+dynamicmemorypower1 0 78 1
+ipc2 0 3000 100
