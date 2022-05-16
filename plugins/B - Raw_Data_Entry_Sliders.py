@@ -596,6 +596,10 @@ class config(object):
             with open(slidersFile, "r") as settingsObject:
                 for line in settingsObject:
                     linevars = line.split(" ")
+                    if (linevars[0][0]=='#'):
+                        continue;
+                    if (len(linevars[0].strip())==0):
+                        continue;   
                     if (len(linevars)!=4):
                          messagebox.showerror("Error", "Incorrect number of variables!")
                     if (linevars[0].upper()=="CHIPAREA1"):
@@ -621,7 +625,8 @@ class config(object):
                     if (linevars[0].upper()=="IPC1"):
                         self.ipc1 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
                     if (linevars[0].upper()=="IPC2"):
-                        self.ipc2 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL)
+                        self.ipc2 = Scale(self.window, from_=linevars[1], to=linevars[2], resolution=linevars[3], length = 250, width = 20, orient = HORIZONTAL) 
+                    
         
         self.techNode1 = ttk.Combobox(self.window, textvariable=StringVar(), values=list(high_process_energies.keys()))
         self.techNode1.current(0)
