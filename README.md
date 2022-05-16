@@ -1,9 +1,10 @@
-###################################################
+################################################### 
+
 GreenChip Simulation Visualization (SimVis) Tool
 
 Version 0.1.0 -- May 16, 2022
 
-###################################################
+################################################### 
 
 
 Contents:
@@ -18,6 +19,22 @@ Contents:
 ---------------------------------------------------
 ----       Installing the Simulator          ------
 ---------------------------------------------------
+Installation:
+
+1) Be sure to have python3 installed on your system 
+2) Make sure pip is up to date
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+python3 -m pip install -–upgrade pip
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+3) Download the repository from zip and extract its contents
+4) Run command inside of the Greenchip directory to install requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pip install -r requirements.txt
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 GreenChip SimVis uses python3, and has two modes of operation, chosen automatically
 based on your system
@@ -36,12 +53,20 @@ based on your system
 ---------------------------------------------------
 
 Starting:
+
+
+Run this command inside the Greenchip directory:
+
+
 ~~~~~~~~
 
 python3 SimVis.py
 
-Getting Indifference Charts:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Getting Indifference Charts:
+
 
 GreenChip SimVis currently has 5 different analysis modes:
 
@@ -96,23 +121,20 @@ Folder level 5- power.py   power.xml  sim.cfg   sim.out    sim.stats.sqlite3   r
 ----            Settings File                ------
 ---------------------------------------------------
 
-Currently the "Advanced Settings File" is parsed looking for the following specific keywords and syntax:
+Currently the "Markers Settings File" is a .txt file that allows for the creation of multiple markers on start up. It uses the following syntax: 
 
-1) Point: x,y
+1) MarkerSpecifier Sleep Activity Radius Label Color 
 
-    x and y must be integers, <= 100
+    Refer to MarkerReadme.txt for more information and examples 
+    
 
-    Example: Point: 3,4 will add a circle of 3% active and 4% sleep to all plots. Having at least one point in the
-    settings file overwrites the default points. This can be changed after choosing the analysis mode and new plots
-    will be updated accordingly.
+There is also a "Sliders Settings File" that allows the adjustment of the minimum, maximum, and resolution of each raw input slider through a .txt file. It uses the following syntax: 
 
-    The default points on the plot are:
-    17, 77 (Typical User Desktop)
-    30, 5  (Typical Server, from 2011)
-    95, 5  (Typical HPC)
-    90, 92 (Cell Phone)
-
-More options might be added over time.
+1) SliderName: minimum maximum resolution 
+    
+    Refer to SlidersReadme.txt for more information and examples 
+     
+More options might be added over time. 
 
 
 ---------------------------------------------------
