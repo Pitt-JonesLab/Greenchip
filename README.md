@@ -150,7 +150,7 @@ Primary Authors, versions 0.2-0.5:
 Primary Authors, versions 0.6-0.9:
     Donald Kline, Jr
     
-Primary Authors, version 0.10:
+Primary Authors, version 0.1.0:
     Ryan Caginalp, Sebastien Ollivier, Stephen Cahoon, Chayanika Choudhuri
 
 Guidance:
