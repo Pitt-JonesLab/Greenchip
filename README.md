@@ -121,9 +121,10 @@ More options might be added over time.
 
 If you publish work using GreenChip, please cite:
 
-Donald Kline, Jr., Nikolas Parshook, Xiaoyu Ge, Erik Brunvand, Rami Melhem, Panos K. Chrysanthis, Alex K. Jones,
-GreenChip: A Tool for Evaluating Holistic Sustainability of Modern Computing Systems,
-In Sustainable Computing: Informatics and Systems, 2017.
+Donald Kline, Nikolas Parshook, Xiaoyu Ge, Erik Brunvand, Rami Melhem, Panos K. Chrysanthis, Alex K. Jones,
+GreenChip: A tool for evaluating holistic sustainability of modern computing systems,
+Sustainable Computing: Informatics and Systems,
+Volume 22, 2019, Pages 322-332, ISSN 2210-5379, https://doi.org/10.1016/j.suscom.2017.10.001.
 
 http://www.sciencedirect.com/science/article/pii/S2210537917300823
 
