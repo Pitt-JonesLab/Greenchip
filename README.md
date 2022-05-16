@@ -1,7 +1,7 @@
 ###################################################
 GreenChip Simulation Visualization (SimVis) Tool
 
-Version 0.9 -- November 11, 2017
+Version 0.10 -- May 16, 2022
 
 ###################################################
 
@@ -149,6 +149,9 @@ Primary Authors, versions 0.2-0.5:
 
 Primary Authors, versions 0.6-0.9:
     Donald Kline, Jr
+    
+Primary Authors, version 0.10:
+    Ryan Caginalp, Sebastien Ollivier, Stephen Cahoon, Chayanika Choudhuri
 
 Guidance:
     Dr. Alex K. Jones (University of Pittsburgh)
