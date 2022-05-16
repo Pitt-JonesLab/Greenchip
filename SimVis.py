@@ -175,70 +175,70 @@ folder_path_sliders = StringVar()
 
 
 sliderspath = ttk.Label(mainframe, text='Slider Configuration File (Optional):')
-sliderspath.grid(column=0, row=0, sticky=(N, W, E, S))
+sliderspath.grid(column=0, row=1, sticky=(N, W, E, S))
 
 sliderslbl1 = Label(mainframe, textvariable=folder_path_sliders)
-sliderslbl1.grid(row=0, column=1)
+sliderslbl1.grid(row=1, column=1)
 slidersbutton = Button(mainframe, text="Browse", command=browse_button_sliders)
-slidersbutton.grid(row=0, column=2)
+slidersbutton.grid(row=1, column=2)
 
 #Settings
 
 settingspath = ttk.Label(mainframe, text='Marker Configuration File (Optional):')
-settingspath.grid(column=0, row=1, sticky=(N, W, E, S))
+settingspath.grid(column=0, row=2, sticky=(N, W, E, S))
 
 settingslbl1 = Label(mainframe, textvariable=folder_path_settings)
-settingslbl1.grid(row=1, column=1)
+settingslbl1.grid(row=2, column=1)
 settingsbutton = Button(mainframe, text="Browse", command=browse_button_settings)
-settingsbutton.grid(row=1, column=2)
+settingsbutton.grid(row=2, column=2)
 
 
 #INPUT
 
 inpath = ttk.Label(mainframe, text='Input Directory (For non-raw input):')
-inpath.grid(column=0, row=2, sticky=(N, W, E, S))
+inpath.grid(column=0, row=3, sticky=(N, W, E, S))
 
 lbl1 = Label(mainframe, textvariable=folder_path_in)
-lbl1.grid(row=2, column=1)
+lbl1.grid(row=3, column=1)
 button2 = Button(mainframe, text="Browse", command=browse_button_input)
-button2.grid(row=2, column=2)
+button2.grid(row=3, column=2)
 
 sinpath1 = ttk.Label(mainframe, text='Configuration 1 Sniper Input Directory:')
 
-slbl1 = Label(mainframe, textvariable=folder_path_in)
+slbl1 = Label(mainframe, textvariable=sfolder_path_in1)
 sbutton1 = Button(mainframe, text="Browse", command=browse_sniper_input1)
 
 sinpath2 = ttk.Label(mainframe, text='Configuration 2 Sniper Input Directory:')
 
-slbl2 = Label(mainframe, textvariable=folder_path_in)
+slbl2 = Label(mainframe, textvariable=sfolder_path_in2)
 sbutton2 = Button(mainframe, text="Browse", command=browse_sniper_input2)
 
-sinpath1.grid(column=0, row=3, sticky=(N, W, E, S))
-slbl1.grid(row=3, column=1)
-sbutton1.grid(row=3, column=2)
-sinpath2.grid(column=0, row=4, sticky=(N, W, E, S))
-slbl2.grid(row=4, column=1)
-sbutton2.grid(row=4, column=2)
+sinpath1.grid(column=0, row=4, sticky=(N, W, E, S))
+slbl1.grid(row=4, column=1)
+sbutton1.grid(row=4, column=2)
+sinpath2.grid(column=0, row=5, sticky=(N, W, E, S))
+slbl2.grid(row=5, column=1)
+sbutton2.grid(row=5, column=2)
 
 #OUTPUT
 outpath = ttk.Label(mainframe, text='Output Directory (For All Breakeven/All Indifference):')
-outpath.grid(column=0, row=5, sticky=(N, W, E, S))
+outpath.grid(column=0, row=6, sticky=(N, W, E, S))
 lbl2 = Label(mainframe, textvariable=folder_path_out)
-lbl2.grid(row=5, column=1)
+lbl2.grid(row=6, column=1)
 button3 = Button(mainframe, text="Browse", command=browse_button_output)
-button3.grid(row=5, column=2)
+button3.grid(row=6, column=2)
 
 def changeOptions(event):
     option=event.widget.get()
    # print(option) 
     if option != "A - Raw_Data_Entry" and option != "B - Raw_Data_Entry_Sliders":
       #  print("Adding slider options")
-        sinpath1.grid(column=0, row=3, sticky=(N, W, E, S))
-        slbl1.grid(row=3, column=1)
-        sbutton1.grid(row=3, column=2)
-        sinpath2.grid(column=0, row=4, sticky=(N, W, E, S))
-        slbl2.grid(row=4, column=1)
-        sbutton2.grid(row=4, column=2)
+        sinpath1.grid(column=0, row=4, sticky=(N, W, E, S))
+        slbl1.grid(row=4, column=1)
+        sbutton1.grid(row=4, column=2)
+        sinpath2.grid(column=0, row=5, sticky=(N, W, E, S))
+        slbl2.grid(row=5, column=1)
+        sbutton2.grid(row=5, column=2)
     else:
        # print("Removing slider options")
         sinpath1.grid_remove()
@@ -249,9 +249,9 @@ def changeOptions(event):
         sbutton2.grid_remove()
         
     if option == "B - Raw_Data_Entry_Sliders":
-        sliderspath.grid(column=0, row=0, sticky=(N, W, E, S))
-        sliderslbl1.grid(row=0, column=1)
-        slidersbutton.grid(row=0, column=2)
+        sliderspath.grid(column=0, row=1, sticky=(N, W, E, S))
+        sliderslbl1.grid(row=1, column=1)
+        slidersbutton.grid(row=1, column=2)
     else:
         sliderspath.grid_remove()
         sliderslbl1.grid_remove()
@@ -262,8 +262,8 @@ def changeOptions(event):
 #Decision
 plugin_box = ttk.Combobox(mainframe, textvariable=pluginvar, values=plugins, state='readonly')
 plugin_box.current(0)
-plugin_box.grid(column=0, row=6, sticky=(N, W, E, S))
-ttk.Button(mainframe, text="Choose Analysis Mode", command=plot).grid(column=1, row=6, sticky=(N, W, E, S))
+plugin_box.grid(column=0, row=0, sticky=(N, W, E, S))
+ttk.Button(mainframe, text="Choose Analysis Mode", command=plot).grid(column=2, row=0, sticky=(N, W, E, S))
 plugin_box.bind("<<ComboboxSelected>>", changeOptions)
 
 menu = Menu(root)
