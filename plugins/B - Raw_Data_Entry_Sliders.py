@@ -8,6 +8,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import filedialog
 from tkinter import simpledialog
+from idlelib.tooltip import Hovertip
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
@@ -642,31 +643,38 @@ class config(object):
         self.chipArea_label.grid(column=0, row=1, sticky=(N, W, E, S))
         self.chipArea1.grid(column=1, row=1, sticky=(N, W, E, S))
         self.chipArea2.grid(column=2, row=1, sticky=(N, W, E, S))
+        Hovertip(self.chipArea_label, "Chip Area in mm^2")
 
         self.dynPower_label = ttk.Label(self.window, text='Dynamic Power (Processor+Caches)(W): ')
         self.dynPower_label.grid(column=0, row=2, sticky=(N, W, E, S))
         self.dynPower1.grid(column=1, row=2, sticky=(N, W, E, S))
         self.dynPower2.grid(column=2, row=2, sticky=(N, W, E, S))
+        Hovertip(self.dynPower_label, "Dynamic Power is the major component of the power dissipated in circuits and also contributes to the peak power. \n It is a function of the supply voltage, the switching frequency and the output load. ")
 
         self.staticPower_label = ttk.Label(self.window, text='Static Power (Processor+Caches)(W): ')
         self.staticPower_label.grid(column=0, row=3, sticky=(N, W, E, S))
         self.staticPower1.grid(column=1, row=3, sticky=(N, W, E, S))
         self.staticPower2.grid(column=2, row=3, sticky=(N, W, E, S))
+        Hovertip(self.staticPower_label, "static power is comprised of leakage, or current that flows through the transistor when there is no activity.")
 
         self.dynMem_label = ttk.Label(self.window, text='Dynamic Power (Memory)(W):')
         self.dynMem_label.grid(column=0, row=4, sticky=(N, W, E, S))
         self.dynMemPower1.grid(column=1, row=4, sticky=(N, W, E, S))
         self.dynMemPower2.grid(column=2, row=4, sticky=(N, W, E, S))
+        Hovertip(self.dynMem_label, "tooltip text goes here")
+        
 
         self.staticMem_label = ttk.Label(self.window, text='Static Power (Memory)(W):')
         self.staticMem_label.grid(column=0, row=5, sticky=(N, W, E, S))
         self.staticMemPower1.grid(column=1, row=5, sticky=(N, W, E, S))
         self.staticMemPower2 .grid(column=2, row=5, sticky=(N, W, E, S))
+        Hovertip(self.staticMem_label, "tooltip text goes here")
 
         self.ipc_label = ttk.Label(self.window, text='IPC :')
         self.ipc_label.grid(column=0, row=6, sticky=(N, W, E, S))
         self.ipc1.grid(column=1, row=6, sticky=(N, W, E, S))
         self.ipc2.grid(column=2, row=6, sticky=(N, W, E, S))
+        Hovertip(self.ipc_label, "IPC stands for instructions per cycle/clock. This tells you how many things a CPU can do in one cycle.")
 
         #self.cycles_label = ttk.Label(self.window, text='Cycles per simulation instance:')
         #self.cycles_label.grid(column=0, row=7, sticky=(N, W, E, S))
@@ -684,6 +692,7 @@ class config(object):
         self.techNode_label.grid(column=0, row=9, sticky=(N, W, E, S))
         self.techNode1.grid(column=1, row=9, sticky=(N, W, E, S))
         self.techNode2.grid(column=2, row=9, sticky=(N, W, E, S))
+        Hovertip(self.techNode_label, "The technology node (also process node, process technology or simply node) \n refers to a specific semiconductor manufacturing process and its design rules. \n Different nodes often imply different circuit generations and architectures.")
 
         self.plotButton1 = ttk.Button(self.window, text="Create Indifference Plot", command=self.plot_indifference)
         self.plotButton1.grid(column=1, row=11, sticky=(W))
