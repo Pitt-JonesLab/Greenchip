@@ -2,11 +2,15 @@ import os
 
 def plugins_list(plugins_dirs):
     """ List all python modules in specified plugins folders """
+    names = []
     for path in plugins_dirs.split(os.pathsep):
         for filename in os.listdir(path):
             name, ext = os.path.splitext(filename)
             if ext.endswith(".py"):
-                yield name
+                names.append(name)
+    names.sort()
+    for name in names:
+        yield name
 
 
 def import_plugins(plugins_dirs, env):
