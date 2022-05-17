@@ -231,7 +231,7 @@ button3.grid(row=6, column=2)
 def changeOptions(event):
     option=event.widget.get()
    # print(option) 
-    if option != "A - Raw_Data_Entry" and option != "B - Raw_Data_Entry_Sliders":
+    if option != "A - Raw_Data_Entry": #and option != "B - Raw_Data_Entry_Sliders":
       #  print("Adding slider options")
         sinpath1.grid(column=0, row=4, sticky=(N, W, E, S))
         slbl1.grid(row=4, column=1)
