@@ -1,5 +1,7 @@
 Changelog Version 0.1.1
 
+ * Added Carbon Emission Breakeven and Indifference plots to Raw Data Entry modes
+ * Added Plot Titles for clarity
  * Updated the GUI for Raw Data Entry and Raw Data Entry Sliders
  * Added more tech nodes for CPU manufacturing
  * Added DRAM manufacturing energy estimation
@@ -7,5 +9,5 @@ Changelog Version 0.1.1
  * Added a power.py patcher for DRAM manufacturing
  * Changed Breakeven and Indifference to use any input folder format
  * Updated Sliders Indifference and Breakeven to use Runtime Dynamic instead of Peak Dynamic Energy and to use power gating for Static Energy
- * Added more Hovertips and updated older ones
+ * Added more Tooltips and updated older ones
  * Fixed Readme and added HTML Readme to tool
