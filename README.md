@@ -42,7 +42,7 @@ sudo apt-get install -y git
 Step 3: Navigate to your desired directory for Greenchip, and run the following command to download it:
 
 ~~~~~~~~~~~~~
-git clone ...
+git clone https://github.com/Pitt-Jones-Lab/Greenchip.git
 ~~~~~~~~~~~~~
 
 Step 4: Run "cd Greenchip" to navigate to the downloaded tool's directory, and then run the following command to install some of the needed python 3 packages:
@@ -70,7 +70,7 @@ https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 Step 3: Navigate to your desired directory for Greenchip, and run the following command to download it:
 
 ~~~~~~~~~~~~~
-git clone ...
+git clone https://github.com/Pitt-Jones-Lab/Greenchip.git
 ~~~~~~~~~~~~~
 
 Step 4: Run "cd Greenchip" to navigate to the downloaded tool's directory, and then run the following command to install the needed python 3 packages:
