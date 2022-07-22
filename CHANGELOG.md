@@ -1,7 +1,6 @@
 # Changelog 
 
-## Version 0.1.1
-### 07/22/22
+### Version 0.1.1 - 07/22/22
 
  * Added Carbon Emission Breakeven and Indifference plots to Raw Data Entry modes
  * Added Plot Titles for clarity
