@@ -3,12 +3,27 @@ __author__ = 'nbp3'
 import json
 
 #NOTE NOTE: The 20 energy is for PCM. Higher energy for non-PCM
-
-high_process_energies = {12: {'energy': 45142, 'gwp': 0.042}, 20: {'energy': 222453, 'gwp': 1.6}, 
-                         28: {'energy': 3780000, 'gwp': 0.5}, 30: {'energy': 42397, 'gwp': 0.042}, 
-                         32: {'energy': 1327401, 'gwp': 0.042}, 45: {'energy': 800000, 'gwp': 0.055}, 
-                         55: {'energy': 979726, 'gwp': 0.042}, 65: {'energy': 650000, 'gwp': 0.042}, 90: {'energy': 600000, 'gwp': 0.042}
+# If new entries are added , go to combobox to change the Combobox entries to match the source
+high_process_energies = {'3': {'energy': 118080, 'gwp': 0.042}, '5': {'energy': 102600, 'gwp': 0.042}, '6': {'energy': 99360, 'gwp': 0.042}, '7 EUV': {'energy': 74800, 'gwp': 0.042},
+                         '7 193i': {'energy': 75960, 'gwp': 0.042}, '8 EUV': {'energy': 58680, 'gwp': 0.042}, '8 193i': {'energy': 60480, 'gwp': 0.042}, '10': {'energy': 52200, 'gwp': 0.042},
+                         '12': {'energy': 45142, 'gwp': 0.042}, '14': {'energy': 40680, 'gwp': 0.042}, 
+                         '20': {'energy': 41040, 'gwp': 1.6}, 
+                         '28': {'energy': 334800, 'gwp': 0.5}, '30': {'energy': 42397, 'gwp': 0.042}, 
+                         '32': {'energy': 73937, 'gwp': 0.042}, '45': {'energy': 73427, 'gwp': 0.055}, 
+                         '65': {'energy': 61699, 'gwp': 0.042}, '90': {'energy': 51501, 'gwp': 0.042}, '130': {'energy': 53541, 'gwp': 0.042},
+                         '180': {'energy': 48951, 'gwp': 0.042}, '250': {'energy': 49971, 'gwp': 0.042}, '350': {'energy': 56090, 'gwp': 0.042}
                         }
+                        
+high_process_energies_with_sources = ['3 (IMEC/DTCO)', '6 (IMEC/DTCO)', '7 193i (IMEC/DTCO)', '8 193i (IMEC/DTCO)', '10 (IMEC/DTCO)', '12 (IMEC/DTCO)', '14 (IMEC/DTCO)', '20 (IMEC/DTCO)', '28 (IMEC/DTCO)', 
+                                      '30 (Higgs)',
+                                      '32 (Boyd)', '45 (Boyd)', '65 (Boyd)', '130 (Boyd)','180 (Boyd)', '250 (Boyd)', '350 (Boyd)']
+
+#Change the values and match with Raw_Data_Entry line 654
+high_process_energies_DRAM = {'55': {'energy': 979726, 'gwp': 0.042}, '57': {'energy': 600000, 'gwp': 0.042}, '90': {'energy': 51501, 'gwp': 0.042}, '130': {'energy': 53541, 'gwp': 0.042},
+                              '180': {'energy': 48951, 'gwp': 0.042}, '250': {'energy': 49971, 'gwp': 0.042}, 
+                             } 
+
+                        
 
 
 def get_workload_power(dynamic, static, active_percent, sleep_percent):
@@ -23,13 +38,13 @@ def simple_manufacturing(energy, area, layers):
     return energy * (area * layers)
 
 
-def manufacturing_energy(config_dict):
-    return simple_manufacturing(
-        high_process_energies[config_dict['processSize']]['energy'],
-        config_dict['chipArea'], config_dict['layers'])
+#def manufacturing_energy(config_dict):
+#    return simple_manufacturing(
+#        high_process_energies[config_dict['processSize']]['energy'],
+#        config_dict['chipArea'], config_dict['layers'])
 
 
-def single_chip_stats(config_file):
+'''def single_chip_stats(config_file):
     results_dict = {}
 
     with open(config_file, 'r') as f:
@@ -44,10 +59,10 @@ def single_chip_stats(config_file):
         results_dict['manufacturingVsUseBreakevenInDays'][''.join([str(x * 10), '_percentActive'])] = \
             results_dict['manufacturingEnergy'] / power / 3600 / 24
 
-    return results_dict
+    return results_dict'''
 
 
-def multi_workload(config_files):
+'''def multi_workload(config_files):
     config_dicts = []
     results_dict = {}
 
@@ -69,84 +84,146 @@ def multi_workload(config_files):
         results_dict['manufacturingVsUseBreakevenInDays'][''.join([str(x * 10), '_percentActive'])] = \
             results_dict['manufacturingEnergy'] / power / 3600 / 24
 
-    return results_dict
+    return results_dict'''
 
 
-def chip_breakeven_IPC_file(config_files):
+'''def chip_breakeven_IPC_file(config_files):
     config_dicts = []
 
     for file in config_files:
         with open(file, 'r') as f:
             config_dicts.append(json.load(f))
 
-    return chip_breakeven_IPC(config_dicts)
+    return chip_breakeven_IPC(config_dicts)'''
 
 
-def chip_breakeven_IPC(config_dicts):
+def chip_breakeven_IPC(config_dicts, calc_Carbon):
     results_dict = {}
+    if calc_Carbon:
+        dict_num = 0
+        for config_dict in config_dicts:
+            results_dict[''.join(['manufacturingCarbon', str(dict_num)])] = \
+                config_dicts[dict_num]['Total CPU Carbon'] + config_dicts[dict_num]['Total DRAM Carbon']
+            dict_num += 1
+            
+        results_dict['chipVsChipBreakevenInDays'] = {}
+        results_dict['upgradeDays'] = {}
+        chip1IPC = config_dicts[0]['IPC']
+        chip2IPC = config_dicts[1]['IPC']
+        chip1freq = config_dicts[0]['FREQ']
+        chip2freq = config_dicts[1]['FREQ']
+        p1Factor = 0
+        p2Factor = 0
+        if (chip1IPC*chip1freq) < (chip2IPC*chip2freq):
+            p1Factor = 1
+            p2Factor = (chip1IPC*chip1freq) / (chip2IPC*chip2freq)
+        else:
+            p2Factor = 1
+            p1Factor = (chip2IPC*chip2freq) / (chip1IPC*chip1freq)
+        for y in range(0, 100):
+            results_dict['chipVsChipBreakevenInDays'][y] = {}
+            results_dict['upgradeDays'][y] = {}
+            for x in range(0, 101):
+                power1 = get_workload_power_with_dram(config_dicts[0]['dynamicPower'],
+                                                      config_dicts[0]['staticPower'],
+                                                      x * 0.01 * p1Factor,
+                                                      y * 0.01,
+                                                      config_dicts[0]['dynamicMemory'],
+                                                      config_dicts[0]['staticMemory'])
+                power2 = get_workload_power_with_dram(config_dicts[1]['dynamicPower'],
+                                                      config_dicts[1]['staticPower'],
+                                                      x * 0.01 * p2Factor,
+                                                      y * 0.01,
+                                                      config_dicts[1]['dynamicMemory'],
+                                                      config_dicts[1]['staticMemory'])
+                carbon1 = (power1/3600000) * config_dicts[0] ['UsePh Carbon Value'] 
+                carbon2 = (power2/3600000) * config_dicts[1] ['UsePh Carbon Value']
+                manufacturingCarbon_diff = results_dict['manufacturingCarbon0'] - results_dict['manufacturingCarbon1']
+                useCarbon_diff = carbon2 - carbon1
 
-    dict_num = 0
-    for config_dict in config_dicts:
-        results_dict[''.join(['manufacturingEnergy', str(dict_num)])] = \
-            simple_manufacturing(high_process_energies[config_dict['processSize']]['energy'], config_dict['chipArea'],
-                                 config_dict['layers'])
+                # print(energy_diff)
+                # print(power_diff)
+                # print(x)
+                # print(y)
 
-        dict_num += 1
-
-    results_dict['chipVsChipBreakevenInDays'] = {}
-    results_dict['upgradeDays'] = {}
-    chip1IPC = config_dicts[0]['IPC']
-    chip2IPC = config_dicts[1]['IPC']
-    p1Factor = 0
-    p2Factor = 0
-    if chip1IPC < chip2IPC:
-        p1Factor = 1
-        p2Factor = chip1IPC / chip2IPC
+                if useCarbon_diff != 0:
+                        results_dict['chipVsChipBreakevenInDays'][y][x] = \
+                            (manufacturingCarbon_diff / useCarbon_diff) / 3600 / 24
+                        if results_dict['chipVsChipBreakevenInDays'][y][x] < 0:
+                            results_dict['chipVsChipBreakevenInDays'][y][x] = -42
+                        results_dict['upgradeDays'][y][x] = (results_dict['manufacturingCarbon1'] / (
+                        carbon1 - carbon2)) / 3600 / 24
+                else:
+                    results_dict['chipVsChipBreakevenInDays'][y][x] = -42
+                    results_dict['upgradeDays'][y][x] = -42
+            
     else:
-        p2Factor = 1
-        p1Factor = chip2IPC / chip1IPC
-    for y in range(0, 100):
-        results_dict['chipVsChipBreakevenInDays'][y] = {}
-        results_dict['upgradeDays'][y] = {}
-        for x in range(0, 101):
-            power1 = get_workload_power_with_dram(config_dicts[0]['dynamicPower'],
-                                                  config_dicts[0]['staticPower'],
-                                                  x * 0.01 * p1Factor,
-                                                  y * 0.01,
-                                                  config_dicts[0]['dynamicMemory'],
-                                                  config_dicts[0]['staticMemory'])
-            power2 = get_workload_power_with_dram(config_dicts[1]['dynamicPower'],
-                                                  config_dicts[1]['staticPower'],
-                                                  x * 0.01 * p2Factor,
-                                                  y * 0.01,
-                                                  config_dicts[1]['dynamicMemory'],
-                                                  config_dicts[1]['staticMemory'])
+        dict_num = 0
+        for config_dict in config_dicts:
+            results_dict[''.join(['manufacturingEnergy', str(dict_num)])] = \
+                simple_manufacturing(high_process_energies[str(config_dict['processSize'])]['energy'], config_dict['chipArea'],
+                config_dict['layers']) + \
+                simple_manufacturing(high_process_energies_DRAM[str(config_dict['processSizeDram'])]['energy'], config_dict['chipAreaDram'],
+                config_dict['layers'])
 
-            energy_diff = results_dict['manufacturingEnergy0'] - results_dict['manufacturingEnergy1']
-            power_diff = power2 - power1
+            dict_num += 1
 
-            # print(energy_diff)
-            # print(power_diff)
-            # print(x)
-            # print(y)
+        results_dict['chipVsChipBreakevenInDays'] = {}
+        results_dict['upgradeDays'] = {}
+        chip1IPC = config_dicts[0]['IPC']
+        chip2IPC = config_dicts[1]['IPC']
+        chip1freq = config_dicts[0]['FREQ']
+        chip2freq = config_dicts[1]['FREQ']
+        p1Factor = 0
+        p2Factor = 0
+        if (chip1IPC*chip1freq) < (chip2IPC*chip2freq):
+            p1Factor = 1
+            p2Factor = (chip1IPC*chip1freq) / (chip2IPC*chip2freq)
+        else:
+            p2Factor = 1
+            p1Factor = (chip2IPC*chip2freq) / (chip1IPC*chip1freq)
+        for y in range(0, 100):
+            results_dict['chipVsChipBreakevenInDays'][y] = {}
+            results_dict['upgradeDays'][y] = {}
+            for x in range(0, 101):
+                power1 = get_workload_power_with_dram(config_dicts[0]['dynamicPower'],
+                                                      config_dicts[0]['staticPower'],
+                                                      x * 0.01 * p1Factor,
+                                                      y * 0.01,
+                                                      config_dicts[0]['dynamicMemory'],
+                                                      config_dicts[0]['staticMemory'])
+                power2 = get_workload_power_with_dram(config_dicts[1]['dynamicPower'],
+                                                      config_dicts[1]['staticPower'],
+                                                      x * 0.01 * p2Factor,
+                                                      y * 0.01,
+                                                      config_dicts[1]['dynamicMemory'],
+                                                      config_dicts[1]['staticMemory'])
 
-            if power_diff != 0:
-                    results_dict['chipVsChipBreakevenInDays'][y][x] = \
-                        (energy_diff / power_diff) / 3600 / 24
-                    if results_dict['chipVsChipBreakevenInDays'][y][x] < 0:
-                        results_dict['chipVsChipBreakevenInDays'][y][x] = -42
-                    results_dict['upgradeDays'][y][x] = (results_dict['manufacturingEnergy1'] / (
-                    power1 - power2)) / 3600 / 24
-            else:
-                results_dict['chipVsChipBreakevenInDays'][y][x] = -42
-                results_dict['upgradeDays'][y][x] = -42
+                energy_diff = results_dict['manufacturingEnergy0'] - results_dict['manufacturingEnergy1']
+                power_diff = power2 - power1
+
+                # print(energy_diff)
+                # print(power_diff)
+                # print(x)
+                # print(y)
+
+                if power_diff != 0:
+                        results_dict['chipVsChipBreakevenInDays'][y][x] = \
+                            (energy_diff / power_diff) / 3600 / 24
+                        if results_dict['chipVsChipBreakevenInDays'][y][x] < 0:
+                            results_dict['chipVsChipBreakevenInDays'][y][x] = -42
+                        results_dict['upgradeDays'][y][x] = (results_dict['manufacturingEnergy1'] / (
+                        power1 - power2)) / 3600 / 24
+                else:
+                    results_dict['chipVsChipBreakevenInDays'][y][x] = -42
+                    results_dict['upgradeDays'][y][x] = -42
 
 
             #results_dict['upgradeDays'][y][x] = (results_dict['manufacturingEnergy1'] / (power1 - power2)) / 3600 / 24
     return results_dict
 
 
-def chip_breakeven_Triangle(config_dicts):
+'''def chip_breakeven_Triangle(config_dicts):
     results_dict = {}
 
     dict_num = 0
@@ -198,10 +275,10 @@ def chip_breakeven_Triangle(config_dicts):
                 results_dict['chipVsChipBreakevenInDays'][y][x] = -42
         for x in range(101 - y, 101):
             results_dict['chipVsChipBreakevenInDays'][y][x] = float('NaN')
-    return results_dict
+    return results_dict'''
 
 
-def chip_breakeven(config_dicts):
+'''def chip_breakeven(config_dicts):
     results_dict = {}
 
     dict_num = 0
@@ -222,20 +299,20 @@ def chip_breakeven(config_dicts):
             results_dict['chipVsChipBreakevenInDays'][y][x * (1 - float(y) * 0.1)] = \
                 (energy_diff / power_diff) / 3600 / 24
 
-    return results_dict
+    return results_dict'''
 
 
-def chip_breakeven_file(config_files):
+'''def chip_breakeven_file(config_files):
     config_dicts = []
 
     for file in config_files:
         with open(file, 'r') as f:
             config_dicts.append(json.load(f))
 
-    return chip_breakeven(config_dicts)
+    return chip_breakeven(config_dicts)'''
 
 
-def chip_breakeven__MAN_file(config_files, active_percent, sleep_percent, man_min, man_max):
+'''def chip_breakeven__MAN_file(config_files, active_percent, sleep_percent, man_min, man_max):
     config_dicts = []
 
     for file in config_files:
@@ -302,7 +379,7 @@ def chip_breakeven_MAN(config_dicts, active_percent, sleep_percent, man_min, man
             else:
                 results_dict['chipVsChipBreakevenInDays'][y][x] = -42
 
-    return results_dict
+    return results_dict'''
 
 #print("sleep,active,break even")
 #print(single_chip_stats("radix45.json"))

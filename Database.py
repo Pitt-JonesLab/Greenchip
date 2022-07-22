@@ -9,8 +9,8 @@ class flatfileDB(object):
         self.populate_DB(self.DB_root, self.DB[self.DB_name])
         self.entries = None
         self.delim = delim
-        print(self.DB_root)
-        print(self.DB_name)
+        #print(self.DB_root)
+        #print(self.DB_name)
 
 
     def __str__(self):
