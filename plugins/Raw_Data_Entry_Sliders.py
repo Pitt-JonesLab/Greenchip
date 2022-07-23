@@ -562,6 +562,10 @@ class config(object):
             l = f.readline()
         numbers = re.findall(r'\d+', l)
         self.techNode1.set(numbers[0])
+        for tech in high_process_energies_with_sources:
+            if numbers[0] in tech:
+                self.techNode1.set(tech)
+                break
         while (l[0:22] != "  Core clock Rate(MHz)"):
             l = f.readline()
         numbers = re.findall(r'\d+', l)
@@ -619,6 +623,10 @@ class config(object):
             l = f.readline()
         numbers = re.findall(r'\d+', l)
         self.techNode2.set(numbers[0])
+        for tech in high_process_energies_with_sources:
+            if numbers[0] in tech:
+                self.techNode2.set(tech)
+                break
         while (l[0:22] != "  Core clock Rate(MHz)"):
             l = f.readline()
         numbers = re.findall(r'\d+', l)
