@@ -19,8 +19,8 @@ high_process_energies_with_sources = ['3 (IMEC/DTCO)', '6 (IMEC/DTCO)', '7 193i 
                                       '32 (Boyd)', '45 (Boyd)', '65 (Boyd)', '130 (Boyd)','180 (Boyd)', '250 (Boyd)', '350 (Boyd)']
 
 #Change the values and match with Raw_Data_Entry line 654
-high_process_energies_DRAM = {'55': {'energy': 979726, 'gwp': 0.042}, '57': {'energy': 600000, 'gwp': 0.042}, '90': {'energy': 51501, 'gwp': 0.042}, '130': {'energy': 53541, 'gwp': 0.042},
-                              '180': {'energy': 48951, 'gwp': 0.042}, '250': {'energy': 49971, 'gwp': 0.042}, 
+high_process_energies_DRAM = {'55': {'energy': 979726, 'gwp': 0.042}, '57': {'energy': 600000, 'gwp': 0.042}, '90': {'energy': 53031, 'gwp': 0.042}, '130': {'energy': 54560, 'gwp': 0.042},
+                              '180': {'energy': 45892, 'gwp': 0.042}, '250': {'energy': 48442, 'gwp': 0.042}, 
                              } 
 
                         
