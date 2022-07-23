@@ -19,10 +19,10 @@ class config(object):
 
     def plot(self, *args):
 
-        first_entry = utils.build_config(self.DB, self.entry1.get(), self.path_to_output_directory, writeMe=False, configNum=3)
+        first_entry = utils.build_config(self.DB, self.entry1, self.path_to_output_directory, writeMe=False, configNum=3)
         if first_entry is None:
             return
-        second_entry = utils.build_config(self.DB, self.entry2.get(), self.path_to_output_directory, writeMe=False, configNum=3)
+        second_entry = utils.build_config(self.DB, self.entry2, self.path_to_output_directory, writeMe=False, configNum=3)
         if second_entry is None:
             return
         config_dicts = []
