@@ -12,7 +12,7 @@ Version 0.1.1 -- 7/22/22
     * [Starting](#starting)
         * [Getting Charts](#getting-charts)
         * [Input Format (modes e,f)](#input-format-modes-ef)
-    * [Power Patcher](#power-patcher)
+    * [Specifier](#specifier)
     * [Importance](#importance)
     * [CSV Output](#csv-output)
 3) [Markers File](#markers-file)
@@ -151,9 +151,9 @@ Folder level 5- power.py   power.xml  sim.cfg   sim.out    sim.stats.sqlite3   r
 
 (*) Dram2Sim output, but if it is not found, Greenchip will use the power.py energy specifications for the DRAM power.
 
-### Power Patcher
+### Specifier
 
-As it currently stands, there exists no information about the DRAM technology node in any of the above files, and while there is a spot for information on the DRAM chip area, it is usually 0. This patcher allows the user to select a directory, a desired chip area, and a desired technology node, with which the patcher will update any power.py within any subdirectory.
+As it currently stands, there exists no information about the DRAM technology node in any of the above files, and while there is a spot for information on the DRAM chip area, it is usually 0. This option allows the user to select a directory, a desired chip area, a desired technology node, and desired locations for manufacturing and usage. A Greenchip.txt file containing this is created and put into each subdirectory containing a power.py (simulator output).
 
 ### Importance
 
