@@ -13,7 +13,6 @@
  * Sniper inputs will pull in DRAM and Carbon data if Greenchip.txt exists
  * Added CMOS tech nodes to DRAM options (for rough estimation)
  * Updated and changed various text to be more descriptive
- * Added a hash to plots in cases where the time is infinite
  * Snapshot files now use the user's marker points rather than default values
  * Fixed bugs with 7 nm and 8 nm tech nodes
 
