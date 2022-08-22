@@ -1547,11 +1547,11 @@ class utils(object):
                 nonlocal bmarker
                 Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
                 
-                fig.patches[0].set_width(0.03/(fig.get_size_inches()[0]/initialFigWidth)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
-                fig.patches[0].set_height(0.03/(fig.get_size_inches()[1]/initialFigLength)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
+                # fig.patches[0].set_width(0.03/(fig.get_size_inches()[0]/initialFigWidth)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
+                # fig.patches[0].set_height(0.03/(fig.get_size_inches()[1]/initialFigLength)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
                 
-                fig.patches[0].set_y(0.8505 + 0.03 - 0.03/(fig.get_size_inches()[1]/initialFigLength)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
-                Inf.set_y(0.918 + 0.03 - 0.03/(fig.get_size_inches()[1]/initialFigLength)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
+                # fig.patches[0].set_y(0.8505 + 0.03 - 0.03/(fig.get_size_inches()[1]/initialFigLength)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
+                # Inf.set_y(0.918 + 0.03 - 0.03/(fig.get_size_inches()[1]/initialFigLength)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
                 
                 #(0.93,0.8505), 0.03, 0.03
 
@@ -1594,7 +1594,7 @@ class utils(object):
                                 annotations[i].set_y(yPosition[i]/increment - (markerSizes[i*2 + 1])/(9*math.sqrt(2)*increment) - 1/((Size/initialSize)*increment))
 
                 if (Size<initialSize):
-                    Inf.set_size(initialAxisLabelSize*Size/initialSize)
+                    # Inf.set_size(initialAxisLabelSize*Size/initialSize)
 
                     ax.tick_params(axis = 'both', labelsize = initialFontSize*Size/initialSize)
                     ax.xaxis.label.set_size(initialAxisLabelSize*Size/initialSize)
@@ -1607,7 +1607,7 @@ class utils(object):
                     cbar.set_label('Years', rotation=360, size=initialAxisLabelSize*Size/initialSize, labelpad=-30*Size/initialSize, y=1.08)            
                     cbar2.set_label('Days', rotation=360, size=initialAxisLabelSize*Size/initialSize, labelpad=-37.5*Size/initialSize, y=1.08)
                 else:
-                    Inf.set_size(initialAxisLabelSize)
+                    # Inf.set_size(initialAxisLabelSize)
                     fig.patches[0].set_x((0.93-0.90)/(fig.get_size_inches()[0]/initialFigWidth) + 0.90)
                     ax.tick_params(axis = 'both', labelsize = initialFontSize)
                     ax.xaxis.label.set_size(initialAxisLabelSize)
@@ -1698,29 +1698,29 @@ class utils(object):
                 if event.inaxes is not None:
                     event.inaxes.figure.canvas.draw_idle()               
             
-            l = arr.shape[0]
+            # l = arr.shape[0]
             
-            if arr[0,0]<0:
-                i = int(100/(increment*2))
-                shifter = int(i/2)
-                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
-                    if arr[i,0]<0: i+=shifter
-                    else: i-=shifter
-                    if shifter!=1: shifter = int(shifter/2)
-                if i<0: i=0
-                if i>=l: i=l-1
-                ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
+            # if arr[0,0]<0:
+                # i = int(100/(increment*2))
+                # shifter = int(i/2)
+                # while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
+                    # if arr[i,0]<0: i+=shifter
+                    # else: i-=shifter
+                    # if shifter!=1: shifter = int(shifter/2)
+                # if i<0: i=0
+                # if i>=l: i=l-1
+                # ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
 
-            elif arr[l-1,0]<0:
-                i = int(100/(increment*2))
-                shifter = int(i/2)
-                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
-                    if arr[i,0]<0: i-=shifter
-                    else: i+=shifter
-                    if shifter!=1: shifter = int(shifter/2)
-                if i<0: i=0
-                if i>=l: i=l-1
-                ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
+            # elif arr[l-1,0]<0:
+                # i = int(100/(increment*2))
+                # shifter = int(i/2)
+                # while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
+                    # if arr[i,0]<0: i-=shifter
+                    # else: i+=shifter
+                    # if shifter!=1: shifter = int(shifter/2)
+                # if i<0: i=0
+                # if i>=l: i=l-1
+                # ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
                 
 
             # total_raw_dynamic1 = first_entry['dynamicMemory'] + first_entry['dynamicPower']
@@ -1743,8 +1743,8 @@ class utils(object):
 
             #image_file_name = path_to_output_directory + title1 + "_vs_" + title2 + ".pdf"
 
-            Inf = fig.text(0.90, 0.918, "Infinite", fontsize = initialAxisLabelSize)
-            fig.patches.extend([Rectangle((0.93,0.8505), 0.03, 0.03, fc = 'w', hatch = '///', ec = 'black', transform=fig.transFigure, figure=fig)])
+            #Inf = fig.text(0.90, 0.918, "Infinite", fontsize = initialAxisLabelSize)
+            #fig.patches.extend([Rectangle((0.93,0.8505), 0.03, 0.03, fc = 'w', hatch = '///', ec = 'black', transform=fig.transFigure, figure=fig)])
             
             fig.canvas.mpl_connect('resize_event', on_resize)
             #fig.tight_layout()
