@@ -10,12 +10,22 @@ from tkinter import simpledialog
 from tkinter import filedialog
 import subprocess
 import math
+import Pmw
 from mpl_toolkits.axes_grid1.inset_locator import InsetPosition
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.patches import Rectangle
+import matplotlib.backend_bases as bb
 import numpy as np
 import glob
+import csv
+
+global isOpenPower, powerWindow, isOpenCarbon, carbonWindow
+isOpenPower = False
+powerWindow = None
+isOpenCarbon = False
+CarbonWindow = None
 
 def colorFader(c1,c2,mix=0): #fade (linear interpolate) from color c1 (at mix=0) to c2 (mix=1)
     c1=np.array(mpl.colors.to_rgb(c1))
@@ -33,70 +43,385 @@ if settingsConfig.nativePlotting:
 
 
 class utils(object):
-    @staticmethod
-    def powerPatcherCore(filename, chipAreaDram, technode):
-        filename = os.path.normpath(filename)
-        exec(open(filename).read(), globals())
-        if power['DRAM']['Area'] != 0:
-            MsgBox = messagebox.askquestion ('DRAM Chip Area','DRAM Chip Area in ' + filename + ' is ' + str(power['DRAM']['Area']) + '. Do you wish to overwrite this data?' ,icon = 'warning')
-            if MsgBox == 'yes':
-                power['DRAM']['Area'] = chipAreaDram
-        else:
-            power['DRAM']['Area'] = chipAreaDram
-
-        power['DRAM']['ProcessSize'] = technode
-
-        filepower = open(filename, "r+")
-        replace =  " 'DRAM': {'Area': " + str( power['DRAM']['Area']) + ',\n'
-        replace2 = "          'Technology Node': '" + technode + "',\n"
-        filelist = filepower.readlines()
-        location = -1
-        for i in range(len(filelist)):
-            if 'DRAM' in filelist[i]:
-                location = i
-                filelist[i] = replace
-                if 'Technology' not in filelist[i+1]:
-                    filelist.insert(i+1, replace2)
-                else:
-                    MsgBox = messagebox.askquestion ('DRAM Technology Node','DRAM Technology Node in ' + filename + ' is ' + str(power['DRAM']['Technology Node']) + '. Do you wish to overwrite this data?' ,icon = 'warning')
-                    if MsgBox == 'yes':
-                        filelist[i+1] = replace2
-                break
-
-        if location == -1:
-            messagebox.showerror ('DRAM Specification Error', 'DRAM Specification not found! Check and make sure your power.py is not empty')
-            exit()
-
-        filepower.truncate(0)
-        filepower.seek(0)  
-        filepower.writelines(filelist)
-        filepower.close()
     
     @staticmethod
-    def powerPatcher(dirname, chipAreaDram, technode):
+    def calculateCarbon(row):
+        sum = 0
+        index = 2
+        while index < 12:
+            source =  int(row[index]) * float(row[index+10])
+            sum += source
+            index += 1
+        return round(sum/100)
+
+    @staticmethod
+    def returnListLoc(key, energyData):
+        countryOptions = []
+        stateOptions = []
+        for row in energyData:
+            if row[0] != '':
+                countryOptions.append(row[0])
+                stateOptions.append(['Back...'])
+            else:
+                stateOptions[len(stateOptions)-1].append(row[1])
+        if key in countryOptions:
+            return countryOptions
+        else:
+            for states in stateOptions:
+                if key in states:
+                    return states
+            messagebox.showerror('Invalid Location', 'Invalid location in Greenchip.txt!')
+            return None
+    
+    @staticmethod
+    def changeOptionsLoc(event, energyData):
+        countryOptions = []
+        stateOptions = []
+        for row in energyData:
+            if row[0] != '':
+                countryOptions.append(row[0])
+                stateOptions.append(['Back...'])
+            else:
+                stateOptions[len(stateOptions)-1].append(row[1])
+        option=event.widget.get()
+        if event.widget['values'][0] == 'Back...':
+            if option == 'Back...': 
+                event.widget['values'] = countryOptions
+                event.widget.set('')
+                event.widget.event_generate('<Button-1>', when='tail')
+        
+        else:
+            index = countryOptions.index(option)
+            state_list = stateOptions[index]
+            if len(state_list) == 1: return
+            event.widget['values'] = state_list
+            event.widget.set('')
+            event.widget.event_generate('<Button-1>', when='tail')
+            
+    @staticmethod
+    def powerPatcherCore(filename, chipAreaDram, technode, locCPU, locDRAM, locUse, YC, NC, YT, NT, Y, N):
+        filename = os.path.normpath(filename)
+        filename = os.path.join(os.path.dirname(filename),"Greenchip.txt")
+        
+        varList = None
+        
+        if (os.path.exists(filename)):
+            fileManu = open(filename, "r")
+            varList = fileManu.readlines()
+            fileManu.close()
+            if YC:
+                varList[0] = str(chipAreaDram) + ' //DRAM Chip Area\n'
+            elif not NC:
+                MsgBox = messagebox.askquestion ('Chip Area','A dram chip area of ' + varList[0].split(' ')[0] + ' mm^2 is already specified in ' + filename + '. Do you wish to overwrite this data?' ,icon = 'warning')
+                if MsgBox == 'yes':
+                    varList[0] = str(chipAreaDram) + ' //DRAM Chip Area\n'
+            if YT:
+                varList[1] = str(technode) + ' //DRAM Technology Node\n'
+            elif not NT:                
+                MsgBox = messagebox.askquestion ('Technology Node','A technology node of ' + varList[1].split(' ')[0] + ' nm is already specified in ' + filename + '. Do you wish to overwrite this data?' ,icon = 'warning')
+                if MsgBox == 'yes':
+                    varList[1] = str(technode) + ' //DRAM Technology Node\n'
+            if Y:
+                varList[2] = str(locCPU) + ' //CPU Manufacturing Location\n'
+                varList[3] = str(locDRAM) + ' //DRAM Manufacturing Location\n'
+                varList[4] = str(locUse) + ' //Use Phase Location'
+            elif not N:
+                MsgBox = messagebox.askquestion ('Locations','Locations for CPU, DRAM, and Use Phase, which are ' + varList[2].split(' ')[0] + ', ' + varList[3].split(' ')[0] + ', and ' + varList[4].split(' ')[0] + ', respectively, are already specified in ' + filename + '. Do you wish to overwrite this data?' ,icon = 'warning')
+                if MsgBox == 'yes':
+                    varList[2] = str(locCPU) + ' //CPU Manufacturing Location\n'
+                    varList[3] = str(locDRAM) + ' //DRAM Manufacturing Location\n'
+                    varList[4] = str(locUse) + ' //Use Phase Location'
+                
+            
+        else:
+            varList = [str(chipAreaDram) + '\n', str(technode) + '\n', str(locCPU) + '\n', str(locDRAM) + '\n', str(locUse)]
+    
+        fileManu = open(os.path.join(os.path.dirname(filename),"Greenchip.txt"), "w")
+        fileManu.writelines(varList)
+        fileManu.close()
+    
+    @staticmethod
+    def powerPatcher(dirname, chipAreaDram, technode, locCPU, locDRAM, locUse, YC, NC, YT, NT, Y, N):
         powerlist = glob.glob(dirname+'/**/power.py', recursive=True)
         for i in powerlist:
-            utils.powerPatcherCore(i, chipAreaDram, technode)
+            utils.powerPatcherCore(i, chipAreaDram, technode, locCPU, locDRAM, locUse, YC, NC, YT, NT, Y, N)
         messagebox.showinfo('Patch Complete', 'Patch has been completed! You may close this window and run your analysis', icon='info')
     
     @staticmethod
-    def powerPrompter():
-        dirname = filedialog.askdirectory()
-        if dirname == '':
-            return
-        chipAreaDram = simpledialog.askinteger('DRAM Chip Area', 'Please input the desired DRAM chip area for the selected files.')
-        if chipAreaDram is None:
-            return
-        technode = simpledialog.askstring('DRAM Technology Node', 'Please input the desired DRAM technology node for the selected files. The supported tech nodes are ' + "55, 57, 90, 130, 180, and 250.")
-        if technode is None:
-            return
-        while technode not in ['55', '57', '90', '130', '180', '250']:
-            MsgBox = messagebox.askquestion ('DRAM Technology Node','This technology node is not supported. Do you wish to try again?' ,icon = 'error')
-            if MsgBox == 'yes':
-                technode = simpledialog.askstring('DRAM Technology Node', 'Please input the desired DRAM technology node for the selected files. The supported tech nodes are ' + "55, 57, 90, 130, 180, and 250.")
-            else:
-                return
-        utils.powerPatcher(dirname, chipAreaDram, technode)
+    def powerPrompter(gridMixSettingsFilename):
+		
+        global isOpenPower,powerWindow
+		
+        if not isOpenPower:
+            window = Toplevel()
+            window.title("Specifier Data Entry")
+            window.geometry("450x375")
+
+            def window_exit():
+                global isOpenPower
+                isOpenPower = False
+                window.destroy()            
+
+            window.protocol("WM_DELETE_WINDOW", window_exit)
+            
+        
+            powerWindow = window
+            isOpenPower = True
+
+            balloon = Pmw.Balloon(window)
+            lblballoon = balloon.component('label')
+            lblballoon.config(background='white')
+            
+            Tech_Value = StringVar()
+            Patch_Folder = StringVar()
+            Patch_Folder_Actual = StringVar()
+            CPU_Value = StringVar()
+            DRAM_Value = StringVar()
+            Use_Value = StringVar()
+            varYC = IntVar()
+            varNC = IntVar()
+            varYT = IntVar()
+            varNT = IntVar()
+            varY = IntVar()
+            varN = IntVar()
+
+            energyData=[]
+            filename=os.path.normpath(gridMixSettingsFilename)
+            with open(filename, 'r') as file:
+                reader=csv.reader(file)
+                for row in reader:
+                   if row[0]!='Country': energyData.append(row)
+            
+            countryOptions = []
+            for row in energyData:
+                if row[0] != '':
+                    countryOptions.append(row[0])
+                            
+            CPU_Label = ttk.Label(window, text="CPU Manufacturing Location:")
+            balloon.bind(CPU_Label, "This is the location where each CPU was manufactured.")
+
+            DRAM_Label = ttk.Label(window, text="DRAM Manufacturing Location:")
+            balloon.bind(CPU_Label, "This is the location where each DRAM was manufactured.")
+
+            Use_Label = ttk.Label(window, text="Use Phase Location:")
+            balloon.bind(CPU_Label, "This is the location where each system operates.")
+                        
+            
+            Patch_Label = ttk.Label(window, text="Directory:")
+            balloon.bind(Patch_Label, "The specified information is added to all subdirectories containing sniper output within this directory")
+            PatchFolder_Label = ttk.Label(window, textvariable=Patch_Folder)
+
+            Area_Label = ttk.Label(window, text="DRAM Chip Area (mm^2):")
+            balloon.bind(Area_Label, "Total area of all DRAM dies in mm^2.")
+
+            Tech_Label = ttk.Label(window, text="DRAM Technology Node (nm):")
+            balloon.bind(Tech_Label, "The technology node (also process node, process technology or simply node) \n refers to a specific semiconductor manufacturing process and its design rules. \n Different nodes often imply different circuit generations and architectures.")
+
+            Area_Entry = ttk.Entry(window, width=30)
+            
+            Empty_Label = ttk.Label(window, text='')
+
+            Tech_Dropdown = ttk.Combobox(window, textvariable=Tech_Value, values=['3 (CMOS)', '6 (CMOS)', '7 EUV (CMOS)', '7 193i (CMOS)', '8 EUV (CMOS)', '8 193i (CMOS)', '10 (CMOS)', '12 (CMOS)','14 (CMOS)', '20 (CMOS)', '28 (CMOS)', '30 (CMOS)', '32 (CMOS)', '45 (CMOS)', '55', '57', '90', '130', '180', '250'], state='readonly')
+            Tech_Dropdown.current(12)
+
+            CPU_Dropdown = ttk.Combobox(window, textvariable=CPU_Value, values=countryOptions, state='readonly')
+            CPU_Dropdown.bind("<<ComboboxSelected>>", lambda event: utils.changeOptionsLoc(event, energyData))
+
+            DRAM_Dropdown = ttk.Combobox(window, textvariable=DRAM_Value, values=countryOptions, state='readonly')
+            DRAM_Dropdown.bind("<<ComboboxSelected>>", lambda event: utils.changeOptionsLoc(event, energyData))
+
+            Use_Dropdown = ttk.Combobox(window, textvariable=Use_Value, values=countryOptions, state='readonly')
+            Use_Dropdown.bind("<<ComboboxSelected>>", lambda event: utils.changeOptionsLoc(event, energyData))
+            
+            Defaults_Label = ttk.Label(window, text='Sample DRAM Modules:')
+            balloon.bind(Defaults_Label, "We have provided some sample DRAM Modules. When a module is selected, the DRAM chip area and tech node will jump to the correct values for that module.")
+            Defaults_Dropdown = ttk.Combobox(window, textvariable=Use_Value, values=countryOptions, state='readonly')
+
+            def YC_Checker():          
+                if varYC.get()==1 and varNC.get()==1:
+                    messagebox.showerror(title = "Not Compatible", message = "You can't overwrite everything and never overwrite at the same time. Please select one or the other.", icon = "error")
+                    varYC.set(0)
+
+            def NC_Checker():            
+                if varYC.get()==1 and varNC.get()==1:
+                    messagebox.showerror(title = "Not Compatible", message = "You can't overwrite everything and never overwrite at the same time. Please select one or the other.", icon = "error")
+                    varNC.set(0)
+
+            def YT_Checker():            
+                if varYT.get()==1 and varNT.get()==1:
+                    messagebox.showerror(title = "Not Compatible", message = "You can't overwrite everything and never overwrite at the same time. Please select one or the other.", icon = "error")
+                    varYT.set(0)
+
+            def NT_Checker():            
+                if varYT.get()==1 and varNT.get()==1:
+                    messagebox.showerror(title = "Not Compatible", message = "You can't overwrite everything and never overwrite at the same time. Please select one or the other.", icon = "error")
+                    varNT.set(0)
+
+            def Y_Checker():            
+                if varY.get()==1 and varN.get()==1:
+                    messagebox.showerror(title = "Not Compatible", message = "You can't overwrite everything and never overwrite at the same time. Please select one or the other.", icon = "error")
+                    varY.set(0)
+
+            def N_Checker():            
+                if varY.get()==1 and varN.get()==1:
+                    messagebox.showerror(title = "Not Compatible", message = "You can't overwrite everything and never overwrite at the same time. Please select one or the other.", icon = "error")
+                    varN.set(0)
+
+
+            varY.set(0)
+            checkY = ttk.Checkbutton(window, text="Automatically Overwrite\nExisting Grid Mix Data", variable=varY, onvalue=1, offvalue=0, command=Y_Checker)
+            balloon.bind(checkY, "If checked, when the tool finds a carbon.txt file,\nit will always overwrite it with the specified values instead of asking the user whether to overwrite data.")
+
+            varN.set(0)
+            checkN = ttk.Checkbutton(window, text="Never Overwrite\nExisting Grid Mix Data", variable=varN, onvalue=1, offvalue=0, command=N_Checker)
+            balloon.bind(checkN, "If checked, when the tool finds a carbon.txt file,\nit will keep those values instead of asking the user whether to overwrite data.")
+
+
+            varYC.set(0)
+            checkYC = ttk.Checkbutton(window, text="Automatically Overwrite\nExisting Values for\nDRAM Chip Area", variable=varYC, onvalue=1, offvalue=0, command=YC_Checker)
+            balloon.bind(checkYC, "If checked, when the patcher finds a file with a non-zero chip area, \ninstead of asking the user whether it should overwrite it, the patcher will automatically overwrite it.")
+
+            varNC.set(0)
+            checkNC = ttk.Checkbutton(window, text="Never Overwrite\nExisting Values for\nDRAM Chip Area", variable=varNC, onvalue=1, offvalue=0, command=NC_Checker)
+            balloon.bind(checkNC, "If checked, when the patcher finds a file with a non-zero chip area, \ninstead of asking the user whether it should overwrite it, the patcher will keep the current value.")
+
+            varYT.set(0)
+            checkYT = ttk.Checkbutton(window, text="Automatically Overwrite\nExisting Values for\nDRAM Technology Node", variable=varYT, onvalue=1, offvalue=0, command=YT_Checker)
+            balloon.bind(checkYT, "If checked, when the patcher finds a file with an existing technology node, \ninstead of asking the user whether it should overwrite it, the patcher will automatically overwrite it.")
+
+            varNT.set(0)
+            checkNT = ttk.Checkbutton(window, text="Never Overwrite\nExisting Values for\nDRAM Technology Node", variable=varNT, onvalue=1, offvalue=0, command=NT_Checker)
+            balloon.bind(checkNT, "If checked, when the patcher finds a file with an existing technology node, \ninstead of asking the user whether it should overwrite it, the patcher will keep the current value.")
+
+            def remove_source(tech_node):
+                i = 0
+                while i<len(tech_node) and tech_node[i]!='(':
+                    i += 1
+                if i!=len(tech_node):
+                    return tech_node[0:(i-1)]
+                else:
+                    return tech_node
+            
+            def path_shortener(path):
+                if len(path) > 25:
+                    return  path[0:25] + '...'  
+                else:
+                    return path
+
+            def browse_button_input():
+                f = open(os.path.join(os.path.dirname(os.path.realpath('__file__')),'defaultFolders.txt'), "r+")
+                defaults = f.readlines()
+                filename1 = None
+                if defaults[6]=='\n':
+                    filename1 = filedialog.askdirectory()
+                else:
+                    filename1 = filedialog.askdirectory(initialdir = os.path.normpath(defaults[6].strip()))
+
+                if (filename1 is None or filename1==""):
+                    return
+
+                defaults[6] = filename1 + "\n"
+                f.seek(0)
+                f.truncate(0)
+                f.writelines(defaults)
+                f.close()
+
+                Patch_Folder.set(filename1)
+                Patch_Folder_Actual.set(filename1)
+                balloon.bind(PatchFolder_Label, Patch_Folder_Actual.get())
+                Patch_Folder.set(path_shortener(Patch_Folder.get()))
+            
+            def call_power_patcher():
+                dirname = Patch_Folder_Actual.get()
+                chipAreaDram = Area_Entry.get()
+                technode = remove_source(Tech_Value.get())
+                procLoc = CPU_Value.get()
+                dramLoc = DRAM_Value.get()
+                useLoc = Use_Value.get()
+                
+                if dirname is None or dirname=='':
+                    messagebox.showerror(title = "Empty Directory", message = "Please specify a directory", icon = "error")
+                    return
+                if chipAreaDram is None or chipAreaDram=='':
+                    messagebox.showerror(title = "No Chip Area Supplied", message = "Please specify the DRAM Chip Area", icon = "error")
+                    return
+                if technode is None or technode=='':
+                    messagebox.showerror(title = "No Tech Node Supplied", message = "Please specify the DRAM Tech Node", icon = "error")
+                    return
+                if procLoc is None or procLoc=='':
+                    messagebox.showerror(title = "No CPU Location Supplied", message = "Please Specify the CPU Manufacturing Location", icon = "error")
+                    return
+                if dramLoc is None or dramLoc=='':
+                    messagebox.showerror(title = "No DRAM Location Supplied", message = "Please Specify the DRAM Manufacturing Location", icon = "error")
+                    return
+                if useLoc is None or useLoc=='':
+                    messagebox.showerror(title = "No Use Phase Location Supplied", message = "Please Specify the Use Phase Location", icon = "error")
+                    return
+                
+                
+                utils.powerPatcher(dirname, chipAreaDram, technode, CPU_Value.get(), DRAM_Value.get(), Use_Value.get(), bool(varYC.get()), bool(varNC.get()), bool(varYT.get()), bool(varNT.get()), bool(varY.get()), bool(varN.get()))
+                window_exit()
+
+            Browse_Button = ttk.Button(window, text="Browse", command=browse_button_input)
+            Patch_Button = ttk.Button(window, text="Begin!",  command=call_power_patcher)
+            
+            Patch_Label.grid(row=0,column=0, sticky=(N,W,E,S), pady=(5,5))
+            PatchFolder_Label.grid(row=0,column=1, sticky=(N,W,E,S), pady=(5,5))
+            Browse_Button.grid(row=0, column=2, sticky=(N,W,E,S), pady=(5,5))
+
+            Area_Label.grid(row=1,column=0, sticky=(N,W,E,S), pady=(0,5))
+            Area_Entry.grid(row=1,column=1, sticky=(N,W,E,S), pady=(0,5))
+
+            Tech_Label.grid(row=2,column=0, sticky=(N,W,E,S), pady=(0,5))
+            Tech_Dropdown.grid(row=2,column=1, sticky=(N,W,E,S), pady=(0,5))
+                        
+            CPU_Label.grid(row=3,column=0, sticky=(N,W,E,S), pady=(0,5))
+            CPU_Dropdown.grid(row=3,column=1, sticky=(N,W,E,S), pady=(0,5))
+            
+            DRAM_Label.grid(row=4,column=0, sticky=(N,W,E,S), pady=(0,5))
+            DRAM_Dropdown.grid(row=4,column=1, sticky=(N,W,E,S), pady=(0,5))
+            
+            Use_Label.grid(row=5,column=0, sticky=(N,W,E,S), pady=(0,5))
+            Use_Dropdown.grid(row=5,column=1, sticky=(N,W,E,S), pady=(0,5))
+            
+            #Defaults_Dropdown.grid(row=6,column=1, sticky=(N,W,E,S), pady=(0,5))
+            #Defaults_Dropdown.grid(row=6,column=1, sticky=(N,W,E,S), pady=(0,5))
+
+            Empty_Label.grid(row=7,column=0, sticky=(N,W,E,S), pady=(0,5))
+            
+            checkYC.grid(row=8,column=0, sticky=(N,W,E,S), pady=(0,5))
+            checkNC.grid(row=8,column=1, sticky=(N,W,E,S), pady=(0,5))
+            Patch_Button.grid(row=8,column=2, rowspan=3,sticky=(N,W,E,S), pady=(0,5))
+
+            checkYT.grid(row=9,column=0, sticky=(N,W,E,S), pady=(0,5))
+            checkNT.grid(row=9,column=1, sticky=(N,W,E,S), pady=(0,5))
+            
+            checkY.grid(row=10,column=0, sticky=(N,W,E,S), pady=(0,5))            
+            checkN.grid(row=10,column=1, sticky=(N,W,E,S), pady=(0,5))
+
+
+            window.resizable(width=True, height=True)
+        
+        else:
+            powerWindow.deiconify()
+            powerWindow.lift()
+        # dirname = filedialog.askdirectory()
+        # if dirname == '':
+            # return
+        # chipAreaDram = simpledialog.askinteger('DRAM Chip Area', 'Please input the desired DRAM chip area for the selected files.')
+        # if chipAreaDram is None:
+            # return
+        # technode = simpledialog.askstring('DRAM Technology Node', 'Please input the desired DRAM technology node for the selected files. The supported tech nodes are ' + "55, 57, 90, 130, 180, and 250.")
+        # if technode is None:
+            # return
+        # while technode not in ['55', '57', '90', '130', '180', '250']:
+            # MsgBox = messagebox.askquestion ('DRAM Technology Node','This technology node is not supported. Do you wish to try again?' , icon = 'error')
+            # if MsgBox == 'yes':
+                # technode = simpledialog.askstring('DRAM Technology Node', 'Please input the desired DRAM technology node for the selected files. The supported tech nodes are ' + "55, 57, 90, 130, 180, and 250.")
+            # else:
+                # return
+        # utils.powerPatcher(dirname, chipAreaDram, technode)
+        
     @staticmethod
     def abbreviate(benchmark):
         my_renaming = {'canneal_x264_blackscholes_vips': 'CXBV', 'rtview_fluidanimate_freqmine_bodytrack': 'RFFB',
@@ -198,7 +523,7 @@ class utils(object):
             items1[2] = '0.5'
 
         filename = '_vs_'.join([items1[1], items2[1]])
-        label = ':'.join([utils.abbreviate(items1[3]), items1[2] + "MB"])
+        label = ' vs '.join([entry1_in, entry2_in])
         return filename, label
 
     @staticmethod
@@ -219,32 +544,38 @@ class utils(object):
         return entry2
 
     @staticmethod
-    def build_config(database, entry, path_to_output_directory, writeMe = True, configNum = 1):
-        global_cycle_time = 0.000000000375
+    def build_config(database, entry, path_to_output_directory, writeMe = True, configNum = 1, carbonFile = False, useDRAM = True, energyData = None):
         config = {}
         mcpat, mcpat_was_loaded = database.get_item(entry, 'power.py', mcpat_dict_loader)
         if mcpat is None:
             return None
         entries = entry.split(database.delim)
         tmpdict = database.DB[database.DB_name]
-        for i in entries:
-            tmpdict = tmpdict[i]
-        if 'run_out.txt' in tmpdict.keys():    
-            dramsim, dramsim_was_loaded = database.get_item(entry, 'run_out.txt', dramsim_dict_loader)
-            config['staticMemory'] = dramsim['static_memory']
-            config['dynamicMemory'] = dramsim['dynamic_memory']
+        if useDRAM:
+            for i in entries:
+                tmpdict = tmpdict[i]
+            if 'run_out.txt' in tmpdict.keys():    
+                dramsim, dramsim_was_loaded = database.get_item(entry, 'run_out.txt', dramsim_dict_loader)
+                config['staticMemory'] = dramsim['static_memory']
+                config['dynamicMemory'] = dramsim['dynamic_memory']
+            else:
+               Msgbox = messagebox.askquestion('run_out.txt Missing', 'run_out.txt is missing from ' + entry + '. DRAM Static Power and Dynamic Power will be pulled from Sniper instead. Do you want to proceed?', icon = 'warning')
+               if Msgbox == 'yes':
+                    config['staticMemory'] = mcpat['DRAM']['Subthreshold Leakage with power gating'] + mcpat['DRAM']['Gate Leakage']
+                    config['dynamicMemory'] = mcpat['DRAM']['Runtime Dynamic']
+               else:
+                    return
         else:
-           Msgbox = messagebox.askquestion('run_out.txt Missing', 'run_out.txt is missing from ' + entry + '. DRAM Static Power and Dynamic Power will be pulled from Sniper instead. Do you want to proceed?', icon = 'warning')
-           if Msgbox == 'yes':
-                config['staticMemory'] = mcpat['DRAM']['Subthreshold Leakage with power gating'] + mcpat['DRAM']['Gate Leakage']
-                config['dynamicMemory'] = mcpat['DRAM']['Runtime Dynamic']
-           else:
-                return
+            config['staticMemory'] = 0.0
+            config['dynamicMemory'] = 0.0
+            
         ipc, ipc_was_loaded = database.get_item(entry, 'sim.out', ipc_dict_loader)
         if ipc is None:
             return None
 
         config['chipArea'] = mcpat['Processor']['Area']
+        if useDRAM: config['chipAreaDram'] = mcpat['DRAM']['Area']
+        else: config['chipAreaDram'] = 0.0
         config['dynamicPower'] = mcpat['Processor']['Runtime Dynamic']
         config['staticPower'] = mcpat['Processor']['Subthreshold Leakage with power gating'] + mcpat['Processor'][
             'Gate Leakage']
@@ -253,48 +584,93 @@ class utils(object):
         config['cycles'] = ipc['cycles']
         config['layers'] = 1
         mcpat_cfg, mcpat_config_was_loaded = database.get_item(entry, 'power.xml', mcpat_cfg_loader)
-        config['processSize'] = int(mcpat_cfg[0][14].attrib['value'])
-        config['chipAreaDram'] = mcpat['DRAM']['Area']
         
-        if config['chipAreaDram'] == 0 and configNum == 1:
-            messagebox.showerror('DRAM Chip Area Error', 'DRAM Chip Area in power.py for the Top System is 0. If you are ignoring DRAM, input 0 in the next window.')
-            config['chipAreaDram'] = simpledialog.askinteger(title='DRAM Chip Area', prompt= 'Input the total area of all DRAM die in mm^2 (0 if ignoring DRAM)')
-            if config['chipAreaDram'] is None:
-                    return
+        processSize = str(mcpat_cfg[0][14].attrib['value'])
+        config['processSize'] = processSize
+
+        for tech in high_process_energies.keys():
+            if (processSize + " ") in tech or processSize==tech:
+                config['processSize'] = tech
+                break
+        
+        if configNum == 3 and not carbonFile and not useDRAM:
+            config['chipAreaDram'] = 0.0
+            config['processSizeDram'] = '55'
+
+        if configNum == 3 and (carbonFile or useDRAM):
+            data_list = database.get_item(entry, 'Greenchip.txt', greenchip_dict_loader)
+            
+            if data_list is not None:
+                config['LocationManu CPU'] = str(data_list[0][2])
+                config['Carbon Use Phase Loc'] = str(data_list[0][4])
+                if useDRAM:
+                    config['chipAreaDram'] = float(data_list[0][0])
+                    acceptable_DRAM_nodes = ['3', '6', '7', '8', '10', '12', '14', '20', '28', '30', '32', '45', '55', '57', '90', '130', '180', '250']
+                    if str(data_list[0][1]).split(' ')[0].strip() not in acceptable_DRAM_nodes:
+                        messagebox.showerror('DRAM Technology Node Error', 'DRAM Technology Node in Greenchip.txt of ' + entry + ' is ' + str(data_list[0][1]) + ', which is not currently compatible with Greenchip. Exiting...')
+                        return
+                    config['processSizeDram'] = str(data_list[0][1])
+                    config['LocationManu DRAM'] = str(data_list[0][3])
+                else:
+                    config['chipAreaDram'] = 0.0
+                    config['processSizeDram'] = '55'
+                    config['LocationManu DRAM'] = config['LocationManu CPU']
+
+
+                for row in energyData:
+                    if row[2] == '':
+                        continue
+                    if row[0] == str(data_list[0][2]):
+                        config['CPU Carbon Value'] = utils.calculateCarbon(row)
+                    if row[1] == str(data_list[0][2]):
+                        config['CPU Carbon Value'] = utils.calculateCarbon(row)
+                    if useDRAM:
+                        if row[0] == str(data_list[0][3]):
+                            config['DRAM Carbon Value'] = utils.calculateCarbon(row)
+                        if row[1] == str(data_list[0][3]):
+                            config['DRAM Carbon Value'] = utils.calculateCarbon(row)
+                    else:
+                        config['DRAM Carbon Value'] = 0
                     
-        if config['chipAreaDram'] == 0 and configNum == 2:
-            messagebox.showerror('DRAM Chip Area Error', 'DRAM Chip Area in power.py for the Bottom System is 0. If you are ignoring DRAM, input 0 in the next window.')
-            config['chipAreaDram'] = simpledialog.askinteger(title='DRAM Chip Area', prompt= 'Input the total area of all DRAM die in mm^2 (0 if ignoring DRAM)')
-            if config['chipAreaDram'] is None:
-                    return
-                    
-        if configNum == 1:
-            config['processSizeDram'] = simpledialog.askstring(title='Tech Node', prompt= 'Input Tech Node for the DRAM of the Top System (55, 57, 90, 130 180, 250)')
-            while config['processSizeDram'] not in ['55', '57', '90', '130', '180', '250']:
-                if config['processSizeDram'] is None:
-                    return
-                messagebox.showerror('Tech Node Error', 'Invalid Tech Node! Please use the list given in the next prompt.')
-                config['processSizeDram'] = simpledialog.askstring(title='Tech Node', prompt= 'Input Tech Node for the DRAM of the Top System (55, 57, 90, 130 180, 250)')
+                    if row[0] == str(data_list[0][4]):
+                        config['UsePh Carbon Value'] = utils.calculateCarbon(row)
+                    if row[1] == str(data_list[0][4]):
+                        config['UsePh Carbon Value'] = utils.calculateCarbon(row)
+            else:
+                messagebox.showerror('DRAM Technology Node Error', 'Greenchip.txt for ' + entry + ' is missing. Please run the patcher and try again. Exiting...')
+                return
                 
-        if configNum == 2:
-            config['processSizeDram'] = simpledialog.askstring(title='Tech Node', prompt= 'Input Tech Node for the DRAM of the Bottom System (55, 57, 90, 130 180, 250)')
-            while config['processSizeDram'] not in ['55', '57', '90', '130', '180', '250']:
-                if config['processSizeDram'] is None:
-                    return
-                messagebox.showerror('Tech Node Error', 'Invalid Tech Node! Please use the list given in the next prompt.')
-                config['processSizeDram'] = simpledialog.askstring(title='Tech Node', prompt= 'Input Tech Node for the DRAM of the Bottom System (55, 57, 90, 130 180, 250)')
-                    
-        if configNum == 3:
-            config['processSizeDram'] = mcpat['DRAM']['Technology Node']
+        
+        if configNum == 3 and carbonFile:
+            techNodeCPU = config['processSize']
+            techNodeDRAM = config['processSizeDram']
+            
+            config['CPU Energy'] = high_process_energies[techNodeCPU]['energy']
+                
+            config['Total CPU Energy'] = simple_manufacturing(config['CPU Energy'], config['chipArea'], config['layers'])
+            config['Total CPU Carbon'] = config['Total CPU Energy'] /3600000 * config['CPU Carbon Value']
+            
+            ''' Add energy (Joules) manufacturing DRAM '''
+            config['DRAM Energy'] = high_process_energies_DRAM[techNodeDRAM]['energy']
+                
+            config['Total DRAM Energy'] = simple_manufacturing(config['DRAM Energy'], config['chipAreaDram'], config['layers'])
+            config['Total DRAM Carbon'] = config['Total DRAM Energy'] /3600000 * config['DRAM Carbon Value']
+            
         config['FREQ'] = float(mcpat_cfg[0][15].attrib['value'])/1000.0
+        cycle_time = 1.0/(config['FREQ']*1000000000)        
 
         if mcpat_was_loaded:
 
             if writeMe:
+                ProcManuEnergy = simple_manufacturing(high_process_energies[str(config['processSize'])]['energy'], config['chipArea'], config['layers'])
+                DramManuEnergy = simple_manufacturing(high_process_energies_DRAM[str(config['processSizeDram'])]['energy'], config['chipAreaDram'], config['layers'])
                 entry = utils.rename(entry, False)
                 with open(path_to_output_directory + "Power.csv", "a") as power_file:
                     power_file.write(entry + "," + str(config['staticMemory']) + "," + str(config['staticPower']) + "," +
                                      str(config['dynamicMemory']) + "," + str(config['dynamicPower']) + "\n")
+                if carbonFile:
+                    with open(path_to_output_directory+"CarbonRate.csv", "a") as carbonr_file:
+                        carbonr_file.write(entry + "," + str(config['staticMemory']/1000 * config['UsePh Carbon Value']) + "," + str(config['staticPower']/1000 * config['UsePh Carbon Value']) + "," + str(config['dynamicMemory']/1000 * config['UsePh Carbon Value']) + "," + str(config['dynamicPower']/1000 * config['UsePh Carbon Value']) + "\n")
 
                 with open(path_to_output_directory + "MPKI.csv", "a") as mpki_file:
                     mpki_file.write(entry + "," + str(ipc['mpki']) + "\n")
@@ -302,21 +678,36 @@ class utils(object):
                 with open(path_to_output_directory + "IPC.csv", "a") as ipc_file:
                     ipc_file.write(entry + "," + str(ipc['ipc']) + "\n")
 
+                if carbonFile:
+                    with open(path_to_output_directory + "Manufacturing.csv", "a") as energy_file:
+                        energy_file.write(entry  + "," + str(DramManuEnergy) + "," + str(ProcManuEnergy) + "," + str(config['Total DRAM Carbon']) + "," + str(config['Total CPU Carbon']) + "," + str(config['chipAreaDram']) + "," + str(config['chipArea']) + "\n")
+                else:
+                    with open(path_to_output_directory + "Manufacturing.csv", "a") as energy_file:
+                        energy_file.write(entry  + "," + str(DramManuEnergy) + "," + str(ProcManuEnergy) + "," + str(config['chipAreaDram']) + "," + str(config['chipArea']) + "\n")
+                    
+
+                if carbonFile:
+                    hours =  config['cycles'] * cycle_time/3600
+                    with open(path_to_output_directory+"Carbon.csv", "a") as carbon_file:
+                        carbon_file.write(entry + "," + str(config['staticMemory']/1000 * config['UsePh Carbon Value'] * hours) + "," + str(config['staticPower']/1000 * config['UsePh Carbon Value'] * hours) + "," + str(config['dynamicMemory']/1000 * config['UsePh Carbon Value'] * hours) + "," + str(config['dynamicPower']/1000 * config['UsePh Carbon Value'] * hours) + "\n")
+
+
                 with open(path_to_output_directory + "Energy.csv", "a") as energy_file:
                     energy_file.write(
-                        entry + "," + str(config['staticMemory'] * config['cycles'] * global_cycle_time) +
-                        "," + str(config['staticPower'] * config['cycles'] * global_cycle_time) + "," +
-                        str(config['dynamicMemory'] * config['cycles'] * global_cycle_time) + "," +
-                        str(config['dynamicPower'] * config['cycles'] * global_cycle_time) + "\n")
+                        entry + "," + str(config['staticMemory'] * config['cycles'] * cycle_time) +
+                        "," + str(config['staticPower'] * config['cycles'] * cycle_time) + "," +
+                        str(config['dynamicMemory'] * config['cycles'] * cycle_time) + "," +
+                        str(config['dynamicPower'] * config['cycles'] * cycle_time) + "\n")
 
         return config
 
     @staticmethod
-    def make_plot(first_entry, second_entry, entry1, entry2, res, snapshot_label, path_to_output_directory):
+    def make_plot(first_entry, second_entry, entry1, entry2, res, snapshot_label, path_to_output_directory, increment = 0.5, mindays = 0, maxdays = 3650, minyears = 4000/365, maxyears = 36000/365):
         if settingsConfig.nativePlotting:
 			
             fontSize = 13;
             axisLabelSize = 16;
+            titleLabelSize = 20
 
             matplotlib.rc('xtick', labelsize=fontSize)
             matplotlib.rc('ytick', labelsize=fontSize)
@@ -364,7 +755,9 @@ class utils(object):
 
             # [x][y]
             e = np.e
-
+                        
+            markerDict = {}
+            
             if settingsFile is not None:
                 with open(settingsFile, "r") as settingsObject:
                     for line in settingsObject:
@@ -381,18 +774,25 @@ class utils(object):
                                     break
                                 Label = linevars[3]
                                 Color = linevars[4].lower().strip();
-                                plt.plot([Sleep], [Activity], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                plt.plot([Sleep], [Activity], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+
+                                if Label not in markerDict: markerDict[Label] = [Sleep, Activity, -1]
+                                else:
+                                    i = 2
+                                    while Label+str(i) in markerDict: i += 1
+                                    markerDict[Label+str(i)] = [Sleep, Activity, -1]
+
                                 if (Sleep>50):
                                     if (Activity<50):                    
-                                        ax.text(Sleep - 4/math.sqrt(2) - 0.5,Activity + 4/math.sqrt(2) + 0.5, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
+                                        ax.text(Sleep/increment - 4/(math.sqrt(2)*increment) - 0.5/increment,Activity/increment + 4/(math.sqrt(2)*increment) + 0.5/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
                                     else:
-                                        ax.text(Sleep - 4/math.sqrt(2) - 0.5,Activity - 4/math.sqrt(2) - 0.5, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
+                                        ax.text(Sleep/increment - 4/(math.sqrt(2)*increment) - 0.5/increment,Activity/increment - 4/(math.sqrt(2)*increment) - 0.5/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
                                 else:
                                     if (Activity<50):                    
-                                        ax.text(Sleep + 4/math.sqrt(2) + 0.5,Activity + 4/math.sqrt(2) + 0.5, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
+                                        ax.text(Sleep/increment + 4/(math.sqrt(2)*increment) + 0.5/increment,Activity/increment + 4/(math.sqrt(2)*increment) + 0.5/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
                                     else:
-                                        ax.text(Sleep + 4/math.sqrt(2) + 0.5,Activity - 4/math.sqrt(2) - 0.5, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
+                                        ax.text(Sleep/increment + 4/(math.sqrt(2)*increment) + 0.5/increment,Activity/increment - 4/(math.sqrt(2)*increment) - 0.5/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
                             else:
                                 Sleep = int(linevars[1])
                                 if (Sleep<0 or Sleep>100):
@@ -403,18 +803,25 @@ class utils(object):
                                     messagebox.showerror("Error", "Activity Ratio out of bounds!")
                                     break
                                 Label = linevars[3].strip()
-                                plt.plot([Sleep], [Activity], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                plt.plot([Sleep], [Activity], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                
+                                if Label not in markerDict: markerDict[Label] = [Sleep, Activity, -1]
+                                else:
+                                    i = 2
+                                    while Label+str(i) in markerDict: i += 1
+                                    markerDict[Label+str(i)] = [Sleep, Activity, -1]
+
                                 if (Sleep>50):
                                     if (Activity<50):                    
-                                        ax.text(Sleep - 4/math.sqrt(2) - 0.5,Activity + 4/math.sqrt(2) + 0.5, Label, verticalalignment = 'top', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        ax.text(Sleep/increment - 4/(math.sqrt(2)*increment) - 0.5/increment,Activity/increment + 4/(math.sqrt(2)*increment) + 0.5/increment, Label, verticalalignment = 'top', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                     else:
-                                        ax.text(Sleep - 4/math.sqrt(2) - 0.5,Activity - 4/math.sqrt(2) - 0.5, Label, verticalalignment = 'bottom', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        ax.text(Sleep/increment - 4/(math.sqrt(2)*increment) - 0.5/increment,Activity/increment - 4/(math.sqrt(2)*increment) - 0.5/increment, Label, verticalalignment = 'bottom', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 else:
                                     if (Activity<50):                    
-                                        ax.text(Sleep + 4/math.sqrt(2) + 0.5,Activity + 4/math.sqrt(2) + 0.5, Label, verticalalignment = 'top', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        ax.text(Sleep/increment + 4/(math.sqrt(2)*increment) + 0.5/increment,Activity/increment + 4/(math.sqrt(2)*increment) + 0.5/increment, Label, verticalalignment = 'top', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                     else:
-                                        ax.text(Sleep + 4/math.sqrt(2) + 0.5,Activity - 4/math.sqrt(2) - 0.5, Label, verticalalignment = 'bottom', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        ax.text(Sleep/increment + 4/(math.sqrt(2)*increment) + 0.5/increment,Activity/increment - 4/(math.sqrt(2)*increment) - 0.5/increment, Label, verticalalignment = 'bottom', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                         elif (linevars[0].upper()=="WM"):
                             if len(linevars)==6:
                                 Sleep = int(linevars[1])
@@ -428,18 +835,25 @@ class utils(object):
                                 Radius = int(linevars[3])
                                 Label = linevars[4]
                                 Color = linevars[5].lower().strip();
-                                plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
+
+                                if Label not in markerDict: markerDict[Label] = [Sleep, Activity, Radius]
+                                else:
+                                    i = 2
+                                    while Label+str(i) in markerDict: i += 1
+                                    markerDict[Label+str(i)] = [Sleep, Activity, Radius]
+                                    
                                 if (Sleep>50):
                                     if (Activity<50):                    
-                                        ax.text(Sleep - (Radius*8.5)/(9*math.sqrt(2)) - 1, Activity + (Radius*8.5)/(9*math.sqrt(2)) + 1, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
+                                        ax.text(Sleep/increment - (Radius*8.5)/(9*math.sqrt(2)*increment) - 1/increment, Activity/increment + (Radius*8.5)/(9*math.sqrt(2)*increment) + 1/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
                                     else:
-                                        ax.text(Sleep - (Radius*8.5)/(9*math.sqrt(2)) - 1, Activity - (Radius*8.5)/(9*math.sqrt(2)) - 1, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
+                                        ax.text(Sleep/increment - (Radius*8.5)/(9*math.sqrt(2)*increment) - 1/increment, Activity/increment - (Radius*8.5)/(9*math.sqrt(2)*increment) - 1/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
                                 else:
                                     if (Activity<50):                    
-                                        ax.text(Sleep + (Radius*8.5)/(9*math.sqrt(2)) + 1, Activity + (Radius*8.5)/(9*math.sqrt(2)) + 1, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
+                                        ax.text(Sleep/increment + (Radius*8.5)/(9*math.sqrt(2)*increment) + 1/increment, Activity/increment + (Radius*8.5)/(9*math.sqrt(2)*increment) + 1/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
                                     else:
-                                        ax.text(Sleep + (Radius*8.5)/(9*math.sqrt(2)) + 1, Activity - (Radius*8.5)/(9*math.sqrt(2)) - 1, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
+                                        ax.text(Sleep/increment + (Radius*8.5)/(9*math.sqrt(2)*increment) + 1/increment, Activity/increment - (Radius*8.5)/(9*math.sqrt(2)*increment) - 1/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
                             else:
                                 Sleep = int(linevars[1])
                                 if (Sleep<0 or Sleep>100):
@@ -451,18 +865,25 @@ class utils(object):
                                     break
                                 Radius = int(linevars[3])
                                 Label = linevars[4].strip()
-                                plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
+
+                                if Label not in markerDict: markerDict[Label] = [Sleep, Activity, Radius]
+                                else:
+                                    i = 2
+                                    while Label+str(i) in markerDict: i += 1
+                                    markerDict[Label+str(i)] = [Sleep, Activity, Radius]
+
                                 if (Sleep>50):
                                     if (Activity<50):                    
-                                        ax.text(Sleep - (Radius*8.5)/(9*math.sqrt(2)) - 1, Activity + (Radius*8.5)/(9*math.sqrt(2)) + 1, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
+                                        ax.text(Sleep/increment - (Radius*8.5)/(9*math.sqrt(2)*increment) - 1/increment, Activity/increment + (Radius*8.5)/(9*math.sqrt(2)*increment) + 1/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
                                     else:
-                                        ax.text(Sleep - (Radius*8.5)/(9*math.sqrt(2)) - 1, Activity - (Radius*8.5)/(9*math.sqrt(2)) - 1, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
+                                        ax.text(Sleep/increment - (Radius*8.5)/(9*math.sqrt(2)*increment) - 1/increment, Activity/increment - (Radius*8.5)/(9*math.sqrt(2)*increment) - 1/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
                                 else:
                                     if (Activity<50):                    
-                                        ax.text(Sleep + (Radius*8.5)/(9*math.sqrt(2)) + 1, Activity + (Radius*8.5)/(9*math.sqrt(2)) + 1, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
+                                        ax.text(Sleep/increment + (Radius*8.5)/(9*math.sqrt(2)*increment) + 1/increment, Activity/increment + (Radius*8.5)/(9*math.sqrt(2)*increment) + 1/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
                                     else:
-                                        ax.text(Sleep + (Radius*8.5)/(9*math.sqrt(2)) + 1, Activity - (Radius*8.5)/(9*math.sqrt(2)) - 1, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
+                                        ax.text(Sleep/increment + (Radius*8.5)/(9*math.sqrt(2)*increment) + 1/increment, Activity/increment - (Radius*8.5)/(9*math.sqrt(2)*increment) - 1/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
                         elif (linevars[0][0]=="#"):
                             continue;
                         elif (len(linevars[0].strip())==0):
@@ -472,28 +893,59 @@ class utils(object):
 
             # Make sure this comparison makes sense (i.e., different process nodes)
             # Get Names
-            if snapshot_label is not None and utils.snapshot_reasonable(entry1, entry2):
+            if snapshot_label is not None:
                 filename, label = utils.snapshot_gather(entry1, entry2)
                 if not os.path.exists(path_to_output_directory + "Snapshots"):
                     os.makedirs(path_to_output_directory + "Snapshots")
 
-                with open(path_to_output_directory + "Snapshots/"+snapshot_label+"_Desktop_" + filename + ".csv", "a") as desktop_file:
-                    desktop_value = arr[17][77]
-                    desktop_file.write(label + "," + str(desktop_value) + "\n")
-                with open(path_to_output_directory + "Snapshots/"+snapshot_label+"_Server_" + filename + ".csv", "a") as server_file:
-                    server_value = arr[30][5]
-                    server_file.write(label + "," + str(server_value) + "\n")
-                with open(path_to_output_directory + "Snapshots/"+snapshot_label+"_HPC_" + filename + ".csv", "a") as hpc_file:
-                    hpc_value = arr[95][5]
-                    hpc_file.write(label + "," + str(hpc_value) + "\n")
-                with open(path_to_output_directory + "Snapshots/"+snapshot_label+"_Mobile_" + filename + ".csv", "a") as mobile_file:
-                    mobile_value = arr[90][92]
-                    mobile_file.write(label + "," + str(mobile_value) + "\n") 
+                for key in markerDict.keys():
+                    value = markerDict[key]
+                    with open(path_to_output_directory + "Snapshots/"+snapshot_label.split(' ')[0] + '_' + snapshot_label.split(' ')[2] + '_' + key + '_' + filename + ".csv", "a") as snapshot_file:
+                        if int(value[2])==-1: snapshot_file.write(label + "," + str(arr[int(value[1]/increment)][int(value[0]/increment)]) + "\n")
+                        else:
+                            val = 0
+                            num = 0
+                            for x in range(int(float(value[0])/increment-float(value[2])/increment),int(float(value[0])/increment+float(value[2])/increment)):
+                                for y in range(int(float(value[1])/increment-float(value[2])/increment),int(float(value[1])/increment+float(value[2])/increment)):
+                                    if (float(value[0])/increment-x)*(float(value[0])/increment-x)+(float(value[1])/increment-y)*(float(value[1])/increment-y)<(float(value[2])/increment)*(float(value[2])/increment):
+                                        val += arr[y][x]
+                                        num += 1
+                                        
+                            snapshot_file.write(label + "," + str(val/num) + "\n")
+                        snapshot_file.close()
+
 
             # want a more natural, table-like display
             ax.invert_yaxis()
             ax.xaxis.tick_top()
             ax.axis('tight')
+            plt.xticks(np.array([0.5,20/increment + 0.5,40/increment + 0.5,60/increment + 0.5,80/increment + 0.5,100/increment + 0.5]), [0,20,40,60,80,100])
+            plt.yticks(np.array([0.5,20/increment + 0.5,40/increment + 0.5,60/increment + 0.5,80/increment + 0.5,100/increment + 0.5]), [0,20,40,60,80,100])
+
+            l = arr.shape[0]
+            
+            if arr[0,0]<0:
+                i = int(100/(increment*2))
+                shifter = int(i/2)
+                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
+                    if arr[i,0]<0: i+=shifter
+                    else: i-=shifter
+                    if shifter!=1: shifter = int(shifter/2)
+                if i<0: i=0
+                if i>=l: i=l-1
+                
+                ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
+
+            elif arr[l-1,0]<0:
+                i = int(100/(increment*2))
+                shifter = int(i/2)
+                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
+                    if arr[i,0]<0: i-=shifter
+                    else: i+=shifter
+                    if shifter!=1: shifter = int(shifter/2)
+                if i<0: i=0
+                if i>=l: i=l-1
+                ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
 
             first_ipc = "{0:.2f}".format(first_entry['IPC'])
             second_ipc = "{0:.2f}".format(second_entry['IPC'])
@@ -512,10 +964,26 @@ class utils(object):
             # ax.set_xticklabels(column_labels, minor=False)
             # ax.set_yticklabels(row_labels, minor=False)
             # plt.colorbar(heatbar2)
-            cbar = plt.colorbar(heatbar2, pad=0.05, ticks=[4015, 8030, 12045, 16060, 20075, 24090, 28105, 32120, 36000])
-            cbar.ax.set_yticklabels(['11', '22', '33', '44', '55', '66', '77', '88', '99'])
+
+            yearlabels = utils.axisListMaker(minyears, maxyears)
+            yearints = []
+            yearlabels = list(yearlabels)
+            yearints.insert(0, minyears*365 + 0.0001)
+            yearlabels.insert(0,str(round(minyears, 1)))
+
+            for i in range(1,len(yearlabels)):
+                yearlabels[i] = int(yearlabels[i])
+                yearints.append(yearlabels[i]*365)
+                yearlabels[i] = str(yearlabels[i])
+
+            yearlabels.append(round(maxyears,1))
+            yearints.append(maxyears*365 - 0.0001)
+
+            cbar = plt.colorbar(heatbar2, pad=0.05, ticks=yearints)
+            cbar.ax.set_yticklabels(yearlabels)
             cbar.ax.tick_params(labelsize=fontSize)
             cbar.set_label('Years', rotation=360, size=axisLabelSize, labelpad=-30, y=1.08)
+            
             # plt.colorbar(heatbar)
             cbar2 = plt.colorbar(heatbar, pad = 0.1)
             cbar2.ax.tick_params(labelsize=fontSize)
@@ -526,16 +994,21 @@ class utils(object):
             ax.set_xlabel('Percent Sleep')
             ax.xaxis.set_label_position('top')
             ax.xaxis.labelpad = 16;
+            ax.set_title(label=snapshot_label, fontsize=titleLabelSize, pad=12)
             plt.ylabel('Activity Ratio')
+
+            ax.set_aspect('equal', adjustable = None)
+
             # plt.title(''.join([utils.rename(self.entry1, False), ' vs. ', utils.rename(self.entry2, False)]), y=1.08)
 
             image_file_name = path_to_output_directory + utils.rename(entry1, True) + "_vs_" + utils.rename(
-                entry2, True) + ".pdf"
-
+                entry2, True) + "_" + snapshot_label.split(' ')[0] + "_" + snapshot_label.split(' ')[2] + ".pdf"
+            
             plt.savefig(image_file_name, bbox_inches='tight')
-
-            plt.clf()
-            plt.close()
+            
+            ax.cla()
+            fig.clf()
+            plt.close("all")
 
         else:
             messagebox.showinfo("Library Missing!", "Missing matplotlib, cannot plot in python!")
@@ -546,7 +1019,6 @@ class utils(object):
             res_keys = sorted(res.keys())
 
             data = []
-
             for key in res_keys:
                 innerres = res[key]
                 inner_keys = sorted(innerres.keys())
@@ -587,9 +1059,9 @@ class utils(object):
     def average_gradient(Radius, Sleep, Activity, Orig, Mod):
         numofpoints = 0
         totaldifference = 0
-        for x in range(Sleep - Radius, Sleep + Radius + 1):
-            for y in range(Activity - Radius, Activity + Radius + 1):
-                if ((x + y)<=Radius + Activity + Sleep and (x + y)>=Radius + Activity + Sleep ):
+        for x in range(Sleep/increment - Radius, Sleep/increment + Radius + 1):
+            for y in range(Activity/increment - Radius, Activity/increment + Radius + 1):
+                if ((x + y)<=Radius + Activity/increment + Sleep and (x + y)>=Radius + Activity/increment + Sleep ):
                     numofpoints = numofpoints + 1
                     totaldifference = totaldifference + Orig[x][y] - Mod[x][y]
         averagedifference = totaldifference/numofpoints           
@@ -600,9 +1072,9 @@ class utils(object):
     def partial_average(Radius, Sleep, Activity, Orig):
         numofpoints = 0
         total = 0
-        for x in range(Sleep - Radius, Sleep + Radius + 1):
-            for y in range(Activity - Radius, Activity + Radius + 1):
-                if ((x + y)<=Radius + Activity + Sleep and (x + y)>=Radius + Activity + Sleep ):
+        for x in range(Sleep/increment - Radius, Sleep/increment + Radius + 1):
+            for y in range(Activity/increment - Radius, Activity/increment + Radius + 1):
+                if ((x + y)<=Radius + Activity/increment + Sleep and (x + y)>=Radius + Activity/increment + Sleep ):
                     numofpoints = numofpoints + 1
                     total = total + Orig[x][y]
         average = total/numofpoints           
@@ -668,30 +1140,30 @@ class utils(object):
             messagebox.showinfo("Error", "The values inputted are out of bounds")
             return
         difference = [0,0,0,0,0]
-        orig = chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep][Activity]
+        orig = chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep/increment][Activity/increment]
         old = config2['chipArea']
         config2['chipArea'] = config2['chipArea'] - (.01 * config2['chipArea'])
-        difference[0] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        difference[0] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep/increment][Activity/increment] # Measures gradient by using a 1% shift
         config2['chipArea'] = old
 
         old = config2['dynamicPower']
         config2['dynamicPower'] = config2['dynamicPower'] - (.01 * config2['dynamicPower'])
-        difference[1] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        difference[1] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep/increment][Activity/increment] # Measures gradient by using a 1% shift
         config2['dynamicPower'] = old
 
         old = config2['staticPower']
         config2['staticPower'] = config2['staticPower'] - (.01 * config2['staticPower'])
-        difference[2] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        difference[2] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep/increment][Activity/increment] # Measures gradient by using a 1% shift
         config2['staticPower'] = old
 
         old = config2['dynamicMemory']
         config2['dynamicMemory'] = config2['dynamicMemory'] - (.01 * config2['dynamicMemory'])
-        difference[3] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        difference[3] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep/increment][Activity/increment] # Measures gradient by using a 1% shift
         config2['dynamicMemory'] = old
         
         old = config2['staticMemory']
         config2['staticMemory'] = config2['staticMemory'] - (.01 * config2['staticMemory'])
-        difference[4] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        difference[4] = orig - chip_breakeven_IPC(config_dicts, False)['upgradeDays'][Sleep/increment][Activity/increment] # Measures gradient by using a 1% shift
         config2['staticMemory'] = old
         
         total = difference[0] + difference[1] + difference[2] + difference[3] + difference[4]   # Scales gradients to percentages
@@ -706,7 +1178,28 @@ class utils(object):
             + str(round(difference[3],2)) + "%\nStatic Power(Memory): " + str(round(difference[4],2)) + "%") # Displays a message box showing the percentages    
 
     @staticmethod
-    def make_single_plot(self, first_entry, second_entry, title1, title2, res, plot_title):
+    def axisListMaker(minval, maxval):
+        increment = 1
+        while ((maxval-minval)/increment>10): increment += 1
+        
+        mid = round((minval+maxval)/2)
+        
+        l = [mid]
+        
+        temp = mid + increment
+        while temp<(maxval-increment/2):
+            l.append(temp)
+            temp += increment
+
+        temp = mid - increment
+        while temp>(minval+increment/2):
+            l.insert(0, temp)
+            temp -= increment
+        
+        return l
+
+    @staticmethod
+    def make_single_plot(self, first_entry, second_entry, title1, title2, res, plot_title, increment = 0.2, mindays = 0, maxdays = 3650, minyears = 4000/365, maxyears = 36000/365):
         if settingsConfig.nativePlotting:
 
             initialFontSize = 13
@@ -748,22 +1241,67 @@ class utils(object):
             second_cmap = plt.get_cmap(customgray)
             second_cmap.set_under(color=c)
 
-            heatmap = ax.pcolormesh(arr, cmap=my_cmap, vmax=3650, vmin=0)
+            heatmap = ax.pcolormesh(arr, cmap=my_cmap, vmax=maxdays, vmin=mindays)
             heatbar = heatmap
-            heatmap = ax.pcolormesh(arr, cmap=second_cmap, vmax=36000, vmin=4000)
+            heatmap = ax.pcolormesh(arr, cmap=second_cmap, vmax=maxyears*365, vmin=minyears*365)
             heatbar2 = heatmap
+            
+            listarr = []
+            for i in range(arr.shape[0]):
+                listarrtemp = []
+                for j in range(arr.shape[0]):
+                    listarrtemp.append(arr[i,j])
+                listarr.append(listarrtemp)
+                
+            def _mouse_event_to_message(self, event):
+                if event.inaxes and event.inaxes.get_navigate():
+                    try:
+                        s = event.inaxes.format_coord(event.xdata, event.ydata)
+                    except (ValueError, OverflowError):
+                        pass
+                    return s
 
+            bb.NavigationToolbar2._mouse_event_to_message = _mouse_event_to_message
+                
             def format_coord(x, y):
-                col = int(x+0.5)
-                row = int(y+0.5)
-                if col>=0 and col<100 and row>=0 and row<100:
+                col = int(x)
+                row = int(y)
+                x = col*increment
+                y = row*increment
+                if col>=0 and col<=100/increment and row>=0 and row<=100/increment:
                     z = arr[row,col]
-                    if (z<3500):
-                        return 'Sleep=%1.4f%%, Activity=%1.4f%%, Days=%1.4f'%(x, y, z)
+                    if (z<0):
+                        return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: Infinite'%(x, y)
+                    elif (z<5):
+                        if int(z)==0: return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2.4f Hours'%(x, y, (z-int(z))*24)
+                        if int(z)==1: return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Day , %2.4f Hours'%(x, y, int(z), (z-int(z))*24)
+                        return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Days, %2.4f Hours'%(x, y, int(z), (z-int(z))*24)
+                    elif (z<365/12):
+                        return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Days'%(x, y, int(z))
+                    elif (z<365):
+                        if (int(z*12/365)==1 and int(z-int(z*12/365)*365/12+0.5)==1): return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Month , %2d Day '%(x, y, int(z*12/365), int(z-int(z*12/365)*365/12+0.5))
+                        if (int(z-int(z*12/365)*365/12+0.5)==1): return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Months, %2d Day '%(x, y, int(z*12/365), int(z-int(z*12/365)*365/12+0.5))
+                        if (int(z*12/365)==1): return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Month , %2d Days'%(x, y, int(z*12/365), int(z-int(z*12/365)*365/12+0.5))
+                        return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Months, %2d Days'%(x, y, int(z*12/365), int(z-int(z*12/365)*365/12+0.5))
                     else:
-                        return 'Sleep=%1.4f%%, Activity=%1.4f%%, Years=%1.4f'%(x, y, z/365)  
+                        if (int(z/365)==1):
+                            if (int((z-int(z/365)*365)*12/365))==1: 
+                                if (int(z-int(z*12/365)*365/12+0.5)==1):
+                                    return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Year , %2d Month , %2d Day '%(x, y, int(z/365), int((z-int(z/365)*365)*12/365), int(z-int(z*12/365)*365/12+0.5)) 
+                                return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Year , %2d Month , %2d Days'%(x, y, int(z/365), int((z-int(z/365)*365)*12/365), int(z-int(z*12/365)*365/12+0.5))
+                            if (int(z-int(z*12/365)*365/12+0.5)==1):
+                                return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Year , %2d Months, %2d Day '%(x, y, int(z/365), int((z-int(z/365)*365)*12/365), int(z-int(z*12/365)*365/12+0.5)) 
+                            return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Year , %2d Months, %2d Days'%(x, y, int(z/365), int((z-int(z/365)*365)*12/365), int(z-int(z*12/365)*365/12+0.5))  
+                        
+                        if (int((z-int(z/365)*365)*12/365))==1: 
+                            if (int(z-int(z*12/365)*365/12+0.5)==1):
+                                return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Years, %2d Month , %2d Day '%(x, y, int(z/365), int((z-int(z/365)*365)*12/365), int(z-int(z*12/365)*365/12+0.5))  
+                            return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Years, %2d Month , %2d Days'%(x, y, int(z/365), int((z-int(z/365)*365)*12/365), int(z-int(z*12/365)*365/12+0.5))  
+                        if (int(z-int(z*12/365)*365/12+0.5)==1):
+                            return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Years, %2d Months, %2d Day '%(x, y, int(z/365), int((z-int(z/365)*365)*12/365), int(z-int(z*12/365)*365/12+0.5))                         
+                        return 'Sleep Percentage=%1.2f%%, Activity Ratio=%1.2f%%: %2d Years, %2d Months, %2d Days'%(x, y, int(z/365), int((z-int(z/365)*365)*12/365), int(z-int(z*12/365)*365/12+0.5))  
                 else:
-                    return 'Sleep=%1.4f, y=%1.4f'%(x, y)
+                    return 'Sleep Percentage=%1.4f, y=%1.4f'%(x, y)
             
             ax.format_coord = format_coord
 
@@ -828,8 +1366,8 @@ class utils(object):
                                     break
                                 Label = linevars[3]
                                 Color = linevars[4].lower().strip();
-                                markers[marker_number] = plt.plot([Sleep], [Activity], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                markers[marker_number + 1] = plt.plot([Sleep], [Activity], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                markers[marker_number] = plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                markers[marker_number + 1] = plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
                                 markerSizes[marker_number] = 35.0;
                                 markerSizes[marker_number + 1] = 30.0;
                                 marker_number = marker_number + 2;
@@ -837,14 +1375,14 @@ class utils(object):
                                 yPosition[annotation_number] = Activity;
                                 if (Sleep>50):
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5,yPosition[annotation_number] + 4/math.sqrt(2) + 0.5, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/increment,yPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
                                     else:
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5,yPosition[annotation_number] - 4/math.sqrt(2) - 0.5, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/increment,yPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
                                 else:
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5,yPosition[annotation_number] + 4/math.sqrt(2) + 0.5, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/increment,yPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
                                     else:
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5,yPosition[annotation_number] - 4/math.sqrt(2) - 0.5, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/increment,yPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
                                 annotation_number = annotation_number+1
                             else:
                                 Sleep = int(linevars[1])
@@ -856,8 +1394,8 @@ class utils(object):
                                     messagebox.showerror("Error", "Activity Ratio out of bounds!")
                                     break
                                 Label = linevars[3].strip()
-                                markers[marker_number] = plt.plot([Sleep], [Activity], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                markers[marker_number + 1] = plt.plot([Sleep], [Activity], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                markers[marker_number] = plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=35.0, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                markers[marker_number + 1] = plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=30.0, markeredgecolor='white', mew=3, markerfacecolor="None")
                                 markerSizes[marker_number] = 35.0
                                 markerSizes[marker_number + 1] = 30.0
                                 marker_number = marker_number + 2
@@ -865,14 +1403,14 @@ class utils(object):
                                 yPosition[annotation_number] = Activity
                                 if (Sleep>50):
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5,yPosition[annotation_number] + 4/math.sqrt(2) + 0.5, Label, verticalalignment = 'top', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/increment,yPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/increment, Label, verticalalignment = 'top', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                     else:
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5,yPosition[annotation_number] - 4/math.sqrt(2) - 0.5, Label, verticalalignment = 'bottom', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/increment,yPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/increment, Label, verticalalignment = 'bottom', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 else:
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5,yPosition[annotation_number] + 4/math.sqrt(2) + 0.5, Label, verticalalignment = 'top', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/increment,yPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/increment, Label, verticalalignment = 'top', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                     else:
-                                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5,yPosition[annotation_number] - 4/math.sqrt(2) - 0.5, Label, verticalalignment = 'bottom', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/increment,yPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/increment, Label, verticalalignment = 'bottom', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 annotation_number = annotation_number+1
                         elif (linevars[0].upper()=="WM"):
                             if len(linevars)==6:
@@ -887,21 +1425,21 @@ class utils(object):
                                 Radius = int(linevars[3])
                                 Label = linevars[4]
                                 Color = linevars[5].lower().strip();
-                                markers[marker_number] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                markers[marker_number + 1] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                markers[marker_number] = plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                markers[marker_number + 1] = plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
                                 markerSizes[marker_number] = Radius*8.5 + 5;
                                 markerSizes[marker_number + 1] = Radius*8.5;
                                 marker_number = marker_number + 2;
                                 if (Sleep>50):
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(5, 5, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
+                                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'right')
                                     else:
-                                        annotations[annotation_number] = ax.text(5, 5, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
+                                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'right')
                                 else:
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(5, 5, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
+                                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, color = Color, verticalalignment = 'top', horizontalalignment = 'left')
                                     else:
-                                        annotations[annotation_number] = ax.text(5, 5, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
+                                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, color = Color, verticalalignment = 'bottom', horizontalalignment = 'left')
                                 xPosition[annotation_number] = Sleep;
                                 yPosition[annotation_number] = Activity;
                                 annotation_number = annotation_number+1;
@@ -916,21 +1454,21 @@ class utils(object):
                                     break
                                 Radius = int(linevars[3])
                                 Label = linevars[4].strip()
-                                markers[marker_number] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
-                                markers[marker_number + 1] = plt.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
+                                markers[marker_number] = plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=Radius*8.5 + 5, markeredgecolor='black', mew=3, markerfacecolor="None")
+                                markers[marker_number + 1] = plt.plot([Sleep/increment], [Activity/increment], 'k.', markersize=Radius*8.5, markeredgecolor='white', mew=3, markerfacecolor="None")
                                 markerSizes[marker_number] = Radius*8.5 + 5;
                                 markerSizes[marker_number + 1] = Radius*8.5;
                                 marker_number = marker_number + 2;
                                 if (Sleep>50):
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(5, 5, Label, verticalalignment = 'top', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, verticalalignment = 'top', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                     else:
-                                        annotations[annotation_number] = ax.text(5, 5, Label, verticalalignment = 'bottom', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, verticalalignment = 'bottom', horizontalalignment = 'right', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 else:
                                     if (Activity<50):                    
-                                        annotations[annotation_number] = ax.text(5, 5, Label, verticalalignment = 'top', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, verticalalignment = 'top', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                     else:
-                                        annotations[annotation_number] = ax.text(5, 5, Label, verticalalignment = 'bottom', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
+                                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, verticalalignment = 'bottom', horizontalalignment = 'left', bbox=dict(boxstyle='round,pad=0.01', fc='white', alpha=0.7))
                                 xPosition[annotation_number] = Sleep;
                                 yPosition[annotation_number] = Activity;
                                 annotation_number = annotation_number+1;
@@ -952,6 +1490,8 @@ class utils(object):
             ax.invert_yaxis()
             ax.xaxis.tick_top()
             ax.axis('tight')
+            plt.xticks(np.array([0.5,20/increment + 0.5,40/increment + 0.5,60/increment + 0.5,80/increment + 0.5,100/increment + 0.5]), [0,20,40,60,80,100])
+            plt.yticks(np.array([0.5,20/increment + 0.5,40/increment + 0.5,60/increment + 0.5,80/increment + 0.5,100/increment + 0.5]), [0,20,40,60,80,100])
 
             first_ipc = "{0:.2f}".format(first_entry['IPC'])
             second_ipc = "{0:.2f}".format(second_entry['IPC'])
@@ -963,8 +1503,23 @@ class utils(object):
             # ax.set_xticklabels(column_labels, minor=False)
             # ax.set_yticklabels(row_labels, minor=False)
             # plt.colorbar(heatbar2)
-            cbar = plt.colorbar(heatbar2, pad=0.05, ticks=[4015, 8030, 12045, 16060, 20075, 24090, 28105, 32120, 36000])
-            cbar.ax.set_yticklabels(['11', '22', '33', '44', '55', '66', '77', '88', '99'])
+			
+            yearlabels = utils.axisListMaker(minyears, maxyears)
+            yearints = []
+            yearlabels = list(yearlabels)
+            yearints.insert(0, minyears*365 + 0.0001)
+            yearlabels.insert(0,str(round(minyears, 1)))
+
+            for i in range(1,len(yearlabels)):
+                yearlabels[i] = int(yearlabels[i])
+                yearints.append(yearlabels[i]*365)
+                yearlabels[i] = str(yearlabels[i])
+
+            yearlabels.append(round(maxyears,1))
+            yearints.append(maxyears*365 - 0.0001)
+            
+            cbar = plt.colorbar(heatbar2, pad=0.05, ticks=yearints)
+            cbar.ax.set_yticklabels(yearlabels)
             cbar.ax.tick_params(labelsize=initialFontSize)
             cbar.set_label('Years', rotation=360, size=initialAxisLabelSize, labelpad=-30, y=1.08)
             # plt.colorbar(heatbar)
@@ -983,12 +1538,23 @@ class utils(object):
             widthScalingFactor = 2
             lengthScalingFactor = 1.3
             initialSize = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
+            initialFigWidth = fig.get_size_inches()[0]
+            initialFigLength = fig.get_size_inches()[1]
 
             ax.set_aspect('equal', adjustable = None)
             
             def on_resize(event):
                 nonlocal bmarker
                 Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
+                
+                fig.patches[0].set_width(0.03/(fig.get_size_inches()[0]/initialFigWidth)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
+                fig.patches[0].set_height(0.03/(fig.get_size_inches()[1]/initialFigLength)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
+                
+                fig.patches[0].set_y(0.8505 + 0.03 - 0.03/(fig.get_size_inches()[1]/initialFigLength)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
+                Inf.set_y(0.918 + 0.03 - 0.03/(fig.get_size_inches()[1]/initialFigLength)*(fig.get_size_inches()[0]/initialFigWidth)**0.5)
+                
+                #(0.93,0.8505), 0.03, 0.03
+
                 for i in range(marker_number):
                     markers[i][0].set_markersize(markerSizes[i]*Size/initialSize)
                 for i in range(annotation_number):
@@ -999,35 +1565,37 @@ class utils(object):
                     if markerSizes[i*2]==35.0:
                         if (xPosition[i]>50):
                             if (yPosition[i]<50):                    
-                                annotations[i].set_x(xPosition[i] - 4/math.sqrt(2) - 0.5/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] + 4/math.sqrt(2) + 0.5/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i]/increment - 4/(math.sqrt(2)*increment) - 0.5/(Size/initialSize*increment))
+                                annotations[i].set_y(yPosition[i]/increment + 4/(math.sqrt(2)*increment) + 0.5/(Size/initialSize*increment))
                             else:
-                                annotations[i].set_x(xPosition[i] - 4/math.sqrt(2) - 0.5/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] - 4/math.sqrt(2) - 0.5/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i]/increment - 4/(math.sqrt(2)*increment) - 0.5/(Size/initialSize*increment))
+                                annotations[i].set_y(yPosition[i]/increment - 4/(math.sqrt(2)*increment) - 0.5/(Size/initialSize*increment))
                         else:
                             if (yPosition[i]<50):                    
-                                annotations[i].set_x(xPosition[i] + 4/math.sqrt(2) + 0.5/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] + 4/math.sqrt(2) + 0.5/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i]/increment + 4/(math.sqrt(2)*increment) + 0.5/(Size/initialSize*increment))
+                                annotations[i].set_y(yPosition[i]/increment + 4/(math.sqrt(2)*increment) + 0.5/(Size/initialSize*increment))
                             else:
-                                annotations[i].set_x(xPosition[i] + 4/math.sqrt(2) + 0.5/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] - 4/math.sqrt(2) - 0.5/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i]/increment + 4/(math.sqrt(2)*increment) + 0.5/(Size/initialSize*increment))
+                                annotations[i].set_y(yPosition[i]/increment - 4/(math.sqrt(2)*increment) - 0.5/(Size/initialSize*increment))
                     else:
                         if (xPosition[i]>50):
                             if (yPosition[i]<50):                    
-                                annotations[i].set_x(xPosition[i] - (markerSizes[i*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i]/increment - (markerSizes[i*2 + 1])/(9*math.sqrt(2)*increment) - 1/((Size/initialSize)*increment))
+                                annotations[i].set_y(yPosition[i]/increment + (markerSizes[i*2 + 1])/(9*math.sqrt(2)*increment) + 1/((Size/initialSize)*increment))
                             else:
-                                annotations[i].set_x(xPosition[i] - (markerSizes[i*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] - (markerSizes[i*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i]/increment - (markerSizes[i*2 + 1])/(9*math.sqrt(2)*increment) - 1/((Size/initialSize)*increment))
+                                annotations[i].set_y(yPosition[i]/increment - (markerSizes[i*2 + 1])/(9*math.sqrt(2)*increment) - 1/((Size/initialSize)*increment))
                         else:
                             if (yPosition[i]<50):                                        
-                                annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] + (markerSizes[i*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i]/increment + (markerSizes[i*2 + 1])/(9*math.sqrt(2)*increment) + 1/((Size/initialSize)*increment))
+                                annotations[i].set_y(yPosition[i]/increment + (markerSizes[i*2 + 1])/(9*math.sqrt(2)*increment) + 1/((Size/initialSize)*increment))
                             else:
-                                annotations[i].set_x(xPosition[i] + (markerSizes[i*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
-                                annotations[i].set_y(yPosition[i] - (markerSizes[i*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
+                                annotations[i].set_x(xPosition[i]/increment + (markerSizes[i*2 + 1])/(9*math.sqrt(2)*increment) + 1/((Size/initialSize)*increment))
+                                annotations[i].set_y(yPosition[i]/increment - (markerSizes[i*2 + 1])/(9*math.sqrt(2)*increment) - 1/((Size/initialSize)*increment))
 
                 if (Size<initialSize):
+                    Inf.set_size(initialAxisLabelSize*Size/initialSize)
+
                     ax.tick_params(axis = 'both', labelsize = initialFontSize*Size/initialSize)
                     ax.xaxis.label.set_size(initialAxisLabelSize*Size/initialSize)
                     ax.yaxis.label.set_size(initialAxisLabelSize*Size/initialSize)
@@ -1039,6 +1607,8 @@ class utils(object):
                     cbar.set_label('Years', rotation=360, size=initialAxisLabelSize*Size/initialSize, labelpad=-30*Size/initialSize, y=1.08)            
                     cbar2.set_label('Days', rotation=360, size=initialAxisLabelSize*Size/initialSize, labelpad=-37.5*Size/initialSize, y=1.08)
                 else:
+                    Inf.set_size(initialAxisLabelSize)
+                    fig.patches[0].set_x((0.93-0.90)/(fig.get_size_inches()[0]/initialFigWidth) + 0.90)
                     ax.tick_params(axis = 'both', labelsize = initialFontSize)
                     ax.xaxis.label.set_size(initialAxisLabelSize)
                     ax.yaxis.label.set_size(initialAxisLabelSize)
@@ -1067,19 +1637,19 @@ class utils(object):
                 yPosition[annotation_number] = Activity;
                 if (Sleep>50):
                     if (Activity<50):                    
-                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5/(Size/initialSize),yPosition[annotation_number] + 4/math.sqrt(2) + 0.5/(Size/initialSize), Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'right')
+                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/(Size/initialSize*increment),yPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/(Size/initialSize*increment), Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'right')
                     else:
-                        annotations[annotation_number] = ax.text(xPosition[annotation_number] - 4/math.sqrt(2) - 0.5/(Size/initialSize),yPosition[annotation_number] - 4/math.sqrt(2) - 0.5/(Size/initialSize), Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'right')
+                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/(Size/initialSize*increment),yPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/(Size/initialSize*increment), Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'right')
                 else:
                     if (Activity<50):                    
-                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5/(Size/initialSize),yPosition[annotation_number] + 4/math.sqrt(2) + 0.5/(Size/initialSize), Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'left')
+                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/(Size/initialSize*increment),yPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/(Size/initialSize*increment), Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'left')
                     else:
-                        annotations[annotation_number] = ax.text(xPosition[annotation_number] + 4/math.sqrt(2) + 0.5/(Size/initialSize),yPosition[annotation_number] - 4/math.sqrt(2) - 0.5/(Size/initialSize), Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'left')
+                        annotations[annotation_number] = ax.text(xPosition[annotation_number]/increment + 4/(math.sqrt(2)*increment) + 0.5/(Size/initialSize*increment),yPosition[annotation_number]/increment - 4/(math.sqrt(2)*increment) - 0.5/(Size/initialSize*increment), Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'left')
                 
                 markerSizes[marker_number] = 35.0;
                 markerSizes[marker_number + 1] = 30.0;
-                markers[marker_number] = ax.plot([Sleep], [Activity], 'k.', markersize=35.0*Size/initialSize, markeredgecolor='black', mew=3, markerfacecolor="None")
-                markers[marker_number + 1] = ax.plot([Sleep], [Activity], 'k.', markersize=30.0*Size/initialSize, markeredgecolor='white', mew=3, markerfacecolor="None")
+                markers[marker_number] = ax.plot([Sleep/increment], [Activity/increment], 'k.', markersize=35.0*Size/initialSize, markeredgecolor='black', mew=3, markerfacecolor="None")
+                markers[marker_number + 1] = ax.plot([Sleep/increment], [Activity/increment], 'k.', markersize=30.0*Size/initialSize, markeredgecolor='white', mew=3, markerfacecolor="None")
                 marker_number = marker_number + 2
                 annotation_number = annotation_number + 1
                 if event.inaxes is not None:
@@ -1097,39 +1667,70 @@ class utils(object):
                 Size = min(fig.get_size_inches()[0]/widthScalingFactor,fig.get_size_inches()[1]/lengthScalingFactor)
                 markerSizes[marker_number] = Radius*8.5 + 5
                 markerSizes[marker_number + 1] = Radius*8.5
-                markers[marker_number] = ax.plot([Sleep], [Activity], 'k.', markersize=(Radius*8.5 + 5)*Size/initialSize, markeredgecolor='black', mew=3, markerfacecolor="None")
-                markers[marker_number + 1] = ax.plot([Sleep], [Activity], 'k.', markersize=Radius*8.5*Size/initialSize, markeredgecolor='white', mew=3, markerfacecolor="None")
+                markers[marker_number] = ax.plot([Sleep/increment], [Activity/increment], 'k.', markersize=(Radius*8.5 + 5)*Size/initialSize, markeredgecolor='black', mew=3, markerfacecolor="None")
+                markers[marker_number + 1] = ax.plot([Sleep/increment], [Activity/increment], 'k.', markersize=(Radius*8.5)*Size/initialSize, markeredgecolor='white', mew=3, markerfacecolor="None")
                                 
                 xPosition[annotation_number] = Sleep
                 yPosition[annotation_number] = Activity
 
                 if (Sleep>50):
                     if (Activity<50):                    
-                        annotations[annotation_number] = ax.text(5, 5, Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'right')
-                        annotations[annotation_number].set_x(xPosition[annotation_number] - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
-                        annotations[annotation_number].set_y(yPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
+                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'right')
+                        annotations[annotation_number].set_x(xPosition[annotation_number]/increment - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)*increment) - 1/((Size/initialSize)*increment))
+                        annotations[annotation_number].set_y(yPosition[annotation_number]/increment + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)*increment) + 1/((Size/initialSize)*increment))
                     else:
-                        annotations[annotation_number] = ax.text(5, 5, Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'right')
-                        annotations[annotation_number].set_x(xPosition[annotation_number] - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
-                        annotations[annotation_number].set_y(yPosition[annotation_number] - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
+                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'right')
+                        annotations[annotation_number].set_x(xPosition[annotation_number]/increment - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)*increment) - 1/((Size/initialSize)*increment))
+                        annotations[annotation_number].set_y(yPosition[annotation_number]/increment - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)*increment) - 1/((Size/initialSize)*increment))
                 else:
                     if (Activity<50):                    
-                        annotations[annotation_number] = ax.text(5, 5, Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'left')
-                        annotations[annotation_number].set_x(xPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
-                        annotations[annotation_number].set_y(yPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
+                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, color = my_color[1], verticalalignment = 'top', horizontalalignment = 'left')
+                        annotations[annotation_number].set_x(xPosition[annotation_number]/increment + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)*increment) + 1/((Size/initialSize)*increment))
+                        annotations[annotation_number].set_y(yPosition[annotation_number]/increment + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)*increment) + 1/((Size/initialSize)*increment))
                     else:
-                        annotations[annotation_number] = ax.text(5, 5, Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'left')
-                        annotations[annotation_number].set_x(xPosition[annotation_number] + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) + 1/(Size/initialSize))
-                        annotations[annotation_number].set_y(yPosition[annotation_number] - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)) - 1/(Size/initialSize))
+                        annotations[annotation_number] = ax.text(5/increment, 5/increment, Label, color = my_color[1], verticalalignment = 'bottom', horizontalalignment = 'left')
+                        annotations[annotation_number].set_x(xPosition[annotation_number]/increment + (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)*increment) + 1/((Size/initialSize)*increment))
+                        annotations[annotation_number].set_y(yPosition[annotation_number]/increment - (markerSizes[annotation_number*2 + 1])/(9*math.sqrt(2)*increment) - 1/((Size/initialSize)*increment))
 
                         
                 marker_number = marker_number + 2
                 annotation_number = annotation_number + 1
                 if event.inaxes is not None:
                     event.inaxes.figure.canvas.draw_idle()               
+            
+            l = arr.shape[0]
+            
+            if arr[0,0]<0:
+                i = int(100/(increment*2))
+                shifter = int(i/2)
+                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
+                    if arr[i,0]<0: i+=shifter
+                    else: i-=shifter
+                    if shifter!=1: shifter = int(shifter/2)
+                if i<0: i=0
+                if i>=l: i=l-1
+                ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
 
+            elif arr[l-1,0]<0:
+                i = int(100/(increment*2))
+                shifter = int(i/2)
+                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
+                    if arr[i,0]<0: i-=shifter
+                    else: i+=shifter
+                    if shifter!=1: shifter = int(shifter/2)
+                if i<0: i=0
+                if i>=l: i=l-1
+                ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
+                
 
+            # total_raw_dynamic1 = first_entry['dynamicMemory'] + first_entry['dynamicPower']
+            # total_raw_dynamic2 = second_entry['dynamicMemory'] + second_entry['dynamicPower']
 
+            # total_static1 = first_entry['staticMemory'] + first_entry['staticPower']
+            # total_static2 = second_entry['staticMemory'] + second_entry['staticPower']
+            
+            # total_dynamic1 = 
+            
             markerax = plt.axes([0.51, .01, 0.3, 0.075])
             bmarker = Button(markerax, 'Place New Marker')
             bmarker.on_clicked(PlaceNewMarker)
@@ -1141,6 +1742,9 @@ class utils(object):
             # plt.title(''.join([utils.rename(self.entry1, False), ' vs. ', utils.rename(self.entry2, False)]), y=1.08)
 
             #image_file_name = path_to_output_directory + title1 + "_vs_" + title2 + ".pdf"
+
+            Inf = fig.text(0.90, 0.918, "Infinite", fontsize = initialAxisLabelSize)
+            fig.patches.extend([Rectangle((0.93,0.8505), 0.03, 0.03, fc = 'w', hatch = '///', ec = 'black', transform=fig.transFigure, figure=fig)])
             
             fig.canvas.mpl_connect('resize_event', on_resize)
             #fig.tight_layout()
