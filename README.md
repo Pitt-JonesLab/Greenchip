@@ -1,6 +1,6 @@
 # GreenChip Simulation Visualization (SimVis) Tool
 
-Version 0.1.1 -- 7/22/22
+Version 0.1.2 -- 8/22/22
 
 
 #### Contents:
