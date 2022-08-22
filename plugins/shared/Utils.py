@@ -922,30 +922,30 @@ class utils(object):
             plt.xticks(np.array([0.5,20/increment + 0.5,40/increment + 0.5,60/increment + 0.5,80/increment + 0.5,100/increment + 0.5]), [0,20,40,60,80,100])
             plt.yticks(np.array([0.5,20/increment + 0.5,40/increment + 0.5,60/increment + 0.5,80/increment + 0.5,100/increment + 0.5]), [0,20,40,60,80,100])
 
-            l = arr.shape[0]
+            # l = arr.shape[0]
             
-            if arr[0,0]<0:
-                i = int(100/(increment*2))
-                shifter = int(i/2)
-                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
-                    if arr[i,0]<0: i+=shifter
-                    else: i-=shifter
-                    if shifter!=1: shifter = int(shifter/2)
-                if i<0: i=0
-                if i>=l: i=l-1
+            # if arr[0,0]<0:
+                # i = int(100/(increment*2))
+                # shifter = int(i/2)
+                # while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
+                    # if arr[i,0]<0: i+=shifter
+                    # else: i-=shifter
+                    # if shifter!=1: shifter = int(shifter/2)
+                # if i<0: i=0
+                # if i>=l: i=l-1
                 
-                ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
+                # ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
 
-            elif arr[l-1,0]<0:
-                i = int(100/(increment*2))
-                shifter = int(i/2)
-                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
-                    if arr[i,0]<0: i-=shifter
-                    else: i+=shifter
-                    if shifter!=1: shifter = int(shifter/2)
-                if i<0: i=0
-                if i>=l: i=l-1
-                ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
+            # elif arr[l-1,0]<0:
+                # i = int(100/(increment*2))
+                # shifter = int(i/2)
+                # while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
+                    # if arr[i,0]<0: i-=shifter
+                    # else: i+=shifter
+                    # if shifter!=1: shifter = int(shifter/2)
+                # if i<0: i=0
+                # if i>=l: i=l-1
+                # ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
 
             first_ipc = "{0:.2f}".format(first_entry['IPC'])
             second_ipc = "{0:.2f}".format(second_entry['IPC'])
@@ -1608,7 +1608,7 @@ class utils(object):
                     cbar2.set_label('Days', rotation=360, size=initialAxisLabelSize*Size/initialSize, labelpad=-37.5*Size/initialSize, y=1.08)
                 else:
                     # Inf.set_size(initialAxisLabelSize)
-                    fig.patches[0].set_x((0.93-0.90)/(fig.get_size_inches()[0]/initialFigWidth) + 0.90)
+                    # fig.patches[0].set_x((0.93-0.90)/(fig.get_size_inches()[0]/initialFigWidth) + 0.90)
                     ax.tick_params(axis = 'both', labelsize = initialFontSize)
                     ax.xaxis.label.set_size(initialAxisLabelSize)
                     ax.yaxis.label.set_size(initialAxisLabelSize)

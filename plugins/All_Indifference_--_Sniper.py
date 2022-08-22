@@ -30,10 +30,10 @@ class config(object):
 
     def plot(self, *args):
 
-        first_entry = utils.build_config(self.DB, self.entry1, self.path_to_output_directory, writeMe=True, configNum=3, carbonFile=self.varC.get(), useDRAM = self.varD.get())
+        first_entry = utils.build_config(self.DB, self.entry1, self.path_to_output_directory, writeMe=True, configNum=3, carbonFile=self.varC.get(), useDRAM = self.varD.get(), energyData = self.energyData)
         if first_entry is None:
             return
-        second_entry = utils.build_config(self.DB, self.entry2, self.path_to_output_directory, writeMe=True, configNum=3, carbonFile=self.varC.get(), useDRAM = self.varD.get())
+        second_entry = utils.build_config(self.DB, self.entry2, self.path_to_output_directory, writeMe=True, configNum=3, carbonFile=self.varC.get(), useDRAM = self.varD.get(), energyData = self.energyData)
         if second_entry is None:
             return
         config_dicts = []

@@ -756,29 +756,29 @@ class config(object):
             ax.set_xticks(np.array([0.5,20/increment + 0.5,40/increment + 0.5,60/increment + 0.5,80/increment + 0.5,(100/increment)+0.5]), [0,20,40,60,80,100])
             ax.set_yticks(np.array([0.5,20/increment + 0.5,40/increment + 0.5,60/increment + 0.5,80/increment + 0.5,(100/increment)+0.5]), [0,20,40,60,80,100])
 
-            l = arr.shape[0]
+            # l = arr.shape[0]
             
-            if arr[0,0]<0:
-                i = int(100/(increment*2))
-                shifter = int(i/2)
-                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
-                    if arr[i,0]<0: i+=shifter
-                    else: i-=shifter
-                    if shifter!=1: shifter = int(shifter/2)
-                if i<0: i=0
-                if i>=l: i=l-1
-                ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
+            # if arr[0,0]<0:
+                # i = int(100/(increment*2))
+                # shifter = int(i/2)
+                # while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
+                    # if arr[i,0]<0: i+=shifter
+                    # else: i-=shifter
+                    # if shifter!=1: shifter = int(shifter/2)
+                # if i<0: i=0
+                # if i>=l: i=l-1
+                # ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
 
-            elif arr[l-1,0]<0:
-                i = int(100/(increment*2))
-                shifter = int(i/2)
-                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
-                    if arr[i,0]<0: i-=shifter
-                    else: i+=shifter
-                    if shifter!=1: shifter = int(shifter/2)
-                if i<0: i=0
-                if i>=l: i=l-1
-                ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
+            # elif arr[l-1,0]<0:
+                # i = int(100/(increment*2))
+                # shifter = int(i/2)
+                # while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
+                    # if arr[i,0]<0: i-=shifter
+                    # else: i+=shifter
+                    # if shifter!=1: shifter = int(shifter/2)
+                # if i<0: i=0
+                # if i>=l: i=l-1
+                # ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
 
             # plt.title(''.join([utils.rename(self.entry1, False), ' vs. ', utils.rename(self.entry2, False)]), y=1.08)
 
@@ -857,31 +857,29 @@ class config(object):
             ax.set_xticks(np.array([0,20/increment,40/increment,60/increment,80/increment,(100/increment)+1]), [0,20,40,60,80,100])
             ax.set_yticks(np.array([0,20/increment,40/increment,60/increment,80/increment,(100/increment)+1]), [0,20,40,60,80,100])
 
-            l = arr.shape[0]
+            # l = arr.shape[0]
             
-            if arr[0,0]<0:
-                i = int(100/(increment*2))
-                shifter = int(i/2)
-                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
-                    if arr[i,0]<0: i+=shifter
-                    else: i-=shifter
-                    if shifter!=1: shifter = int(shifter/2)
-                if i<0: i=0
-                if i>=l: i=l-1
-                ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
-                print(i*increment)
+            # if arr[0,0]<0:
+                # i = int(100/(increment*2))
+                # shifter = int(i/2)
+                # while i>0 and i<l-1 and (arr[i,0]>0 or arr[i+1,0]<0):
+                    # if arr[i,0]<0: i+=shifter
+                    # else: i-=shifter
+                    # if shifter!=1: shifter = int(shifter/2)
+                # if i<0: i=0
+                # if i>=l: i=l-1
+                # ax.add_patch(Rectangle((0,0), l, i+1, fc = 'w', hatch = '///', ec = 'black'))
 
-            elif arr[l-1,0]<0:
-                i = int(100/(increment*2))
-                shifter = int(i/2)
-                while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
-                    if arr[i,0]<0: i-=shifter
-                    else: i+=shifter
-                    if shifter!=1: shifter = int(shifter/2)
-                if i<0: i=0
-                if i>=l: i=l-1
-                ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
-                print(i*increment)
+            # elif arr[l-1,0]<0:
+                # i = int(100/(increment*2))
+                # shifter = int(i/2)
+                # while i>0 and i<l-1 and (arr[i,0]>0 or arr[i-1,0]<0):
+                    # if arr[i,0]<0: i-=shifter
+                    # else: i+=shifter
+                    # if shifter!=1: shifter = int(shifter/2)
+                # if i<0: i=0
+                # if i>=l: i=l-1
+                # ax.add_patch(Rectangle((0,i), l, l-i+1, fc = 'w', hatch = '///', ec = 'black'))
 
             # plt.title(''.join([utils.rename(self.entry1, False), ' vs. ', utils.rename(self.entry2, False)]), y=1.08)
 
