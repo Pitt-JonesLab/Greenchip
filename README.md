@@ -125,10 +125,6 @@ This mode takes a specific input folder structure defined at the bottom of this 
 breakeven comparisons between all data within that folder structure. Runs immediately after hitting "chose analysis
 mode".
 
-g) Carbon Emissions Plot
-
-This plot shows the grams CO2 equivalent per kilowatt hour to operate/manufacture a system in each state.
-
 #### Input Format (modes e,f)
 
 Currently, All_Indifference, All_Breakeven expect a specific format.
@@ -179,6 +175,17 @@ The plot settings option contains various settings for customizing the plots gen
 *Note: Increasing the resolution can have a noticable effect on the time it takes to generate a plot.*
 
 [Back to Contents](#contents)
+
+## Energy Grid Mix File
+
+The EnergyGridMix.csv file contains information about the energy generation percentages for various states and countries. This file can be modified in cases where the user desires values for a different year or wants to add an additional coutry/province. The columns in the CSV file are ordered in the following way:
+ Country, State/Province, Coal, Nat. Gas, Geo, Hydro, Solar, Wind, Nuclear, Bio, Other, Petro, Coal %, Nat. Gas %, Geo %, Hydro %, Solar %, Wind %, Nuclear %, Bio %, Other %, Petro %
+ 
+Each of the power production options have two values: a value for the equivalent CO2 production per Kilowatt hour (Coal, Geo, ect.) and the percentage of a country's/province's power that comes from that option (Coal %, Geo %, ect.)
+ 
+When adding a new country with provinces or adding provinces to an existing country, the row containing the country name is left blank as it cannot be selected inside of the tool.
+
+The user also has the option to create entirely new CSV files for Energy Grid Mix data, but it must follow the above format for the columns.
 
 ## Markers File
 
