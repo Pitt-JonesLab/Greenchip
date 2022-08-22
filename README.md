@@ -178,11 +178,16 @@ The plot settings option contains various settings for customizing the plots gen
 
 ## Energy Grid Mix File
 
-The EnergyGridMix.csv file contains information about the energy generation percentages for various states and countries. This file can be modified in cases where the user desires values for a different year or wants to add an additional coutry/province. The columns in the CSV file are ordered in the following way:
+The EnergyGridMix.csv file contains information about the energy generation percentages for various states and countries. This file can be modified in cases where the user desires values for a different year or wants to add an additional coutry/province. A few example rows of the CSV file are shown:
 | Country | State/Province | Coal | Nat. Gas | Geo | Hydro | Solar | Wind | Nuclear | Bio | Other | Petro | Coal % | Nat. Gas % | Geo % | Hydro % | Solar % | Wind % | Nuclear % | Bio % | Other % | Petro % |
-| ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+|China  | |980|465|0  |24 |65 |11 |27 |0  |81 |0  |63.63|3.16 |0  |15.34|3.91|7.26 |4.82 |0  |1.75|0  |
+|United States|       |   |   |   |   |   |   |   |   |   |   |     |     |   |     |    |     |     |   |    |   |       |
+|       |Alabama|980|465|27 |24 |65 |11 |27 |54 |0  |0  |16   |40.5 |0  |8.8  |0.3 |0    |32   |2.5|0   |0  |       |
+|       |Alaska |980|465|27 |24 |65 |11 |27 |54 |0  |0  |12.6 |37.6 |0  |30.5 |0   |2.8  |0    |0.6|0   |0  |       |
+
  
-Each of the power production options have two values: a value for the equivalent CO2 production per Kilowatt hour (Coal, Geo, ect.) and the percentage of a country's/province's power that comes from that option (Coal %, Geo %, ect.)
+Each of the power production options have two values: a value for the equivalent gCO2 production per Kilowatt hour (Coal, Geo, ect.) and the percentage of a country's/province's power that comes from that option (Coal %, Geo %, ect.)
  
 When adding a new country with provinces or adding provinces to an existing country, the row containing the country name is left blank as it cannot be selected inside of the tool.
 
