@@ -16,10 +16,11 @@ Version 0.1.1 -- 7/22/22
     * [Importance](#importance)
     * [CSV Output](#csv-output)
 3) [Plot Settings](#plot-settings)
-4) [Markers File](#markers-file)
-5) [Sliders File](#sliders-file)
-6) [Publications to cite](#publications)
-7) [Authors and Thanks](#authors-and-thanks)
+4) [Energy Grid Mix File](#energy-grid-mix-file)
+5) [Markers File](#markers-file)
+6) [Sliders File](#sliders-file)
+7) [Publications to cite](#publications)
+8) [Authors and Thanks](#authors-and-thanks)
 
 
 ## Installing the Simulator
