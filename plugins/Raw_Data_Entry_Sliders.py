@@ -14,6 +14,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
 import re
+import os
 
 class config(object):
 
@@ -971,30 +972,31 @@ class config(object):
         for i in range(len(numbers)):
             total = total + float(numbers[i])
         self.ipc1.set(float(total))
+		
+        if os.path.exists(os.path.join(self.path_to_sniper_directory1,"Greenchip.txt")):
+            f = open(os.path.join(self.path_to_sniper_directory1,"Greenchip.txt"), "r")
+            l = f.readlines()
+            for i in range(len(l)):
+                l[i] = l[i].split('//')[0].strip()
 
-        f = open(self.path_to_sniper_directory1  + "/Greenchip.txt", "r")
-        l = f.readlines()
-        for i in range(len(l)):
-            l[i] = l[i].split('//')[0].strip()
-
-        self.dramArea1.set(float(l[0]))
-        for i in self.comboboxEntriesDram:
-            if l[1]==self.remove_source(i):
-                self.techNode3.set(i)
-                break
-                
-        locTemp = utils.returnListLoc(l[2], self.energyData)
-        if locTemp is not None:
-            self.locCPU1['values'] = locTemp
-            self.locCPU1.set(l[2])
-        locTemp = utils.returnListLoc(l[3], self.energyData)
-        if locTemp is not None:
-            self.locDRAM1['values'] = locTemp
-            self.locDRAM1.set(l[3])
-        locTemp = utils.returnListLoc(l[4], self.energyData)
-        if locTemp is not None:
-            self.locUse1['values'] = locTemp
-            self.locUse1.set(l[4])
+            self.dramArea1.set(float(l[0]))
+            for i in self.comboboxEntriesDram:
+                if l[1]==self.remove_source(i):
+                    self.techNode3.set(i)
+                    break
+                    
+            locTemp = utils.returnListLoc(l[2], self.energyData)
+            if locTemp is not None:
+                self.locCPU1['values'] = locTemp
+                self.locCPU1.set(l[2])
+            locTemp = utils.returnListLoc(l[3], self.energyData)
+            if locTemp is not None:
+                self.locDRAM1['values'] = locTemp
+                self.locDRAM1.set(l[3])
+            locTemp = utils.returnListLoc(l[4], self.energyData)
+            if locTemp is not None:
+                self.locUse1['values'] = locTemp
+                self.locUse1.set(l[4])
 
         self.plot_mini()
 
@@ -1057,30 +1059,31 @@ class config(object):
         for i in range(len(numbers)):
             total = total + float(numbers[i])
         self.ipc2.set(float(total))
+        
+        if os.path.exists(os.path.join(self.path_to_sniper_directory1,"Greenchip.txt")):
+            f = open(os.path.join(self.path_to_sniper_directory1,"Greenchip.txt"), "r")
+            l = f.readlines()
+            for i in range(len(l)):
+                l[i] = l[i].split('//')[0].strip()
 
-        f = open(self.path_to_sniper_directory2  + "/Greenchip.txt", "r")
-        l = f.readlines()
-        for i in range(len(l)):
-            l[i] = l[i].split('//')[0].strip()
-
-        self.dramArea2.set(float(l[0]))
-        for i in self.comboboxEntriesDram:
-            if l[1]==self.remove_source(i):
-                self.techNode4.set(i)
-                break
-                
-        locTemp = utils.returnListLoc(l[2], self.energyData)
-        if locTemp is not None:
-            self.locCPU2['values'] = locTemp
-            self.locCPU2.set(l[2])
-        locTemp = utils.returnListLoc(l[3], self.energyData)
-        if locTemp is not None:
-            self.locDRAM2['values'] = locTemp
-            self.locDRAM2.set(l[3])
-        locTemp = utils.returnListLoc(l[4], self.energyData)
-        if locTemp is not None:
-            self.locUse2['values'] = locTemp
-            self.locUse2.set(l[4])
+            self.dramArea2.set(float(l[0]))
+            for i in self.comboboxEntriesDram:
+                if l[1]==self.remove_source(i):
+                    self.techNode4.set(i)
+                    break
+                    
+            locTemp = utils.returnListLoc(l[2], self.energyData)
+            if locTemp is not None:
+                self.locCPU2['values'] = locTemp
+                self.locCPU2.set(l[2])
+            locTemp = utils.returnListLoc(l[3], self.energyData)
+            if locTemp is not None:
+                self.locDRAM2['values'] = locTemp
+                self.locDRAM2.set(l[3])
+            locTemp = utils.returnListLoc(l[4], self.energyData)
+            if locTemp is not None:
+                self.locUse2['values'] = locTemp
+                self.locUse2.set(l[4])
 
         self.plot_mini()
 

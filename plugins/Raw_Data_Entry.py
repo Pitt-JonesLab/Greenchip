@@ -512,28 +512,29 @@ class config(object):
         self.ipc1.delete(0,END)
         self.ipc1.insert(0,float(total))
 
-        f = open(self.path_to_sniper_directory1  + "/Greenchip.txt", "r")
-        l = f.readlines()
-        for i in range(len(l)):
-            l[i] = l[i].split('//')[0].strip()
-        self.chipArea3.delete(0,END)
-        self.chipArea3.insert(0,float(l[0]))
-        for i in self.comboboxEntriesDram:
-            if l[1]==self.remove_source(i):
-                self.techNode3.set(i)
-                break
-        locTemp = utils.returnListLoc(l[2], self.energyData)
-        if locTemp is not None:
-            self.location['values'] = locTemp
-            self.location.set(l[2])
-        locTemp = utils.returnListLoc(l[3], self.energyData)
-        if locTemp is not None:
-            self.location3['values'] = locTemp
-            self.location3.set(l[3])
-        locTemp = utils.returnListLoc(l[4], self.energyData)
-        if locTemp is not None:
-            self.location5['values'] = locTemp
-            self.location5.set(l[4])
+        if os.path.exists(os.path.join(self.path_to_sniper_directory1,"Greenchip.txt")):
+            f = open(os.path.join(self.path_to_sniper_directory1,"Greenchip.txt"), "r")
+            l = f.readlines()
+            for i in range(len(l)):
+                l[i] = l[i].split('//')[0].strip()
+            self.chipArea3.delete(0,END)
+            self.chipArea3.insert(0,float(l[0]))
+            for i in self.comboboxEntriesDram:
+                if l[1]==self.remove_source(i):
+                    self.techNode3.set(i)
+                    break
+            locTemp = utils.returnListLoc(l[2], self.energyData)
+            if locTemp is not None:
+                self.location['values'] = locTemp
+                self.location.set(l[2])
+            locTemp = utils.returnListLoc(l[3], self.energyData)
+            if locTemp is not None:
+                self.location3['values'] = locTemp
+                self.location3.set(l[3])
+            locTemp = utils.returnListLoc(l[4], self.energyData)
+            if locTemp is not None:
+                self.location5['values'] = locTemp
+                self.location5.set(l[4])
         
         self.nodeSource.set("All")
 
@@ -608,30 +609,31 @@ class config(object):
             total = total + float(numbers[i])
         self.ipc2.delete(0,END)
         self.ipc2.insert(0,float(total))
-
-        f = open(self.path_to_sniper_directory2  + "/Greenchip.txt", "r")
-        l = f.readlines()
-        for i in range(len(l)):
-            l[i] = l[i].split('//')[0].strip()
-        self.chipArea4.delete(0,END)
-        self.chipArea4.insert(0,float(l[0]))
-        for i in self.comboboxEntriesDram:
-            if l[1]==self.remove_source(i):
-                self.techNode4.set(i)
-                break
-                
-        locTemp = utils.returnListLoc(l[2], self.energyData)
-        if locTemp is not None:
-            self.location2['values'] = locTemp
-            self.location2.set(l[2])
-        locTemp = utils.returnListLoc(l[3], self.energyData)
-        if locTemp is not None:
-            self.location4['values'] = locTemp
-            self.location4.set(l[3])
-        locTemp = utils.returnListLoc(l[4], self.energyData)
-        if locTemp is not None:
-            self.location6['values'] = locTemp
-            self.location6.set(l[4])
+ 
+        if os.path.exists(os.path.join(self.path_to_sniper_directory1,"Greenchip.txt")):
+            f = open(os.path.join(self.path_to_sniper_directory1,"Greenchip.txt"), "r")
+            l = f.readlines()
+            for i in range(len(l)):
+                l[i] = l[i].split('//')[0].strip()
+            self.chipArea4.delete(0,END)
+            self.chipArea4.insert(0,float(l[0]))
+            for i in self.comboboxEntriesDram:
+                if l[1]==self.remove_source(i):
+                    self.techNode4.set(i)
+                    break
+                    
+            locTemp = utils.returnListLoc(l[2], self.energyData)
+            if locTemp is not None:
+                self.location2['values'] = locTemp
+                self.location2.set(l[2])
+            locTemp = utils.returnListLoc(l[3], self.energyData)
+            if locTemp is not None:
+                self.location4['values'] = locTemp
+                self.location4.set(l[3])
+            locTemp = utils.returnListLoc(l[4], self.energyData)
+            if locTemp is not None:
+                self.location6['values'] = locTemp
+                self.location6.set(l[4])
         
         
         self.nodeSource2.set("All")
