@@ -83,6 +83,55 @@ pip3 install -r windows-requirements.txt
 
 [Back to Contents](#contents)
 
+### MacOS Installation
+
+Step 1: Make sure you have python3 installed on your machine.  From the command line type `which python3`. If you don't have it the easiest way is to install it via homebrew.  Instructions can be found here: https://www.geeksforgeeks.org/how-to-download-and-install-python-latest-version-on-macos-mac-os-x/
+
+Step 1a: Make sure you have pip3 installed.  Be careful, you might have two versions of python3 and pip3 installed if you installed using homebrew.
+
+Step 2: Navigate to your desired directory for Greenchip, and run the following command to download it:
+
+~~~~~~~~~~~~~
+git clone https://github.com/Pitt-Jones-Lab/Greenchip.git
+~~~~~~~~~~~~~
+
+Step 3: Install python-tk (note some commands may require sudo)
+If you have the regular system python3 and pip3 (`which pip3` gives /usr/bin/pip3) then you can install using pip, but it is not recommended.  First upgrade pip3:
+
+~~~~~~~~~~~~~
+pip3 install --upgrade pip
+~~~~~~~~~~~~~
+
+then install python-tk:
+
+~~~~~~~~~~~~~
+pip3 install tk
+pip3 install -r $PATHTOGREENCHIP/requirements.txt (from the Greenchip directory)
+~~~~~~~~~~~~~
+
+then upgrade tk
+
+~~~~~~~~~~~~~
+curl https://files.pythonhosted.org/packages/a0/81/742b342fd642e672fbedecde725ba44db44e800dc4c936216c3c6729885a/tk-0.1.0.tar.gz > tk.tar.gz
+tar -xzvf tk.tar.gz
+cd tk-0.1.0
+python3 setup.py install
+~~~~~~~~~~~~~
+
+run python3 and then type:
+~~~~~~~~~~~~~
+import tk
+~~~~~~~~~~~~~
+
+If you have the homebrew installation (preferred)
+
+~~~~~~~~~~~~~
+brew install python3
+brew install python-tk
+python3 -m pip install -r $PATHTOGREENCHIP/requirements.txt 
+~~~~~~~~~~~~~
+
+
 ## Running the Simulator
 
 ### Starting
