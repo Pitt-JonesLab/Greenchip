@@ -8,6 +8,7 @@ Version 0.1.2 -- 8/22/22
 1) [Installing the simulator](#installing-the-simulator)
     * [Ubuntu/Debian-based Distros Installation](#ubuntudebian-based-distros-installation)
     * [Windows Installation](#windows-installation)
+    * [MacOS Installation](#macos-installation)
 2) [Running the simulator](#running-the-simulator)
     * [Starting](#starting)
         * [Getting Charts](#getting-charts)
@@ -81,8 +82,6 @@ Step 4: Run "cd Greenchip" to navigate to the downloaded tool's directory, and t
 pip3 install -r windows-requirements.txt
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[Back to Contents](#contents)
-
 ### MacOS Installation
 
 Step 1: Make sure you have python3 installed on your machine.  From the command line type `which python3`. If you don't have it the easiest way is to install it via homebrew.  Instructions can be found here: https://www.geeksforgeeks.org/how-to-download-and-install-python-latest-version-on-macos-mac-os-x/
@@ -131,6 +130,7 @@ brew install python-tk
 python3 -m pip install -r $PATHTOGREENCHIP/requirements.txt 
 ~~~~~~~~~~~~~
 
+[Back to Contents](#contents)
 
 ## Running the Simulator
 
