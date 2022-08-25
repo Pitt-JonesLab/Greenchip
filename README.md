@@ -95,7 +95,9 @@ git clone https://github.com/Pitt-Jones-Lab/Greenchip.git
 ~~~~~~~~~~~~~
 
 Step 3: Install python-tk (note some commands may require sudo)
-If you have the regular system python3 and pip3 (`which pip3` gives /usr/bin/pip3) then you can install using pip, but it is not recommended.  First upgrade pip3:
+If you have the regular system python3 and pip3 (`which pip3` gives /usr/bin/pip3) then you can install using pip, but it is not recommended.  *If you installed Homebrew skip to the Homebrew instructions*
+
+First upgrade pip3:
 
 ~~~~~~~~~~~~~
 pip3 install --upgrade pip
@@ -122,7 +124,7 @@ run python3 and then type:
 import tk
 ~~~~~~~~~~~~~
 
-If you have the homebrew installation (preferred)
+**If you have the homebrew installation (preferred)**
 
 ~~~~~~~~~~~~~
 brew install python3
