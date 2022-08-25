@@ -108,7 +108,7 @@ pip3 install tk
 pip3 install -r $PATHTOGREENCHIP/requirements.txt (from the Greenchip directory)
 ~~~~~~~~~~~~~
 
-then upgrade tk
+You *MAY* need to upgrade tk
 
 ~~~~~~~~~~~~~
 curl https://files.pythonhosted.org/packages/a0/81/742b342fd642e672fbedecde725ba44db44e800dc4c936216c3c6729885a/tk-0.1.0.tar.gz > tk.tar.gz
