@@ -9,16 +9,14 @@ import math
 high_process_energies = {'3': {'energy': 118080, 'gwp': 0.042}, '5': {'energy': 102600, 'gwp': 0.042}, '6': {'energy': 99360, 'gwp': 0.042}, '7 EUV': {'energy': 74800, 'gwp': 0.042},
                          '7 193i': {'energy': 75960, 'gwp': 0.042}, '8 EUV': {'energy': 58680, 'gwp': 0.042}, '8 193i': {'energy': 60480, 'gwp': 0.042}, '10': {'energy': 52200, 'gwp': 0.042},
                          '12': {'energy': 45142, 'gwp': 0.042}, '14': {'energy': 40680, 'gwp': 0.042}, 
-                         '20': {'energy': 41040, 'gwp': 1.6}, 
-                         '27': {'energy': 61232, 'gwp': 1.6}, '26': {'energy': 82105, 'gwp': 1.6}, #Extra for Sustainability paper
-                         '25': {'energy': 38684, 'gwp': 1.6}, # Same
+                         '20': {'energy': 41040, 'gwp': 1.6},
                          '28': {'energy': 33480, 'gwp': 0.5}, '30': {'energy': 42397, 'gwp': 0.042},
                          '32': {'energy': 73937, 'gwp': 0.042}, '45': {'energy': 73427, 'gwp': 0.055}, 
                          '65': {'energy': 61699, 'gwp': 0.042}, '90': {'energy': 51501, 'gwp': 0.042}, '130': {'energy': 53541, 'gwp': 0.042},
                          '180': {'energy': 48951, 'gwp': 0.042}, '250': {'energy': 49971, 'gwp': 0.042}, '350': {'energy': 56090, 'gwp': 0.042}
                         }
                         
-high_process_energies_with_sources = ['3 (IMEC/DTCO)', '6 (IMEC/DTCO)', '7 EUV (IMEC/DTCO)', '7 193i (IMEC/DTCO)', '8 EUV (IMEC/DTCO)', '8 193i (IMEC/DTCO)', '10 (IMEC/DTCO)', '12 (IMEC/DTCO)', '14 (IMEC/DTCO)', '20 (IMEC/DTCO)', '27 (Higgs)', '26 (Higgs)', '25 (Higgs)',  '28 (IMEC/DTCO)', 
+high_process_energies_with_sources = ['3 (IMEC/DTCO)', '6 (IMEC/DTCO)', '7 EUV (IMEC/DTCO)', '7 193i (IMEC/DTCO)', '8 EUV (IMEC/DTCO)', '8 193i (IMEC/DTCO)', '10 (IMEC/DTCO)', '12 (IMEC/DTCO)', '14 (IMEC/DTCO)', '20 (IMEC/DTCO)', '28 (IMEC/DTCO)', 
                                       '30 (Higgs)',
                                       '32 (Boyd)', '45 (Boyd)', '65 (Boyd)', '130 (Boyd)','180 (Boyd)', '250 (Boyd)', '350 (Boyd)']
 
