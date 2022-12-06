@@ -647,10 +647,16 @@ class config(object):
         config_dicts.append(config1)
         config_dicts.append(config2)
         if self.varE.get()==1:
-            res = chip_breakeven_IPC(config_dicts, False, self.increment)['chipVsChipBreakevenInDays']
+            if self.varN.get()==1:
+                res = chip_breakeven_IPC(config_dicts, False, self.increment, True)['chipVsChipBreakevenInDays']
+            else:
+                res = chip_breakeven_IPC(config_dicts, False, self.increment)['chipVsChipBreakevenInDays']
             utils.make_single_plot(self, config1, config2, self.title1.get(), self.title2.get(), res, 'Indifference Plot Energy', self.increment, self.mindays, self.maxdays, self.minyears, self.maxyears)
         if self.varC.get()==1:
-            res = chip_breakeven_IPC(config_dicts, True, self.increment)['chipVsChipBreakevenInDays']
+            if self.varN.get() == 1:
+                res = chip_breakeven_IPC(config_dicts, True, self.increment, True)['chipVsChipBreakevenInDays']
+            else:
+                res = chip_breakeven_IPC(config_dicts, True, self.increment)['chipVsChipBreakevenInDays']
             utils.make_single_plot(self, config1, config2, self.title1.get(), self.title2.get(), res, 'Indifference Plot Carbon', self.increment, self.mindays, self.maxdays, self.minyears, self.maxyears)        
 
 
@@ -662,10 +668,16 @@ class config(object):
         config_dicts.append(config1)
         config_dicts.append(config2)
         if self.varE.get()==1:
-            res = chip_breakeven_IPC(config_dicts, False, self.increment)['upgradeDays']
+            if self.varN.get()==1:
+                res = chip_breakeven_IPC(config_dicts, False, self.increment, True)['upgradeDays']
+            else:
+                res = chip_breakeven_IPC(config_dicts, False, self.increment)['upgradeDays']
             utils.make_single_plot(self, config1, config2, self.title1.get(), self.title2.get(), res, 'Breakeven Plot Energy', self.increment, self.mindays, self.maxdays, self.minyears, self.maxyears)
         if self.varC.get()==1:
-            res = chip_breakeven_IPC(config_dicts, True, self.increment)['upgradeDays']
+            if self.varN.get() == 1:
+                res = chip_breakeven_IPC(config_dicts, True, self.increment, True)['upgradeDays']
+            else:
+                res = chip_breakeven_IPC(config_dicts, True, self.increment)['upgradeDays']
             utils.make_single_plot(self, config1, config2, self.title1.get(), self.title2.get(), res, 'Breakeven Plot Carbon', self.increment, self.mindays, self.maxdays, self.minyears, self.maxyears)
         
     def export_indifference(self, *args):
@@ -677,8 +689,14 @@ class config(object):
         config_dicts = []
         config_dicts.append(config1)
         config_dicts.append(config2)
-        resE = chip_breakeven_IPC(config_dicts, False, self.increment)['chipVsChipBreakevenInDays']
-        resC = chip_breakeven_IPC(config_dicts, True, self.increment)['chipVsChipBreakevenInDays']
+        if self.varN.get() == 1:
+            resE = chip_breakeven_IPC(config_dicts, False, self.increment, True)['chipVsChipBreakevenInDays']
+        else:
+            resE = chip_breakeven_IPC(config_dicts, False, self.increment)['chipVsChipBreakevenInDays']
+        if self.varN.get() == 1:
+            resC = chip_breakeven_IPC(config_dicts, True, self.increment, True)['chipVsChipBreakevenInDays']
+        else:
+            resC = chip_breakeven_IPC(config_dicts, True, self.increment)['chipVsChipBreakevenInDays']
 
         arrE = utils.perform_greenchip_analysis(resE)
         arrC = utils.perform_greenchip_analysis(resC)
@@ -742,8 +760,14 @@ class config(object):
         config_dicts = []
         config_dicts.append(config1)
         config_dicts.append(config2)
-        resE = chip_breakeven_IPC(config_dicts, False, self.increment)['upgradeDays']
-        resC = chip_breakeven_IPC(config_dicts, True, self.increment)['upgradeDays']
+        if self.varN.get() == 1:
+            resE = chip_breakeven_IPC(config_dicts, False, self.increment, True)['upgradeDays']
+        else:
+            resE = chip_breakeven_IPC(config_dicts, False, self.increment)['upgradeDays']
+        if self.varN.get() == 1:
+            resC = chip_breakeven_IPC(config_dicts, True, self.increment, True)['upgradeDays']
+        else:
+            resC = chip_breakeven_IPC(config_dicts, True, self.increment)['upgradeDays']
 
         arrE = utils.perform_greenchip_analysis(resE)
         arrC = utils.perform_greenchip_analysis(resC)
@@ -1024,34 +1048,52 @@ class config(object):
         config_dicts.append(config2)
 
         difference = [0,0,0,0,0]
-        original = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            original = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            original = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         old = config2['chipArea']
         config2['chipArea'] = config2['chipArea'] - (.01 * config2['chipArea'])
-        mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            mod = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         difference[0] = self.total_gradient(original, mod)
         config2['chipArea'] = old
 
         old = config2['dynamicPower']
         config2['dynamicPower'] = config2['dynamicPower'] - (.01 * config2['dynamicPower'])
-        mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            mod = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         difference[1] = self.total_gradient(original, mod)
         config2['dynamicPower'] = old
 
         old = config2['staticPower']
         config2['staticPower'] = config2['staticPower'] - (.01 * config2['staticPower'])
-        mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            mod = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         difference[2] = self.total_gradient(original, mod)
         config2['staticPower'] = old
 
         old = config2['dynamicMemory']
         config2['dynamicMemory'] = config2['dynamicMemory'] - (.01 * config2['dynamicMemory'])
-        mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            mod = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         difference[3] = self.total_gradient(original, mod)
         config2['dynamicMemory'] = old
         
         old = config2['staticMemory']
         config2['staticMemory'] = config2['staticMemory'] - (.01 * config2['staticMemory'])
-        mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            mod = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         difference[4] = self.total_gradient(original, mod)
         config2['staticMemory'] = old
         
@@ -1085,22 +1127,34 @@ class config(object):
             messagebox.showinfo("Error", "Radius results in out of bounds points.")
             return
         difference = [0,0,0,0,0]
-        original = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            original = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            original = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         old = config2['chipArea']
         config2['chipArea'] = config2['chipArea'] - (.01 * config2['chipArea'])
-        mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            mod = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         difference[0] = self.average_gradient(Radius, Sleep, Activity, original, mod)
         config2['chipArea'] = old
 
         old = config2['dynamicPower']
         config2['dynamicPower'] = config2['dynamicPower'] - (.01 * config2['dynamicPower'])
-        mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            mod = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         difference[1] = self.average_gradient(Radius, Sleep, Activity, original, mod)
         config2['dynamicPower'] = old
 
         old = config2['staticPower']
         config2['staticPower'] = config2['staticPower'] - (.01 * config2['staticPower'])
-        mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            mod = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         difference[2] = self.average_gradient(Radius, Sleep, Activity, original, mod)
         config2['staticPower'] = old
 
@@ -1112,7 +1166,10 @@ class config(object):
         
         old = config2['staticMemory']
         config2['staticMemory'] = config2['staticMemory'] - (.01 * config2['staticMemory'])
-        mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
+        if self.varN.get() == 1:
+            mod = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays']
+        else:
+            mod = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays']
         difference[4] = self.average_gradient(Radius, Sleep, Activity, original, mod)
         config2['staticMemory'] = old
         
@@ -1146,30 +1203,51 @@ class config(object):
             messagebox.showinfo("Error", "The values inputted are out of bounds")
             return
         difference = [0,0,0,0,0]
-        orig = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity]
+        if self.varN.get() == 1:
+            orig = chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays'][Sleep][Activity]
+        else:
+            orig = chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity]
         old = config2['chipArea']
         config2['chipArea'] = config2['chipArea'] - (.01 * config2['chipArea'])
-        difference[0] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        if self.varN.get() == 1:
+            difference[0] = orig - chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        else:
+            difference[0] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+
         config2['chipArea'] = old
 
         old = config2['dynamicPower']
         config2['dynamicPower'] = config2['dynamicPower'] - (.01 * config2['dynamicPower'])
-        difference[1] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        if self.varN.get() == 1:
+            difference[1] = orig - chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays'][Sleep][
+                Activity]  # Measures gradient by using a 1% shift
+        else:
+            difference[1] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][
+                Activity]  # Measures gradient by using a 1% shift
         config2['dynamicPower'] = old
 
         old = config2['staticPower']
         config2['staticPower'] = config2['staticPower'] - (.01 * config2['staticPower'])
-        difference[2] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        if self.varN.get() == 1:
+            difference[2] = orig - chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays'][Sleep][Activity]  # Measures gradient by using a 1% shift
+        else:
+            difference[2] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity]  # Measures gradient by using a 1% shift
         config2['staticPower'] = old
 
         old = config2['dynamicMemory']
         config2['dynamicMemory'] = config2['dynamicMemory'] - (.01 * config2['dynamicMemory'])
-        difference[3] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        if self.varN.get() == 1:
+            difference[3] = orig - chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays'][Sleep][Activity]  # Measures gradient by using a 1% shift
+        else:
+            difference[3] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity]  # Measures gradient by using a 1% shift
         config2['dynamicMemory'] = old
         
         old = config2['staticMemory']
         config2['staticMemory'] = config2['staticMemory'] - (.01 * config2['staticMemory'])
-        difference[4] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity] # Measures gradient by using a 1% shift
+        if self.varN.get() == 1:
+            difference[4] = orig - chip_breakeven_IPC(config_dicts, False, 1, True)['upgradeDays'][Sleep][Activity]  # Measures gradient by using a 1% shift
+        else:
+            difference[4] = orig - chip_breakeven_IPC(config_dicts, False, 1)['upgradeDays'][Sleep][Activity]  # Measures gradient by using a 1% shift
         config2['staticMemory'] = old
         
         total = difference[0] + difference[1] + difference[2] + difference[3] + difference[4]   # Scales gradients to percentages
@@ -1192,7 +1270,7 @@ class config(object):
 
     def launch_config(self):
 
-        self.window.geometry('660x700')
+        self.window.geometry('660x725')
         self.title1 = ttk.Entry(self.window, width=30)
         self.title2 = ttk.Entry(self.window, width=30)
         self.chipArea1 = ttk.Entry(self.window, width=30)
@@ -1449,9 +1527,9 @@ class config(object):
         def dramChecker():            
             if self.varD.get()==0:
                 if self.varC.get()==0:
-                    self.window.geometry('660x450')
+                    self.window.geometry('660x475')
                 else:
-                    self.window.geometry('660x535')
+                    self.window.geometry('660x560')
                     
                 self.location_label2.grid_remove()                
                 self.location3.grid_remove()
@@ -1481,12 +1559,12 @@ class config(object):
 
             else:
                 if self.varC.get()==0:
-                    self.window.geometry('660x590')
+                    self.window.geometry('660x615')
                 else:
                     self.location_label2.grid(column=0, row=31, sticky=(N, W, E, S))                        
                     self.location3.grid(column=1, row=31, sticky=(N, W, E, S))
                     self.location4.grid(column=2, row=31, sticky=(N, W, E, S))
-                    self.window.geometry('660x700')
+                    self.window.geometry('660x725')
                     
                 self.empty_labelD.grid(column=0, row=15, sticky=(SW))
                 self.dram_label.grid(column=0, row=16, sticky=(NW))
@@ -1521,9 +1599,9 @@ class config(object):
                 self.varC.set(1)
             elif self.varC.get()==0:
                 if self.varD.get()==0:
-                    self.window.geometry('660x450')
+                    self.window.geometry('660x475')
                 else:
-                    self.window.geometry('660x590')
+                    self.window.geometry('660x515')
                 self.empty_labelE.grid_remove()
                 self.gridMix_label.grid_remove()
                 
@@ -1540,12 +1618,12 @@ class config(object):
                 
             elif self.varC.get()==1:
                 if self.varD.get()==0:
-                    self.window.geometry('660x535')
+                    self.window.geometry('660x560')
                 else:
                     self.location_label2.grid(column=0, row=31, sticky=(N, W, E, S))
                     self.location3.grid(column=1, row=31, sticky=(N, W, E, S))
                     self.location4.grid(column=2, row=31, sticky=(N, W, E, S))
-                    self.window.geometry('660x700')
+                    self.window.geometry('660x725')
                     
                 self.empty_labelE.grid(column=0, row=25, sticky=(N, W, E, S))
                 self.gridMix_label.grid(column=0, row=26, sticky=(NW))
@@ -1605,6 +1683,11 @@ class config(object):
         self.carbonCheck.grid(column=0, row=48, sticky=(N))
         self.balloon.bind(self.carbonCheck, 'If checked, carbon plots will be generated when you click "Create Breakeven Plot(s)" or "Create Indifference Plot(s)",\nand carbon data will be included in any generated CSV files.')
 
+        self.varN = IntVar()
+        self.varN.set(False)
+        self.energyCheck = ttk.Checkbutton(self.window, text="Normalize to better system", variable=self.varN, onvalue=1, offvalue=0, command=energyChecker)
+        self.energyCheck.grid(column=0, row=49, sticky=(N))
+        self.balloon.bind(self.energyCheck,'If checked, plots will be normalized to the more powerful system rather than the weaker system')
 
         self.sniper_label = ttk.Label(self.window, text='Sniper Inputs', font='Helvetica 15 bold underline')
         self.sniper_label.grid(column=1, row=45, sticky=(N))
