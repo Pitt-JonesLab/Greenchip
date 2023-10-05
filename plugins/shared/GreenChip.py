@@ -211,28 +211,16 @@ def chip_breakeven_IPC(config_dicts, calc_Carbon, increment = 0.50, norm_large =
                                 simple_manufacturing(high_process_energies[str(config_dict['processSize'])]['energy'], config_dict['chipArea'],
                                 config_dict['layers']) + \
                                 simple_manufacturing(high_process_energies_DRAM[str(config_dict['processSizeDram'])]['energy'], config_dict['chipAreaDram'],
-                                config_dict['layers'])
+                                config_dict['layers'])  + \
+                                config_dict['Total Added Energy']
                         else:
                             results_dict[''.join(['manufacturingEnergy', str(dict_num),str(y), str(x)])] = \
                                 simple_manufacturing(high_process_energies[str(config_dict['processSize'])]['energy'], config_dict['chipArea']  * x_ceil,
                                 config_dict['layers']) + \
                                 simple_manufacturing(high_process_energies_DRAM[str(config_dict['processSizeDram'])]['energy'], config_dict['chipAreaDram'],
-                                config_dict['layers'])
-                            # energy_diff = results_dict['manufacturingEnergy0'] - results_dict[''.join(['manufacturingEnergy', str(1), str(y), str(x)])]
-                            # while energy_diff > 0 and mult > 0.0:
-                                # mult = mult * 1.10
-                                # x_ceil = math.ceil(mult)
+                                config_dict['layers'])  + \
+                                config_dict['Total Added Energy']
 
-                                # results_dict[''.join(['manufacturingEnergy', str(dict_num),str(y), str(x)])] = \
-                                    # simple_manufacturing(high_process_energies[str(config_dict['processSize'])]['energy'], config_dict['chipArea']  * x_ceil,
-                                    # config_dict['layers']) + \
-                                    # simple_manufacturing(high_process_energies_DRAM[str(config_dict['processSizeDram'])]['energy'], config_dict['chipAreaDram'],
-                                    # config_dict['layers'])
-
-                                # energy_diff = results_dict['manufacturingEnergy0'] - results_dict[''.join(['manufacturingEnergy', str(1), str(y), str(x)])]
-                            # if mult != 0.0:
-                                # mult = mult/1.10
-                                # x_ceil = math.ceil(mu
                         dict_num += 1
 
                     chip2IPC = config_dicts[1]['IPC'] * x_ceil
@@ -352,7 +340,8 @@ def chip_breakeven_IPC(config_dicts, calc_Carbon, increment = 0.50, norm_large =
                                          config_dict['layers']) + \
                     simple_manufacturing(high_process_energies_DRAM[str(config_dict['processSizeDram'])]['energy'],
                                          config_dict['chipAreaDram'],
-                                         config_dict['layers'])
+                                         config_dict['layers'])  + \
+                    config_dict['Total Added Energy']
 
                 dict_num += 1
 

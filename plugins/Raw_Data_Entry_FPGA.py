@@ -1,8 +1,8 @@
 __author__ = 'Donald Kline, Jr'
 
-from Greenchip.plugins.shared.Utils import *
-from Greenchip.plugins.shared.GreenChip import *
-import Greenchip.plugins.shared.Config as settingsConfig
+from plugins.shared.Utils import *
+from plugins.shared.GreenChip import *
+import plugins.shared.Config as settingsConfig
 # import SimVis
 from tkinter import *
 from tkinter import messagebox
@@ -43,6 +43,7 @@ class config(object):
                 if row[0] != 'Country': self.energyData.append(row)
 
         self.isOpen = True
+        self.addedConfig = {} 
         self.launch_config()
 
     def browse_sniper_input1(self):
@@ -127,28 +128,36 @@ class config(object):
 
         try:
             config1['chipArea'] = float(self.chipArea1.get())
-            config2['chipArea'] = float(self.chipArea2.get())
+            config2['chipArea'] = float(0)
         except (ValueError):
             messagebox.showinfo("Warning: Illegal Argument", "Invalid Chip Area!")
             return None, None
+        
+        try:
+            config1['interArea'] = float(self.interArea1.get())
+            config2['interArea'] = float(self.interArea2.get())
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Interposer Area!")
+            return None, None
+
 
         try:
             config1['dynamicPower'] = float(self.dynPower1.get())
-            config2['dynamicPower'] = float(self.dynPower2.get())
+            config2['dynamicPower'] = float(self.addedConfig['dynamicPower'])
         except (ValueError):
             messagebox.showinfo("Warning: Illegal Argument", "Invalid Dynamic Power!")
             return None, None
 
         try:
             config1['staticPower'] = float(self.staticPower1.get())
-            config2['staticPower'] = float(self.staticPower2.get())
+            config2['staticPower'] = float(self.addedConfig['staticPower'])
         except (ValueError):
             messagebox.showinfo("Warning: Illegal Argument", "Invalid Static Power!")
             return None, None
 
         try:
             config1['IPC'] = float(self.ipc1.get())
-            config2['IPC'] = float(self.ipc2.get())
+            config2['IPC'] = float(self.addedConfig['IPC'])
         except (ValueError):
             messagebox.showinfo("Warning: Illegal Argument", "Invalid IPC!")
             return None, None
@@ -156,6 +165,13 @@ class config(object):
         try:
             config1['Node Source'] = (self.nodeSource.get())
             config2['Node Source'] = (self.nodeSource2.get())
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Node Source!")
+            return None, None
+        
+        try:
+            config1['Node Source I1'] = (self.nodeSourceI1.get())
+            config2['Node Source I2'] = (self.nodeSourceI2.get())
         except (ValueError):
             messagebox.showinfo("Warning: Illegal Argument", "Invalid Node Source!")
             return None, None
@@ -179,12 +195,32 @@ class config(object):
         except (ValueError):
             messagebox.showinfo("Warning: Illegal Argument", "Invalid CPU Technology Node!")
             return None, None
+        
+        try:
+            techNodeI1 = self.remove_source(self.techNodeI1.get())
+            techNodeI2 = self.remove_source(self.techNodeI2.get())
+            config1['processSizeI1'] = techNodeI1
+            config2['processSizeI2'] = techNodeI2
+
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Interposer Technology Node!")
+            return None, None
+
+        try:
+            techNodeI1Num = self.techNodeI1.get().split(' ')[0]
+            techNodeI2Num = self.techNodeI2.get().split(' ')[0]
+            config1['processSizeI1Num'] = int(techNodeI1Num)
+            config2['processSizeI2Num'] = int(techNodeI2Num)
+
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Interposer Technology Node!")
+            return None, None
 
         try:
             config1['FREQ'] = float(self.freq1.get())
-            config2['FREQ'] = float(self.freq2.get())
+            config2['FREQ'] = float(1)
         except (ValueError):
-            messagebox.showinfo("Warning: Illegal Argument", "Invalid IPC!")
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Frequency!")
             return None, None
 
         if self.varD.get():
@@ -209,24 +245,12 @@ class config(object):
             except (ValueError):
                 messagebox.showinfo("Warning: Illegal Argument", "Invalid Memory Static Power!")
                 return None, None
-
-            # try:
-            #    config1['cycles'] = int(self.cycles1.get())
-            #    config2['cycles'] = int(self.cycles2.get())
-            # except (ValueError):
-            #    messagebox.showinfo("Warning: Illegal Argument", "Invalid Cycles!")
-            #    return
-
-            # DRAM process size and energy
+            
             try:
-                # techNode1Num = self.techNode1.get().split(' ')[0]
-                # techNode2Num = self.techNode2.get().split(' ')[0]
                 techNode3 = self.remove_source(self.techNode3.get())
                 techNode4 = self.remove_source(self.techNode4.get())
                 config1['processSizeDram'] = str(techNode3)
                 config2['processSizeDram'] = str(techNode4)
-                # config3['processSize'] = (techNode3Num)
-                # config4['processSize'] = (techNode4Num)
 
             except (ValueError):
                 messagebox.showinfo("Warning: Illegal Argument", "Invalid DRAM Technology Node!")
@@ -234,14 +258,11 @@ class config(object):
 
             # DRAM process size
             try:
-                # techNode1Num = self.techNode1.get().split(' ')[0]
-                # techNode2Num = self.techNode2.get().split(' ')[0]
                 techNode3Num = self.techNode3.get().split(' ')[0]
                 techNode4Num = self.techNode4.get().split(' ')[0]
                 config1['processSizeDramNum'] = int(techNode3Num)
                 config2['processSizeDramNum'] = int(techNode4Num)
-                # config3['processSize'] = (techNode3Num)
-                # config4['processSize'] = (techNode4Num)
+
             except (ValueError):
                 messagebox.showinfo("Warning: Illegal Argument", "Invalid DRAM Technology Node!")
                 return None, None
@@ -384,11 +405,26 @@ class config(object):
         ''' Add energy (Joules) manufacturing CPU '''
         config1['CPU Energy'] = high_process_energies[techNode1]['energy']
         config2['CPU Energy'] = high_process_energies[techNode2]['energy']
+        config1['Interposer Energy'] = high_process_energies[techNodeI1]['energy']
+        config2['Interposer Energy'] = high_process_energies[techNodeI2]['energy']
+        
 
         config1['Total CPU Energy'] = simple_manufacturing(config1['CPU Energy'], config1['chipArea'],
                                                            config1['layers'])
-        config2['Total CPU Energy'] = simple_manufacturing(config2['CPU Energy'], config2['chipArea'],
+        
+        config1['Total Interposer Energy'] = simple_manufacturing(config1['Interposer Energy'], config1['interArea'],
+                                                           config1['layers'])
+        
+        config1['Total CPU Energy'] += config1['Total Interposer Energy']
+
+        config2['Total Interposer Energy'] = simple_manufacturing(config2['Interposer Energy'], config2['interArea'],
                                                            config2['layers'])
+
+        config2['Total CPU Energy'] = self.addedConfig['Total CPU Energy'] + config2['Total Interposer Energy']
+
+        config1['Total Added Energy'] = config1['Total Interposer Energy']
+
+        config2['Total Added Energy'] = config2['Total CPU Energy']
 
         if self.varD.get() == 1:
             ''' Add energy (Joules) manufacturing DRAM '''
@@ -405,7 +441,7 @@ class config(object):
 
         if self.varC.get() == 1:
             config1['Total CPU Carbon'] = config1['Total CPU Energy'] / 3600000 * config1['CPU Carbon Value']
-            config2['Total CPU Carbon'] = config2['Total CPU Energy'] / 3600000 * config2['CPU Carbon Value']
+            config2['Total CPU Carbon'] = self.addedConfig['Total CPU Carbon']
             config1['Total DRAM Carbon'] = config1['Total DRAM Energy'] / 3600000 * config1['DRAM Carbon Value']
             config2['Total DRAM Carbon'] = config2['Total DRAM Energy'] / 3600000 * config2['DRAM Carbon Value']
 
@@ -434,6 +470,120 @@ class config(object):
         # print (config2['Carbon Use Phase Loc'])
 
         return config1, config2
+    
+
+    def verify_chiplet_input2(self, *args):
+        config2 = {}
+
+        config2['layers'] = int(1)
+
+        try:
+            config2['ChipletCount'] = int(self.chiplet2.get())
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Chiplet Count!")
+            return None, None
+        try:
+            config2['chipArea'] = float(self.chipArea2.get()) * config2['ChipletCount']
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Chip Area!")
+            return None, None
+
+        try:
+            config2['dynamicPower'] = float(self.dynPower2.get()) * config2['ChipletCount']
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Dynamic Power!")
+            return None, None
+
+        try:
+            config2['staticPower'] = float(self.staticPower2.get()) * config2['ChipletCount']
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Static Power!")
+            return None, None
+
+        try:
+            config2['IPC'] = float(self.ipc2.get()) * config2['ChipletCount']
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid IPC!")
+            return None, None
+
+        try:
+            config2['Node Source'] = (self.nodeSource2.get())
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Node Source!")
+            return None, None
+
+        try:
+            techNode2 = self.remove_source(self.techNode2.get())
+            config2['processSize'] = techNode2
+
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid CPU Technology Node!")
+            return None, None
+
+        try:
+            techNode2Num = self.techNode2.get().split(' ')[0]
+            config2['processSizeNum'] = int(techNode2Num)
+
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid CPU Technology Node!")
+            return None, None
+
+        try:
+            config2['FREQ'] = float(self.freq2.get())
+        except (ValueError):
+            messagebox.showinfo("Warning: Illegal Argument", "Invalid Frequency!")
+            return None, None
+
+        if self.varC.get() == 1:
+            try:
+                locationManuCPU2 = self.location2.get()
+                if locationManuCPU2 == '':
+                    raise ValueError("Empty Location!")
+                config2['LocationManu CPU'] = self.location2.get()
+                for row in self.energyData:
+                    if row[2] == '':
+                        continue
+                    if row[0] == self.location2.get():
+                        config2['CPU Carbon Value'] = self.calculateCarbon(row)
+                        break
+                    if row[1] == self.location2.get():
+                        config2['CPU Carbon Value'] = self.calculateCarbon(row)
+                        break
+
+            except (ValueError):
+                messagebox.showinfo("Warning: Illegal Argument", "Invalid Energy Grid Mix Location for CPU!")
+                return None, None
+
+        ''' Add energy (Joules) manufacturing CPU '''
+        config2['CPU Energy'] = high_process_energies[techNode2]['energy']
+
+        config2['Total CPU Energy'] = simple_manufacturing(config2['CPU Energy'], config2['chipArea'],
+                                                           config2['layers'])
+        config2['IPC'] = config2['IPC'] * config2['FREQ']
+
+        if self.varC.get() == 1:
+            config2['Total CPU Carbon'] = config2['Total CPU Energy'] / 3600000 * config2['CPU Carbon Value']
+        return config2
+    
+    def add_chiplets_system2(self, *args):
+        addedNewConfig = self.verify_chiplet_input2(*args)
+
+        if not self.addedConfig:
+            self.addedConfig = {}
+            
+        for key, value in addedNewConfig.items():
+            if isinstance(value, str):
+                continue
+            if key in self.addedConfig:
+                self.addedConfig[key] += value
+            else:
+                self.addedConfig[key] = value
+
+    def remove_chiplets_system2(self):
+        for key, value in list(self.addedConfig.items()):
+            self.addedConfig[key] = 0
+
+
 
     def get_sniper_inputs1(self):
         if not self.path_to_sniper_directory1:
@@ -1991,3 +2141,17 @@ class config(object):
                           'This allows the user to specify an output directory for a sniper and mcpat run, and will set the values in System 2 accordingly')
         self.plotButton9.grid(column=1, row=47, sticky=(N))
 
+        self.sniper_label = ttk.Label(self.window, text='Chiplet Controls', font='Helvetica 15 bold underline')
+        self.sniper_label.grid(column=2, row=45, sticky=(N))
+
+        self.plotButton8 = ttk.Button(self.window, text="Add Chiplet(s)",
+                                      command=self.add_chiplets_system2)
+        self.balloon.bind(self.plotButton8,
+                          'Adds the currently filled in data on System 2 to the total calculation')
+        self.plotButton8.grid(column=2, row=46, sticky=(N))
+
+        self.plotButton9 = ttk.Button(self.window, text="Reset Chiplets",
+                                      command=self.remove_chiplets_system2)
+        self.balloon.bind(self.plotButton9,
+                          'Clears all currently included data from System 2')
+        self.plotButton9.grid(column=2, row=47, sticky=(N))
