@@ -37,8 +37,8 @@ gridMixSettingsDefaultFilename = gridMixSettingsFilename
 plugins_dirs = "plugins"
 sys.path.extend(plugins_dirs.split(os.pathsep))
 import_plugins(plugins_dirs, globals())
-plugins = ['Raw Data Entry FPGA', 'Raw Data Entry', 'Raw Data Entry Sliders', 'Breakeven -- Sniper', 'Indifference -- Sniper', 'All Breakeven -- Sniper', 'All Indifference -- Sniper']
-windows = {'Raw Data Entry FPGA' : None, 'Raw Data Entry' : None, 'Raw Data Entry Sliders' : None, 'Breakeven -- Sniper' : None, 'Indifference -- Sniper' : None, 'All Breakeven -- Sniper' : None, 'All Indifference -- Sniper' : None, 'Increment' : None}
+plugins = ['Raw Data Entry ACT', 'Raw Data Entry FPGA', 'Raw Data Entry', 'Raw Data Entry Sliders', 'Breakeven -- Sniper', 'Indifference -- Sniper', 'All Breakeven -- Sniper', 'All Indifference -- Sniper']
+windows = {'Raw Data Entry FPGA' : None, 'Raw Data Entry ACT' : None, 'Raw Data Entry' : None, 'Raw Data Entry Sliders' : None, 'Breakeven -- Sniper' : None, 'Indifference -- Sniper' : None, 'All Breakeven -- Sniper' : None, 'All Indifference -- Sniper' : None, 'Increment' : None}
 
 def path_shortener(path):
     if len(path) > 25:
@@ -70,7 +70,10 @@ def browse_filename():
         reader=csv.reader(file)
         for row in reader:
             if row[0]!='Country': newEnergyData.append(row)
-    
+
+    if windows['Raw Data Entry ACT'] is not None:
+        windows['Raw Data Entry ACT'].energyData = newEnergyData
+
     if windows['Raw Data Entry FPGA'] is not None:
         windows['Raw Data Entry FPGA'].energyData = newEnergyData
 
@@ -297,6 +300,12 @@ def settingsSetter():
                 tabControl.select(tabColor)
                 return
 
+            if windows['Raw Data Entry ACT'] is not None:
+                windows['Raw Data Entry ACT'].increment = float(increment1_temp.get())
+                windows['Raw Data Entry ACT'].mindays = float(mindays_temp.get())
+                windows['Raw Data Entry ACT'].maxdays = float(maxdays_temp.get())
+                windows['Raw Data Entry ACT'].minyears = float(minyears_temp.get())
+                windows['Raw Data Entry ACT'].maxyears = float(maxyears_temp.get())
 
             if windows['Raw Data Entry FPGA'] is not None:
                 windows['Raw Data Entry FPGA'].increment = float(increment1_temp.get())
@@ -479,7 +488,7 @@ def plot(*args):
     entry_text =folder_path_in_actual.get()
     outy_text = folder_path_out_actual.get()
     settings_text = folder_path_settings_actual.get()
-    if (str(pluginvar.get()) != "Raw Data Entry FPGA" and str(pluginvar.get()) != "Raw Data Entry" and str(pluginvar.get()) != "Raw Data Entry Sliders") and (not os.path.isdir(entry_text)):
+    if (str(pluginvar.get()) != "Raw Data Entry ACT" and str(pluginvar.get()) != "Raw Data Entry FPGA" and str(pluginvar.get()) != "Raw Data Entry" and str(pluginvar.get()) != "Raw Data Entry Sliders") and (not os.path.isdir(entry_text)):
         messagebox.showinfo("Warning: Illegal Argument", "Please specify a legal input path!")
         print('Please specify a legal input path!')
         return
@@ -507,7 +516,7 @@ def plot(*args):
             windows[str(pluginvar.get())].window.deiconify()
             windows[str(pluginvar.get())].window.lift()
 
-    elif str(pluginvar.get()) == "Raw Data Entry" or str(pluginvar.get()) == "Raw Data Entry FPGA":
+    elif str(pluginvar.get()) == "Raw Data Entry ACT" or str(pluginvar.get()) == "Raw Data Entry" or str(pluginvar.get()) == "Raw Data Entry FPGA":
         if windows[str(pluginvar.get())] is None or not windows[str(pluginvar.get())].isOpen:
             windows[str(pluginvar.get())] = globals()[pluginvar.get().replace(' ', '_')].config(root, None, outy_text+"/", increment1, mindays, maxdays, minyears, maxyears, gridMixSettingsFilename)
         else:
@@ -681,7 +690,10 @@ def changeOptions(event):
         button3.grid(row=6, column=2)
         powerlabel.grid(row=9, column=0)
         button5.grid(row=9, column=2)
-    if option == 'Raw Data Entry':
+    if option == 'Raw Data Entry ACT':
+        balloon.bind(plugin_box,
+                     "Raw Data Entry ACT allows the user to plot breakeven and indifference times using data entered via textboxes, eliminating the need for output files from a detailed simulator.\n Refer to the Getting Charts section of the readme for more information.")
+    if option == 'Raw Data Entry FPGA':
         balloon.bind(plugin_box, "Raw Data Entry FPGA allows the user to plot breakeven and indifference times using data entered via textboxes, eliminating the need for output files from a detailed simulator.\n Refer to the Getting Charts section of the readme for more information.")
     if option == 'Raw Data Entry': 
         balloon.bind(plugin_box, "Raw Data Entry allows the user to plot breakeven and indifference times using data entered via textboxes, eliminating the need for output files from a detailed simulator.\n Refer to the Getting Charts section of the readme for more information.")

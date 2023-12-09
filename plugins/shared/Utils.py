@@ -1,25 +1,22 @@
-import os
-from plugins.loaders import *
-from tkinter import *
-from tkinter import ttk
-import plugins.shared.Config as settingsConfig
-from plugins.shared.GreenChip import *
-from tkinter import messagebox
-from tkinter import colorchooser
-from tkinter import simpledialog
-from tkinter import filedialog
-import subprocess
-import math
-import Pmw
-from mpl_toolkits.axes_grid1.inset_locator import InsetPosition
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-from matplotlib.patches import Rectangle
-import matplotlib.backend_bases as bb
-import numpy as np
-import glob
 import csv
+import glob
+import math
+import os
+import subprocess
+from tkinter import *
+from tkinter import colorchooser
+from tkinter import filedialog
+from tkinter import messagebox
+from tkinter import simpledialog
+from tkinter import ttk
+
+import Pmw
+import matplotlib as mpl
+import matplotlib.backend_bases as bb
+import matplotlib.patches as mpatches
+import plugins.shared.Config as settingsConfig
+from plugins.loaders import *
+from plugins.shared.GreenChip import *
 
 global isOpenPower, powerWindow, isOpenCarbon, carbonWindow
 isOpenPower = False

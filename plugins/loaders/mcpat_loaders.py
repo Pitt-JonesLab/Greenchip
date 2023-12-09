@@ -1,8 +1,8 @@
 __author__ = 'nbp3'
 
 import ast
-import xml.etree.ElementTree
 import os.path
+import xml.etree.ElementTree
 
 
 def mcpat_dict_loader(file_path):

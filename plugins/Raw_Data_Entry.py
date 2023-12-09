@@ -1,16 +1,18 @@
 __author__ = 'Donald Kline, Jr'
 
-from plugins.shared.Utils import *
-from plugins.shared.GreenChip import *
-import plugins.shared.Config as settingsConfig
-#import SimVis
-from tkinter import *
-from tkinter import messagebox
-from tkinter import filedialog
-import Pmw
 import csv
 import os
 import re
+# import SimVis
+from tkinter import *
+from tkinter import filedialog
+from tkinter import messagebox
+
+import Pmw
+import plugins.shared.Config as settingsConfig
+from plugins.shared.GreenChip import *
+from plugins.shared.Utils import *
+
 
 class config(object):
 
